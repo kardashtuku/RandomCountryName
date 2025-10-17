@@ -1,18 +1,38 @@
 <!DOCTYPE html> 
 <html style="background-color: rgb(0, 0, 0);">
     <head>
+        <p><img src="Images/ExGxdZ.png" width="400"></p>
         <link rel="stylesheet" href="style.css">
-        <h1 style="font-size:1000%;">Nation Name Generator</h1>
     </head>
+    <hr>
     <body>
         <title >MySillyWebsite</title>
-        <p id="demo" style="font-size: 500%;"></p>
-        <button style="background-color: rgba(240, 248, 255, 0);" onclick=DoIt()><text style="font-size: 1000%; font-family: 'Times New Roman', Times, serif;">🔄</text></button>
+        <ul>
+            <li id="demo" style="font-size: 50pt;">Nation</li>
+            <li id="city" style="font-size: 40pt;">Capital</li>
+            <li id="alliance" style="font-size: 40pt;color: rgb(153, 241, 180);">Alliance</li>
+            <li style="font-size: 40pt;color: rgb(223, 203, 147);"><text id="leader">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></li>
+            <li id="language" style="font-size: 40pt;color: rgb(160, 196, 228);">Language</li>
+        </ul>
+        
+        <button style="background-color: #65589c;" onclick=DoIt()><text style="font-size: 500%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">Generate<sub>↵</sub></text></button>
 
     </body>
-    <br>
+    <hr>
     <footer class="page-footer">
-        <img style="position: absolute; bottom: 5px;right: 5px; background-color: black;" width="200" src="Images/KardzerLogoFancyWhite.png">
+        <ul>
+            <li>Distilling of Accents:<input id="amount" type="range" min="1" max="10" value="5"></li>
+            <li>Complex Vowels:<input type="checkbox" id="complexV" checked="true"></li>
+            <li>Complex Consonants:<input type="checkbox" id="complexC" checked="true"></li>
+            <li>Accents:<input type="checkbox" id="accentedBox" checked="true"></li>
+        </ul>
+        <hr>
+        <h2>Nations Generated: <text id="numName"></text></h2>
+        <br>
+        <text>Simplified Version of <a href="https://kardashtuku.itch.io/country-generator"><i>Kardzer Country Generator</i></a> for the web<br>Reprogrammed from Python to Javascript</text>
+        <br>
+        <a href="https://www.kardashtuku.com/"><img style="background-color: black;" width="200" src="Images/KardzerLogoFancyWhite.png"></a>
+        
     </footer>
 <script src="main.js"></script>
 </html>
