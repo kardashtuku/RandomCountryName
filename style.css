@@ -3,3 +3,11 @@ body {
     color: white;
     text-align: center;
 }
+.hide {
+  display: none;  
+}
+
+.myDIV:hover + .hide {
+  display: block;
+  color: white;
+}
