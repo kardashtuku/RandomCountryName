@@ -1,22 +1,30 @@
-function RFL(givenList) {
+//Helper Functions
+function RFL(givenList) { // Returns a random value from a list
     return givenList[Math.floor(Math.random() * givenList.length)];
 }
 
-function CTL(firstList, secondList) {
+function CTL(firstList, secondList) { // Combines two given lists
     return firstList.concat(secondList);
 }
+
+
 function GenerateRandomName(type) {
 
-    let settingBox1 = document.getElementById("complexV").checked;
-    let settingBox2 = document.getElementById("complexC").checked;
-    let settingBox3 = document.getElementById("accentedBox").checked;
-    let settingRange = document.getElementById("amount").value;
+    // --- Full Aesthetic Program Settings
+    let settingBox1 = document.getElementById("complexV").checked; // Whether the final product will include complex vowels
+    let settingBox2 = document.getElementById("complexC").checked; // Whether the final product will include complex consonants
+    let settingBox3 = document.getElementById("accentedBox").checked; // Whether the final product will include accents
+    let settingRange = document.getElementById("amount").value; // The amount that accented characters are distilled by normal characters
+
+    // --- Letters
     let v = ["A", "U"];
     let c = ["R", "T", "P", "S", "D", "G", "K", "B"];
     let dV = ["I", "O","E"];
     let dC = ["Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C"];
     let aV = ["Ə", "Æ", "Ö", "Ü", "I", "Á", "Ė", "Í", "Â", "Á"];
     let aC = ["Ğ", "Ç", "Ð", "Þ", "Ş"];
+
+    
     let iteration = [0, 2, 4, 6, 8, 10, 12, 14, 16];
 
     if (settingBox1 === true) v = CTL(v, dV);
@@ -54,10 +62,11 @@ function GenerateRandomName(type) {
         }
         start++;
     }
+
     if(type === "nation")
     {
         results.push(NationType(rName));
-        finale = rName+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","","","","","","","","","","","","","","",""])
+        finale = rName;
     }
     else if(type === "city")
     {
@@ -74,9 +83,41 @@ function GenerateRandomName(type) {
     return results; // return the list of names
 
     function NationType(nat) {
-        let govBack = ["Folk", "Kingdom", "Empire", "Theocracy", "Federation", "Union", "Republic", "Confederation"];
-        let suffixes = ["an", "ian", "ite", "id", "", "", ""];
+        let governmentTypes = Math.floor(Math.random() * 6);
         let frontOrBack = Math.floor(Math.random() * 2);
+        dynastical = 0;
+
+        
+
+        let govBack;
+        if(governmentTypes === 0) //
+        {
+            govBack = ["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty"];
+        }
+        else if(governmentTypes === 1) //
+        {
+            dynastical = Math.floor(Math.random() * 2);
+            govBack = ["Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy"];
+        }   
+        else if(governmentTypes === 2) //
+        {
+            govBack = ["Dictatorship","Regime","Fascism","Autocracy","Despotism"];
+        }
+        else if(governmentTypes === 3) //
+        {
+            govBack = ["Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique"];
+        }
+        else if(governmentTypes === 4)
+        {
+            govBack = ["Confederation","Federation","Theocracy","Priestdom","State","Union","Khanate","Khaganate"];
+        }
+        else
+        {
+            govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"];
+        }
+ 
+
+        let suffixes = ["an", "ian", "ite", "id","ids","", "", ""];
         
         if (frontOrBack === 1) {
             return RFL(govBack) + " of" + RFL([" ", " the "]) + nat;
@@ -188,7 +229,17 @@ function DoIt() {
     document.getElementById("numName").innerText = numName;
     document.getElementById("alliance").innerText = generatedAlliance.join("\n");
     document.getElementById("leader").innerText = generatedLeader.join("\n");
+    if(dynastical === 0)
+    {
     document.getElementById("last").innerText = generatedLast.join("\n");
+    }
+    else
+    {
+        document.getElementById("last").innerText = finale;
+    }
     document.getElementById("suffix").innerHTML = RFL(suffix);
-    document.getElementById("language").innerText = finale;
+    document.getElementById("language").innerText = finale+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","","","",""]);
+
+
+    document.getElementById("admin").innerHTML = `${RFL(["A","C","U","F","S"])}${RFL(["Tr","Cl","Th","Ty","Ol","Re","De","Dy","Ci","Ec","Te","An"])}:${RFL(["0","1","2","3","4"])}`;
 }
