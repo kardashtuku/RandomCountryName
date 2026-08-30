@@ -8,6 +8,34 @@
   align-items: center;
   
 }
+#nation
+{
+  color: white;
+}
+#diplo
+{
+  color: rgb(241, 153, 153);
+}
+#unrest
+{
+  color: rgb(209, 153, 241);
+}
+#econ
+{
+  color: rgb(228, 241, 153);
+}
+#subdiv
+{
+  color: rgb(153, 241, 226);
+}
+#geot
+{
+  color: rgb(153, 241, 180);
+}
+#cult
+{
+  color: rgb(153, 159, 241);
+}
 html {
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: white;
