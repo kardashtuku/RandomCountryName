@@ -3,37 +3,69 @@
     <link rel="stylesheet" href="style.css">
     <header id="div1">
         <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv"></p>
-        <i>Kardzer Country Generator V2.2</i>
+        <i>Kardzer Country Generator V2.3</i>
     </header>
     <hr>
     <body>
         <title>MySillyWebsite</title>
-        <ul>
-            <li id="demo" style="font-size: 50pt;">Nation</li>
-            <li id="city" style="font-size: 40pt;">Capital</li>
-            <li style="font-size: 40pt;color: rgb(153, 241, 180);"><text id="alliance">Alliance</text></li>
-            <i style="color: white;font-size: 10pt;">Alliance</i>
-            <li style="font-size: 40pt;color: rgb(223, 203, 147);"><text id="leader" title="Leader's First Name">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></li>
-            <i style="color: white;font-size: 10pt;">Leader Name</i>
-            <li style="font-size: 40pt;color: rgb(160, 196, 228);"><text id="language">Language</text></li>
-            <i style="color: white;font-size: 10pt;">Language</i>
-            <li style="font-size: 40pt;color: rgb(255, 148, 148);"><text id="admin">Code</text></li>
-            <a href="codes.html" target="_blank"><i style="font-size: 10pt;color: white;">Government Code</i></a>
-        </ul>
-        
         <button style="background-color: #65589c;" onclick=DoIt()><text style="font-size: 500%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">Generate<sub>↵</sub></text></button>
+            <div id="nation">
+                <text id="demo" style="font-size: 60pt;">Nation</text><br>
+                <text id="city" style="font-size: 30pt;">Capital</text><br>
+                <text style="font-size: 30pt;"><text id="leader" title="Leader's First Name">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></text><br>
+                <text style="font-size: 30pt;"><text id="admin">Code</text></text><br>
+                <a href="codes.html" target="_blank"><i style="font-size: 10pt;">Government Code</i></a>
+            </div>
+            <div id="diplo">
+                <text style="font-size: 30pt;"><text id="alliance">Alliance</text></text><br>    
+                <text id="diplomacy" style="font-size: 30pt;">Diplomacy</text><br>            
+            </div>
+            <div id="geot">
+                <text id="geography" style="font-size: 30pt;">Size</text><br>
+                <text id="pop" style="font-size: 30pt;">Population</text><br>
+                <text id="geo" style="font-size: 30pt;">Geography</text><br>
+            </div>
+            <!-- <div id="econ">
+                <text id="econ" style="font-size: 30pt;">Economy</text><br>
+                <text id="im" style="font-size: 30pt;">Imports</text><br>
+                <text id="ex" style="font-size: 30pt;">Exports</text><br>
+                <text id="domres" style="font-size: 30pt;">Top Resource</text><br>
+                <text id="specres" style="font-size: 30pt;">Special Resource</text><br>
+            </div>
+            <div id="unrest">
+                <text id="unrest" style="font-size: 30pt;">Unrest</text><br>
+                <text id="corr" style="font-size: 30pt;">Corruption</text><br>
+                <text id="crime" style="font-size: 30pt;">Crime Rate</text><br>
+                <text id="enviro" style="font-size: 30pt;">Environment</text><br>
+                <text id="head" style="font-size: 30pt;">Headline</text><br>
+            </div> -->
+            <div id="cult">
+                <text id="culture" style="font-size: 30pt;">Culture</text><br>
+                <text style="font-size: 30pt;"id="language">Language</text><br>
+                <text id="religion" style="font-size: 30pt;">Religion</text><br>
+            <!--    <text id="landm" style="font-size: 30pt;">Landmark</text><br>
+                <text id="greatwork" style="font-size: 30pt;">Great Work</text><br>
+                <text id="anthem" style="font-size: 30pt;">Anthem</text><br>
+            </div>
+            <div id="subdiv">
+                <text id="subdiv" style="font-size: 30pt;">Subdivisions</text><br>
+            </div>
+            <div id="nation">
+                <text id="hist" style="font-size: 30pt;">Nation</text><br>
+            </div>        -->
 
     </body>
     <hr>
     <footer class="page-footer">
         <ul>
-            <li>Distilling of Accents:<input id="amount" type="range" min="1" max="10" value="5"></li>
+            <!--<li>Distilling of Accents:<input id="amount" type="range" min="1" max="10" value="5"></li>
             <li>Complex Vowels:<input type="checkbox" id="complexV" checked="true"></li>
-            <li>Complex Consonants:<input type="checkbox" id="complexC" checked="true"></li>
+            <li>Complex Consonants:<input type="checkbox" id="complexC" checked="true"></li>-->
             <li>Accents:<input type="checkbox" id="accentedBox" checked="true"></li>
         </ul>
         <hr>
         <h2>Nations Generated: <text id="numName"></text></h2>
+        <h2>Alphabet: <text id="alphabeta"></text></h2>
         <br>
         <text>Simplified Version of <a href="https://kardashtuku.itch.io/country-generator" target="_blank"><i>Kardzer Country Generator</i></a> for the web<br>Reprogrammed from Python to Javascript</text>
         <br>
