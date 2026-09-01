@@ -14,7 +14,24 @@ function RandomNumber(min,max)
 {
     return Math.floor(Math.random() * max) + min;
 }
-
+function TTT(decimal)
+{
+    const decimals = [0.25,0.5,0.75,1];
+    const fractions = ["¼","½","¾","1"];
+    return(fractions[decimals.indexOf(decimal)])
+}
+//function Translate(number,terms,divisions)
+//{
+//    let divide = terms.length/divisions;
+//
+//    for(let i = 0; i < terms.length; i++)
+//    {
+//        if(divide * i < number <= divide*(i+1))
+//        {
+//            return(terms[i]);
+//        }
+//    }
+//}
 function GenerateRandomName(type,vowelAlph,consAlph) {
 
     let c=consAlph;
@@ -91,7 +108,7 @@ function GenerateRandomName(type,vowelAlph,consAlph) {
         else if(governmentTypes === 2) //
         {
             govBack = ["Dictatorship","Regime","Fascism","Autocracy","Despotism"];
-            dynastical = Math.floor(Math.random() * 1);
+            dynastical = Math.floor(Math.random() * 2);
         }
         else if(governmentTypes === 3) //
         {
@@ -149,9 +166,56 @@ function GenerateRandomName(type,vowelAlph,consAlph) {
     }
 }
 let numName = 0;
+function GetScale(notes)
+{
+    CTL(notes,notes);
+    const major = [2,2,1,2,2,2,1];
+    const minor = [2,1,2,2,1,2,2];
+    const scaleType = RFL([major,minor]);
+    if(scaleType === major)
+    {
+        intervals = [0,2,4,6];
+    }
+    else if(scaleType === minor)
+    {
+        intervals = [0];
+    }
+    let scale = [];
+    let noteNumber = 0;
+    for (let i = 0; i < scaleType.length - 1; i++)
+    {
+        scale.push(notes[noteNumber]);
+        noteNumber += scaleType[i];
+    }
+    let bassline = [];
+    const bassLength = RFL([2,4,8]);
+
+    for (let i = 0; i < bassLength; i++)
+    {
+        bassline.push(RFL(scale));
+    }
+    let melody = [];
+    let noteLength = 0;
+    for (let i = 1; i < 5; i+=noteLength)
+    {
+        noteLength = RandomNumber(1,4)/4;
+        if(RFL(1,2)===1)
+        {
+            melody.push(scale[bassline.indexOf(i) + RFL([0,2,4,6])]);
+        }
+        else
+        {
+            melody.push(RFL(scale)+TTT(noteLength));
+        }
+
+    }
+    document.getElementById("bassline").innerText = "Bassline: "+bassline;
+    return melody;
+}
 function DoIt() {
     numName++;
 
+    let notes = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
     let settingBox3 = document.getElementById("accentedBox").checked; // Whether the final product will include accents
     // Letters
     let v = ["A", "U","I", "O","E"];
@@ -228,13 +292,18 @@ function DoIt() {
     let culturePick = RFL([finale,finale,finale,p_Demo1,p_Demo2,p_City]);
     let reli = RFL([finale,p_Demo1,p_Demo2,p_City,(GenerateRandomName("general",v,c))]);
     let chance = RandomNumber(1,3);
-    if(chance == 1)
+
+    //let corruption = RandomNumber(0,100);
+    //let crimeRate = RandomNumber(0,100);
+    //let environment = RandomNumber(0,100);
+
+    if(chance === 1)
     {
         reli = reli + RFL(["ism","ism","ism","ism","ism","ism","id","ic","ian","an","a"]);
-    } else if(chance == 2)
+    } else if(chance === 2)
     {
         reli = RFL(["Cult of ","Sect of "," Folk of "," Church of "," Temple of ",(GenerateRandomName("general",v,c)+"'s ")]) + reli + RFL(["ism","ism","ism","ism","ism","ism","id","ia","a"],v,c);
-    } else if(chance == 3)
+    } else if(chance === 3)
     {
         reli = reli + RFL(["ist","ist","ist","ist","ist","ist","id","ic","ian","an","a"])+" "+RFL(["Cult","Sect","Folk","Church","Temple"]);
     }
@@ -262,10 +331,11 @@ function DoIt() {
     //$add Imports
     //$add Domestic Resources
 
-        //Stability + //$add Unrest
-    //$add Corruption
-    //$add Crime
-    //$add Environment
+        //Stability +
+    //document.getElementById("unrest").innerText = "Unrest: "+Math.round(((corruption+crimeRate+environment)/3)*Variance());
+    //document.getElementById("corr").innerText = "Corruption: "+Translate(corruption,["Extremely ","Very ","Quite ","","Somewhat ","Not "],6)+"Corrupt";
+    //document.getElementById("crime").innerText = "Crime Rate: "+Translate(crimeRate,["Very High","High","Somewhat High","Average","Somewhat Low","Low","Very Low","Nonexistent"],5);
+    //document.getElementById("enviro").innerText = "Environment: "+Translate(environment,(["Extremely Polluted","Polluted","Slightly Polluted","Normal","Clean","Pristine"]),4);
     //$add Headline
 
         // Culture + 
@@ -274,7 +344,7 @@ function DoIt() {
     document.getElementById("language").innerText = "Language: "+RFL([finale,finale,finale,finale,p_City,p_Demo1,p_Demo2])+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","",""]);
     //$add Landmarks
     //$add Great Works
-    //$add Anthem
+    document.getElementById("anthem").innerText = "Anthem: "+GetScale(notes);
 
         // Subdivisions + //$add Type
     //$add Names
@@ -287,7 +357,7 @@ function DoIt() {
     /// --- EXTRAS
     if(dynastical === 0)
     {
-    document.getElementById("last").innerText = GenerateRandomName("general",v,c).join("\n");;
+    document.getElementById("last").innerText = GenerateRandomName("general",v,c).join("\n");
     }
     else
     {
