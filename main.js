@@ -2,13 +2,33 @@
 function RFL(givenList) { // Returns a random value from a list
     return givenList[Math.floor(Math.random() * givenList.length)];
 }
-
+function Commize(number)
+{
+    number = number.toString().split("");
+    let finalString = "";
+    number.reverse();
+    for (let i = 0; i < number.length; i+=1)
+    {
+        if([2,5,8,11].includes(i) && i !== number.length-1)
+        {
+            finalString += number[i]+",";
+        }
+        else
+        {
+            finalString += number[i];
+        }
+    }
+    number.reverse();
+    finalString = finalString.split("").reverse();
+    finalString = finalString.join("");
+    return(finalString);
+}
 function CTL(firstList, secondList) { // Combines two given lists
     return firstList.concat(secondList);
 }
 function Variance()
 {
-    return (Math.floor(Math.random() * 1200) + 800) / 1000;
+    return (Math.floor(Math.random() * 1025) + 975) / 1000;
 }
 function RandomNumber(min,max)
 {
@@ -17,21 +37,19 @@ function RandomNumber(min,max)
 function TTT(decimal)
 {
     const decimals = [0.25,0.5,0.75,1];
-    const fractions = ["¼","½","¾","1"];
+    const fractions = ["♪","♩","𝅗𝅥","𝅗𝅥.","𝅝"];
     return(fractions[decimals.indexOf(decimal)])
 }
-//function Translate(number,terms,divisions)
-//{
-//    let divide = terms.length/divisions;
-//
-//    for(let i = 0; i < terms.length; i++)
-//    {
-//        if(divide * i < number <= divide*(i+1))
-//        {
-//            return(terms[i]);
-//        }
-//    }
-//}
+function Translate(number,terms)
+{
+    for (let i = 0; i < 10 ; i++)
+    {
+        if(i*10 <= number && number < (i+1)*10)
+        {
+            return(terms[i]);
+        }
+    }
+}
 function GenerateRandomName(type,vowelAlph,consAlph) {
 
     let c=consAlph;
@@ -166,7 +184,7 @@ function GenerateRandomName(type,vowelAlph,consAlph) {
     }
 }
 let numName = 0;
-function GetScale(notes)
+function GetScale(notes,coder,coder2)
 {
     CTL(notes,notes);
     const major = [2,2,1,2,2,2,1];
@@ -196,12 +214,17 @@ function GetScale(notes)
     }
     let melody = [];
     let noteLength = 0;
+    let thiss = 0;
     for (let i = 1; i < 5; i+=noteLength)
     {
         noteLength = RandomNumber(1,4)/4;
-        if(RFL(1,2)===1)
+        thiss = RandomNumber(1,5)
+        if(thiss === 2)
         {
             melody.push(scale[bassline.indexOf(i) + RFL([0,2,4,6])]);
+        } else if(thiss === 1)
+        {
+            melody.push(RFL(["𝄾","𝄽","𝄼"]));
         }
         else
         {
@@ -209,15 +232,38 @@ function GetScale(notes)
         }
 
     }
-    document.getElementById("bassline").innerText = "Bassline: "+bassline;
+    document.getElementById("bassline").innerText = coder+" Bassline: "+bassline+" "+coder2;
     return melody;
 }
 function DoIt() {
     numName++;
 
-    let notes = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+    let omRange = document.getElementById("omMount").value;
+    let codeType = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+    let codeType2 = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+    if(omRange == 0)
+    {
+        document.getElementById("om").innerHTML = "Unicode";
+        codeType = ["♔","#","♡","𓐍","∡","🏙","🗺","﹩","→","←","❖","☠","!","⛑","🛢","🗞","⛿","𐰅","♱","🏛","🕮","𝄞","𝄢","🏝","⌂","𐦆"];
+        codeType2 = ["♚","#","♡","𓐍","≞","🏙","🗺","₼","←","→","❖","☠","❣","⛑","🛢","🗞","⛿","ت","☪","🏛","🕮","𝄇","𝄇","🏝","🏘","𐦂"];
+    } else if(omRange == 1)
+    {
+        document.getElementById("om").innerHTML = "Emoji";
+        codeType = ["👑","🔢","🤝","🌐","📏","🏙️","🗺️","💰","➡️","⬅️","💎","😀","😈","🚔","🪾","📰","🏴","🔤","⛪","🗼","📚","🎶","🎵","🏞️","🏡","🏛️"];
+        codeType2 = ["✊","🔡","🤝","🌐","📐","🌆","🗺️","🪙","⬅️","➡️","🪵","😡","🫰","🚔","🌳","🗞️","🏳️","🔤","🕌","🗿","🖼️","🎶","🎵","🌅","🛖","🏛️"];
+    } else
+    {
+        document.getElementById("om").innerHTML = "None";
+    }
+    
+    // Nation
+    // Diplomacy
+    //
+        // Notes
+    let notes = ['C','D♭','D','E♭','E','F','G♭','G','A♭','A','B♭','B'];
     let settingBox3 = document.getElementById("accentedBox").checked; // Whether the final product will include accents
-    // Letters
+    
+        // Letters
     let v = ["A", "U","I", "O","E"];
     let c = ["R", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
     let aV = ["Ə", "Æ","I","Ø","Œ",
@@ -287,15 +333,17 @@ function DoIt() {
     let p_City = GenerateRandomName("city",v,c).join("\n"); // Capital City
     let p_Demo1 = GenerateRandomName("general",v,c).join("\n"); // Second Demographic
     let p_Demo2 = GenerateRandomName("general",v,c).join("\n"); // Third Demographic
-    let density = RandomNumber(1,100)
+    let density = RandomNumber(1,20)
     let size = RandomNumber(1,1000000)*Variance();
     let culturePick = RFL([finale,finale,finale,p_Demo1,p_Demo2,p_City]);
     let reli = RFL([finale,p_Demo1,p_Demo2,p_City,(GenerateRandomName("general",v,c))]);
     let chance = RandomNumber(1,3);
 
-    //let corruption = RandomNumber(0,100);
-    //let crimeRate = RandomNumber(0,100);
-    //let environment = RandomNumber(0,100);
+    let corruption = RandomNumber(0,100);
+    let crimeRate = RandomNumber(0,100);
+    let environment = RandomNumber(0,100);
+    
+        
 
     if(chance === 1)
     {
@@ -313,46 +361,44 @@ function DoIt() {
         // NATION
     document.getElementById("demo").innerText = p_Nation;
     document.getElementById("city").innerText = "Capital: "+p_City;
-    document.getElementById("leader").innerText = "Leader: "+GenerateRandomName("general",v,c).join("\n");
-    document.getElementById("admin").innerHTML = `${RFL(["A","C","U","F","S"])}${RFL(["Tr","Cl","Th","Ty","Ol","Re","De","Dy","Ci","Ec","Te","An"])}:${RFL(["0","1","2","3","4"])}`;
+    document.getElementById("leader").innerText = codeType[0]+" "+"Leader: "+GenerateRandomName("general",v,c).join("\n");
+    document.getElementById("admin").innerHTML = codeType[1]+" "+`${RFL(["A","C","U","F","S"])}${RFL(["Tr","Cl","Th","Ty","Ol","Re","De","Dy","Ci","Ec","Te","An"])}:${RFL(["0","1","2","3","4"])}`+" "+codeType2[1];
     
         // Diplomacy
-    document.getElementById("alliance").innerText = "Alliance: "+GenerateRandomName("alliance",v,c).join("\n");
-    document.getElementById("diplomacy").innerText = "Diplomacy: "+RFL(["At War","Ostracized","Hated","Isolated","On Bad Terms with Neighbors","Plentiful Border Disputes","Post-war","Neutral","Plays multiple sides","Supplies aide","Unimportant","Important ally","Regional Power","Threatening","Unassuming","Friends with the right people","Friends with the wrong people","Insignificant","Monstrous","Global Hegemon","Hegemon","Very Influencial","Strongman","Everyone's Friend"]);
+    document.getElementById("alliance").innerText = codeType[2]+" "+"Alliance: "+GenerateRandomName("alliance",v,c).join("\n")+" "+codeType2[2];
+    document.getElementById("diplomacy").innerText = codeType[3]+" "+"Diplomacy: "+RFL(["At War","Ostracized","Hated","Isolated","On Bad Terms with Neighbors","Plentiful Border Disputes","Post-war","Neutral","Plays multiple sides","Supplies aide","Unimportant","Important ally","Regional Power","Threatening","Unassuming","Friends with the right people","Friends with the wrong people","Insignificant","Monstrous","Global Hegemon","Hegemon","Very Influencial","Strongman","Everyone's Friend"])+" "+codeType2[3];
 
         // Geography
-    document.getElementById("geography").innerText = "Size: "+(Math.round(size));
-    document.getElementById("pop").innerText = "Population: "+(Math.round(size*density)+" | "+Math.round(density)+" per square "+unit);
-    document.getElementById("geo").innerText = RFL(["Mostly","Partially","Entirely"])+RFL([" on an Island"," on a Peninsula"," landlocked"," across a coast"," on a strait"," on several islands"," on the mainland"," on an isthmus"]);
-    //$add Biomes
+    document.getElementById("geography").innerText = codeType[4]+" "+"Size: "+Commize((Math.round(size)))+" "+codeType2[4];
+    document.getElementById("pop").innerText = codeType[5]+" "+"Population: "+(Commize(Math.round(size*density))+" | "+Math.round(density)+" per square "+unit)+" "+codeType2[5];
+    document.getElementById("geo").innerText = codeType[6]+" "+RFL(["Mostly","Partially","Entirely"])+RFL([" on an Island"," on a Peninsula"," landlocked"," across a coast"," on a strait"," on several islands"," on the mainland"," on an isthmus"])+" "+codeType2[6];
+        // Economy + 
+    document.getElementById("econ").innerText = codeType[7]+" "+"Economy: WIP"+" "+codeType2[7]; // TO DO
+    document.getElementById("im").innerText = codeType[8]+" "+"Top Import: WIP"+" "+codeType2[8]; // TO DO
+    document.getElementById("ex").innerText = codeType[9]+" "+"Top Export: WIP"+" "+codeType2[9]; // TO DO
+    document.getElementById("specres").innerText = codeType[10]+" "+"Resources: WIP"+" "+codeType2[10]; // TO DO
 
-        // Economy + //$add Status
-    //$add Exports
-    //$add Imports
-    //$add Domestic Resources
-
-        //Stability +
-    //document.getElementById("unrest").innerText = "Unrest: "+Math.round(((corruption+crimeRate+environment)/3)*Variance());
-    //document.getElementById("corr").innerText = "Corruption: "+Translate(corruption,["Extremely ","Very ","Quite ","","Somewhat ","Not "],6)+"Corrupt";
-    //document.getElementById("crime").innerText = "Crime Rate: "+Translate(crimeRate,["Very High","High","Somewhat High","Average","Somewhat Low","Low","Very Low","Nonexistent"],5);
-    //document.getElementById("enviro").innerText = "Environment: "+Translate(environment,(["Extremely Polluted","Polluted","Slightly Polluted","Normal","Clean","Pristine"]),4);
+        //Stability
+    document.getElementById("unrest").innerText = codeType[11]+" "+"Unrest: "+Math.round(((corruption+crimeRate+environment)/3)*Variance()-20)+"%"+" "+codeType2[11];
+    document.getElementById("corr").innerText = codeType[12]+" "+"Corruption: "+Translate(corruption,["Extremely ","Very ","Very ","Very ","Quite ","","","Somewhat ","Somewhat ","Not "])+"Corrupt"+" "+codeType2[12];
+    document.getElementById("crime").innerText = codeType[13]+" "+"Crime Rate: "+Translate(crimeRate,["Very High","High","Somewhat High","Average","Average","Average","Somewhat Low","Low","Very Low","Nonexistent"])+" "+codeType2[13];
+    document.getElementById("enviro").innerText = codeType[14]+" "+"Environment: "+Translate(environment,(["Extremely Polluted","Polluted","Polluted","Slightly Polluted","Normal","Normal","Normal","Clean","Pristine","Pristine"]))+" "+codeType2[14];
+    document.getElementById("head").innerText = codeType[15]+" "+"Headline: WIP"+codeType2[15];
     //$add Headline
 
         // Culture + 
-    document.getElementById("culture").innerText = "Culture: "+culturePick+RFL(["an","ian","ite","ic","id","","","","",""]);
-    document.getElementById("religion").innerText = "Religion: "+reli;
-    document.getElementById("language").innerText = "Language: "+RFL([finale,finale,finale,finale,p_City,p_Demo1,p_Demo2])+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","",""]);
-    //$add Landmarks
-    //$add Great Works
-    document.getElementById("anthem").innerText = "Anthem: "+GetScale(notes);
+    document.getElementById("culture").innerText = codeType[16]+" "+"Culture: "+culturePick+RFL(["an","ian","ite","ic","id","","","","",""])+" "+codeType2[16];
+    document.getElementById("religion").innerText = codeType[18]+" "+"Religion: "+reli+" "+codeType2[18];
+    document.getElementById("language").innerText = codeType[17]+" "+"Language: "+RFL([finale,finale,finale,finale,p_City,p_Demo1,p_Demo2])+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","",""])+" "+codeType2[17];
+    document.getElementById("landm").innerText = codeType[19]+" "+"Landmark: WIP"+" "+codeType2[19]; // TO DO
+    document.getElementById("greatwork").innerText = codeType[20]+" "+"Great Work: WIP"+" "+codeType2[20]; // TO DO
+    document.getElementById("anthem").innerText = codeType[21]+" "+"Anthem: "+GetScale(notes,codeType[22],codeType2[22])+" "+codeType2[21];
 
         // Subdivisions + //$add Type
-    //$add Names
-    //$add Count
+    document.getElementById("subdiv").innerText = codeType[23]+" "+"Subdivisions: WIP"+" "+codeType2[23]; // TO DO
+    document.getElementById("subd").innerText = codeType[24]+" "+"Subdiv Count: WIP"+" "+codeType2[24]; // TO DO
     
-        //History
-    
-    /// --- ADD NAMES
+    document.getElementById("hist").innerText = codeType[25]+" "+"History: WIP"+" "+codeType2[25]; // TO DO
 
     /// --- EXTRAS
     if(dynastical === 0)
@@ -364,7 +410,9 @@ function DoIt() {
         document.getElementById("last").innerText = finale;
     }
     document.getElementById("alphabeta").innerText = CTL(c,v) + " " + CTL(c,v).length+" letters";
-    document.getElementById("suffix").innerHTML = RFL(["","","","","","","","","","","","","","","","","","","","","","","","","","","Jr.","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII"]);
+    document.getElementById("suffix").innerHTML = RFL(["","","","","","","","","","","","","","","","","","","","","","","","","","","Jr.","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII"])+codeType[0];
+
     /// --- EXTRAS
     document.getElementById("numName").innerText = numName;
+
 }
