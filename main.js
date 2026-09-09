@@ -1,11 +1,16 @@
-//Helper Functions
-function RFL(givenList) { // Returns a random value from a list
+// ---- | Helper Functions | ---- //
+function RFL(givenList)
+{ // Returns a random value from a list
     return givenList[Math.floor(Math.random() * givenList.length)];
 }
-function Commize(number)
+function Commize(number)// This Helper Function will show return a number with traditional comma format for readability
 {
+    // Split the number into a list of characters '1000' = ['1','0','0','0']
     number = number.toString().split("");
+    // Create the variable that we will return at the end of the function
     let finalString = "";
+
+    // Reverse the split number list and add a comma every 3 digits
     number.reverse();
     for (let i = 0; i < number.length; i+=1)
     {
@@ -18,29 +23,30 @@ function Commize(number)
             finalString += number[i];
         }
     }
-    number.reverse();
+    // Re-reverse the list to bring it back to its original value and convert it into a string
     finalString = finalString.split("").reverse();
     finalString = finalString.join("");
     return(finalString);
 }
-function CTL(firstList, secondList) { // Combines two given lists
+function CTL(firstList, secondList)
+{ // Combines two given lists
     return firstList.concat(secondList);
 }
-function Variance()
+function Variance() // Adds a small amount of random variance when multiplied by a number
 {
     return (Math.floor(Math.random() * 1025) + 975) / 1000;
 }
-function RandomNumber(min,max)
+function RandomNumber(min,max) // Returns a random number in-between two values
 {
     return Math.floor(Math.random() * max) + min;
 }
-function TTT(decimal)
+function TTT(decimal)// Translates decimals to their corresponding musical notation
 {
     const decimals = [0.25,0.5,0.75,1];
     const fractions = ["♪","♩","𝅗𝅥","𝅗𝅥.","𝅝"];
     return(fractions[decimals.indexOf(decimal)])
 }
-function Translate(number,terms)
+function Translate(number,terms) // Takes a pre-generated number and applies it to a translative list
 {
     for (let i = 0; i < 10 ; i++)
     {
@@ -50,140 +56,88 @@ function Translate(number,terms)
         }
     }
 }
-function GenerateRandomName(type,vowelAlph,consAlph) {
 
-    let c=consAlph;
-    let v=vowelAlph;
-    // --- Letters and Letter Frequency <
-    // Getting custom values based on User Input
-    //let settingBox1 = document.getElementById("complexV").checked; // Whether the final product will include complex vowels
-    //let settingBox2 = document.getElementById("complexC").checked; // Whether the final product will include complex consonants
-    //let settingRange = document.getElementById("amount").value; // The amount that accented characters are distilled by normal characters
+// ---- | Name-type Functions | ---- //
+function NationType(nat)
+{
+    let governmentTypes = Math.floor(Math.random() * 6);
+    let frontOrBack = Math.floor(Math.random() * 2);
+    dynastical = 0;
 
 
 
-    // Store results so we can return them
-    let results = [];
-
-    let rName = "";
-    let lengthOf = Math.floor(Math.random() * (7 - 4 + 1)) + 4;
-    let flipBetween = Math.floor(Math.random() * 5);
-    let start = 0;
-    let iteration = [0, 2, 4, 6, 8, 10, 12, 14, 16];
-    for (let i = 0; i < lengthOf; i++) {
-        if (iteration.includes(flipBetween)) {
-            rName += (start === 0) ? RFL(v) : RFL(v).toLowerCase();
-        } else {
-            rName += (start === 0) ? RFL(c) : RFL(c).toLowerCase();
-        }
-
-        if (flipBetween >= 12) {
-            flipBetween = Math.floor(Math.random() * 2);
-        }
-        if (Math.floor(Math.random() * 20) !== 1) {
-            flipBetween++;
-        }
-        start++;
-    }
-
-    if(type === "nation")
+    let govBack;
+    if(governmentTypes === 0) //
     {
-        results.push(NationType(rName));
-        finale = rName;
+        govBack = ["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty"];
     }
-    else if(type === "city")
+    else if(governmentTypes === 1) //
     {
-        results.push(CityType(rName))
+        dynastical = Math.floor(Math.random() * 5);
+        govBack = ["Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy"];
     }
-    else if(type === "alliance")
+    else if(governmentTypes === 2) //
     {
-        results.push(AllianceType(rName));
+        govBack = ["Dictatorship","Regime","Fascism","Autocracy","Despotism"];
+        dynastical = Math.floor(Math.random() * 2);
     }
-    else if(type === "general")
+    else if(governmentTypes === 3) //
     {
-        results.push(GeneralType(rName));
+        govBack = ["Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique"];
+        dynastical = Math.floor(Math.random() * 3);
+    }
+    else if(governmentTypes === 4)
+    {
+        govBack = ["Confederation","Federation","Theocracy","Priestdom","State","Union","Khanate","Khaganate"];
+    }
+    else
+    {
+        govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"];
     }
 
-    return results; // return the list of names
 
-    function NationType(nat) {
-        let governmentTypes = Math.floor(Math.random() * 6);
-        let frontOrBack = Math.floor(Math.random() * 2);
-        dynastical = 0;
+    let suffixes = ["an", "ian", "ite", "id","ids","", "", ""];
 
-        
-
-        let govBack;
-        if(governmentTypes === 0) //
-        {
-            govBack = ["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty"];
-        }
-        else if(governmentTypes === 1) //
-        {
-            dynastical = Math.floor(Math.random() * 5);
-            govBack = ["Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy"];
-        }   
-        else if(governmentTypes === 2) //
-        {
-            govBack = ["Dictatorship","Regime","Fascism","Autocracy","Despotism"];
-            dynastical = Math.floor(Math.random() * 2);
-        }
-        else if(governmentTypes === 3) //
-        {
-            govBack = ["Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique"];
-            dynastical = Math.floor(Math.random() * 3);
-        }
-        else if(governmentTypes === 4)
-        {
-            govBack = ["Confederation","Federation","Theocracy","Priestdom","State","Union","Khanate","Khaganate"];
-        }
-        else
-        {
-            govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"];
-        }
- 
-
-        let suffixes = ["an", "ian", "ite", "id","ids","", "", ""];
-        
-        if (frontOrBack === 1) {
-            return RFL(govBack) + " of" + RFL([" ", " the "]) + nat;
-        } else {
-            return nat + RFL(suffixes) + " " + RFL(govBack);
-        }
-    
+    if (frontOrBack === 1) {
+        return RFL(govBack) + " of" + RFL([" ", " the "]) + nat;
+    } else {
+        return nat + RFL(suffixes) + " " + RFL(govBack);
     }
-    function CityType(nat) {
-        let govBack = ["North", "South", "East", "West", "New","","","","","","","","","","","","","","","","","","","","","","",""];
 
-        return(RFL(govBack)+" "+nat)
-    }
-    function AllianceType(nat) {
-        const prefixes = ["Union of","Alliance of","Federation of","Confederation of","Pact of","Empire of","Republic of","Council of","Compact of","Treaty of"];
-        const suffixes = ["Union","Alliance","Federation","Confederation","Pact","Empire","Republic","Council","Compact","Treaty","Combine"]
-        const nameHaps = ["Difficulty","The Mountain","The Wounded","Indication","Media","Mutuality","Trade","Populace","Blood","War","The Double","Bronze","Gold","Guidance","Manufacturing","Platinum","Information","Steel","Failure","Victory","Stone","Empire","Church","Confusion","Management","Freedom","Liberty","Aspects","Economy","Decisions","Opportunity","Introduction","Food","Basics","Reading","Culture","Tradition","Responsibility","Industry","Height","Attention","Preference","Democracy","Obligation","Security","Preparation","Consuls","Power","Education","Non-Aggression","Strangers","War","The Divine","God","The Heavenly"];
-        let base = "";
-        let hasName = Math.floor(Math.random() * 2);
-        let isSuffix = Math.floor(Math.random() * 2);
-        if(hasName === 1){
-            base = nat;
-        }
-        else{
-            base = RFL(nameHaps);
-        }
+}
+function CityType(nat)
+{
+    let govBack = ["North", "South", "East", "West", "New","","","","","","","","","","","","","","","","","","","","","","",""];
 
-        if(isSuffix === 1)
-        {
-            return(RFL(prefixes)+" "+base)
-        }
-        else{
-            return(base+" "+RFL(suffixes))
-        }
+    return(RFL(govBack)+" "+nat)
+}
+function AllianceType(nat)
+{
+    const prefixes = ["Union of","Alliance of","Federation of","Confederation of","Pact of","Empire of","Republic of","Council of","Compact of","Treaty of"];
+    const suffixes = ["Union","Alliance","Federation","Confederation","Pact","Empire","Republic","Council","Compact","Treaty","Combine"]
+    const nameHaps = ["Difficulty","The Mountain","The Wounded","Indication","Media","Mutuality","Trade","Populace","Blood","War","The Double","Bronze","Gold","Guidance","Manufacturing","Platinum","Information","Steel","Failure","Victory","Stone","Empire","Church","Confusion","Management","Freedom","Liberty","Aspects","Economy","Decisions","Opportunity","Introduction","Food","Basics","Reading","Culture","Tradition","Responsibility","Industry","Height","Attention","Preference","Democracy","Obligation","Security","Preparation","Consuls","Power","Education","Non-Aggression","Strangers","War","The Divine","God","The Heavenly"];
+    let base = "";
+    let hasName = Math.floor(Math.random() * 2);
+    let isSuffix = Math.floor(Math.random() * 2);
+    if(hasName === 1){
+        base = nat;
     }
-    function GeneralType(nat) {
-        return(nat)
+    else{
+        base = RFL(nameHaps);
+    }
+
+    if(isSuffix === 1)
+    {
+        return(RFL(prefixes)+" "+base)
+    }
+    else{
+        return(base+" "+RFL(suffixes))
     }
 }
-let numName = 0;
+function GeneralType(nat)
+{
+    return(nat)
+}
 function GetScale(notes,coder,coder2)
 {
     CTL(notes,notes);
@@ -235,18 +189,154 @@ function GetScale(notes,coder,coder2)
     document.getElementById("bassline").innerText = coder+" Bassline: "+bassline+" "+coder2;
     return melody;
 }
+
+// ---- | Main Program Functions | ---- //
+function GenerateRandomName(type,v,c)  // Holds the code required to generate a variety of name types
+{
+    // Create basic variables
+    let results = []; // Will contain our final generated name
+    let rName = ""; // Will be the basic generated string of characters applied to all complex names
+    let lengthOf = Math.floor(Math.random() * (7 - 4 + 1)) + 4; // Picks a random length for the name
+    let flipBetween = Math.floor(Math.random() * 5); // Picks whether the letter is a consonant or vowel
+    let start = 0;
+    let iteration = [0, 2, 4, 6, 8, 10, 12, 14, 16]; // Makes it so every other letter should be different type
+        // *for some reason it sometimes doubles up on a letter type anyway, but it's fine because it adds some variety
+
+    // Generates a random string of letters with some structure
+    for (let i = 0; i < lengthOf; i++) {
+        if (iteration.includes(flipBetween)) {
+            rName += (start === 0) ? RFL(v) : RFL(v).toLowerCase();
+        } else {
+            rName += (start === 0) ? RFL(c) : RFL(c).toLowerCase();
+        }
+
+        if (flipBetween >= 12) {
+            flipBetween = Math.floor(Math.random() * 2);
+        }
+        if (Math.floor(Math.random() * 20) !== 1) {
+            flipBetween++;
+        }
+        start++;
+    }
+
+        // Figure out what type of name we're generating
+    // Results in rName surrounded by national terms like 'Republic of,' 'Kingdom,' etc.
+    if(type === "nation") {
+        results.push(NationType(rName));
+        finale = rName;
+    }
+
+    // Results in rName surrounded by city terms like 'West,' 'ville,' etc.
+    else if(type === "city") {
+        results.push(CityType(rName))
+    }
+
+    // Results in rName (potentially) surrounded by alliance terms like 'union' 'alliance' etc.
+    else if(type === "alliance") {
+        results.push(AllianceType(rName));
+    }
+
+    // Results in rName without extra flavor
+    else if(type === "general") {
+        results.push(GeneralType(rName));
+    }
+
+    return results; // return the list of names
+}
+
+let numName = 0; // Simple variable to display the number of names the user has generated in a session
+
+// The actual program code, contains UI and function calls for basic program usage
 function DoIt() {
     numName++;
 
+        // User interface
+    // Decides what letters are allowed in the program
+    let lemRange = document.getElementById("letterTypes").value;
+    let v = ["A", "U","I", "O","E"];
+    let c = ["R", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
+    let aV = [];
+    let aC = [];
+    document.getElementById("lem").innerHTML = lemRange;
+    if(lemRange == 0) {
+        document.getElementById("lem").innerHTML = "No Accents";
+    } else if(lemRange == 1) {
+        document.getElementById("lem").innerHTML = "Many Accents";
+        aV = ["Ə", "Æ","I","Ø","Œ",
+            "Á","É","Í","Ó","Ú"
+            ,"Ă","Ĕ","Ĭ","Ŏ","Ŭ"
+            ,"Ȧ","Ė","İ","Ȯ","U̇"
+            ,"Ä","Ë","Ï","Ö","Ü"
+            ,"Ả","Ẻ","Ỉ","Ỏ","Ủ"
+            ,"À","È","Ì","Ò","Ù"
+            ,"Ā","Ē","Ī","Ō","Ū"
+            ,"Å","E̊","I̊","O̊","Ů"
+            ,"A̎","E̎","I̎","O̎","U̎"
+            ,"Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"
+            ,"Â","Ê","Î","Ô","Û"
+            ,"Ő","Ű"
+            ,"A̗","E̗","I̗","O̗","U̗"
+            ,"A̖","E̖","I̖","O̖","U̖",
+            "Ạ", "Ụ","Ị", "Ọ","Ẹ",
+            "A̤", "Ṳ","I̤", "O̤","E̤","'"];
+        aC = ["Ğ", "Ð", "Þ","Β","Ʋ","𐌢",
+            "Ŕ", "T́", "Ṕ", "Ś", "Ǵ", "Ḱ", "B́","Q́","Ẃ", "Ý", "J́", "Ź", "V́", "F́", "H́", "Ĺ", "Ń", "Ḿ", "Ć",
+            "R̆", "T̆", "P̆", "S̆", "D̆", "Ğ", "K̆", "B̆","Q̆","W̆", "Y̆", "J̆", "Z̆", "V̆", "F̆", "H̆", "L̆", "N̆", "M̆", "C̆",
+            "Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ",
+            "R̈", "T̈", "S̈", "D̈", "K̈","Q̈","Ẅ", "Ÿ", "J̈", "Z̈", "V̈", "F̈", "Ḧ", "L̈", "N̈", "M̈", "C̈",
+            "R̀", "T̀", "P̀", "S̀", "D̀", "G̀", "K̀", "B̀","Q̀","Ẁ", "Ỳ", "Z̀", "V̀", "H̀", "L̀", "Ǹ", "M̀", "C̀",
+            "R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄",
+            "R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊",
+            "R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎",
+            "Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏",
+            "R̋", "T̋", "S̋", "D̋", "G̋", "K̋", "B̋","W̋", "Y̋", "J̋", "Z̋", "V̋", "F̋", "H̋", "L̋", "N̋", "M̋", "C̋",
+            "R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗",
+            "R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖",
+            "Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣",
+            "R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤",
+            "̧R", "̧T", "̧P", "̧S", "̧D", "̧G", "̧K", "̧B","̧Q","̧W", "̧Y", "̧J", "̧Z", "̧V", "̧F", "̧H", "̧L", "̧N", "̧M", "̧C"];
+    } else if(lemRange == 2) {
+        document.getElementById("lem").innerHTML = "Phonetic Accents";
+        aV = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö",""];
+        aC = ["","","","",""];
+    }
+    // Generate List of Available Letters
+    let endItAV = RandomNumber(0,5); // How many Accented Vowels are allowed to be left in a script
+    let endItAC = RandomNumber(0,3); // How many Accented Consonants are allowed to be left
+    let endItV = RandomNumber(0,4); // How many basic Vowels are allowed to be removed
+    let endItC = RandomNumber(0,20); // How many basic consonants are allowed to be removed
+
+    // Loop through the lists and remove some letters
+    while (aV.length > endItAV) {
+        aV.splice(RandomNumber(0,aV.length),1);
+    }
+    while (aC.length > endItAC) {
+        aC.splice(RandomNumber(0,aC.length-1),1);
+    }
+    for (let i = 0; i < endItV; i++) {
+        v.splice(RandomNumber(0,v.length-1),1);
+    }
+    for (let i = 0; i < endItC; i++) {
+        c.splice(RandomNumber(0,c.length-1),1);
+    }
+
+    // Applying custom values
+    if (lemRange != 0) {
+        c = CTL(c, aC);
+        v = CTL(v, aV);
+    }
+
+    // Display symbols to aid in readability and aesthetics
     let omRange = document.getElementById("omMount").value;
     let codeType = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
     let codeType2 = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
-    if(omRange == 0)
+
+    if(omRange === 0) // Displays corresponding Unicode symbols
     {
         document.getElementById("om").innerHTML = "Unicode";
         codeType = ["♔","#","♡","𓐍","∡","🏙","🗺","﹩","→","←","❖","☠","!","⛑","🛢","🗞","⛿","𐰅","♱","🏛","🕮","𝄞","𝄢","🏝","⌂","𐦆"];
         codeType2 = ["♚","#","♡","𓐍","≞","🏙","🗺","₼","←","→","❖","☠","❣","⛑","🛢","🗞","⛿","ت","☪","🏛","🕮","𝄇","𝄇","🏝","🏘","𐦂"];
-    } else if(omRange == 1)
+    } else if(omRange === 1) // Displays corresponding Emojis
     {
         document.getElementById("om").innerHTML = "Emoji";
         codeType = ["👑","🔢","🤝","🌐","📏","🏙️","🗺️","💰","➡️","⬅️","💎","😀","😈","🚔","🪾","📰","🏴","🔤","⛪","🗼","📚","🎶","🎵","🏞️","🏡","🏛️"];
@@ -255,76 +345,12 @@ function DoIt() {
     {
         document.getElementById("om").innerHTML = "None";
     }
-    
-    // Nation
-    // Diplomacy
-    //
-        // Notes
+
+        // Important Program-Wide Variables
+    // Notes
     let notes = ['C','D♭','D','E♭','E','F','G♭','G','A♭','A','B♭','B'];
-    let settingBox3 = document.getElementById("accentedBox").checked; // Whether the final product will include accents
-    
-        // Letters
-    let v = ["A", "U","I", "O","E"];
-    let c = ["R", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
-    let aV = ["Ə", "Æ","I","Ø","Œ",
-        "Á","É","Í","Ó","Ú"
-        ,"Ă","Ĕ","Ĭ","Ŏ","Ŭ"
-        ,"Ȧ","Ė","İ","Ȯ","U̇"
-        ,"Ä","Ë","Ï","Ö","Ü"
-        ,"Ả","Ẻ","Ỉ","Ỏ","Ủ"
-        ,"À","È","Ì","Ò","Ù"
-        ,"Ā","Ē","Ī","Ō","Ū"
-        ,"Å","E̊","I̊","O̊","Ů"
-        ,"A̎","E̎","I̎","O̎","U̎"
-        ,"Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"
-        ,"Â","Ê","Î","Ô","Û"
-        ,"Ő","Ű"
-        ,"A̗","E̗","I̗","O̗","U̗"
-        ,"A̖","E̖","I̖","O̖","U̖",
-        "Ạ", "Ụ","Ị", "Ọ","Ẹ",
-        "A̤", "Ṳ","I̤", "O̤","E̤","'"];
-    let aC = ["Ğ", "Ð", "Þ","Β","Ʋ","𐌢",
-        "Ŕ", "T́", "Ṕ", "Ś", "Ǵ", "Ḱ", "B́","Q́","Ẃ", "Ý", "J́", "Ź", "V́", "F́", "H́", "Ĺ", "Ń", "Ḿ", "Ć",
-        "R̆", "T̆", "P̆", "S̆", "D̆", "Ğ", "K̆", "B̆","Q̆","W̆", "Y̆", "J̆", "Z̆", "V̆", "F̆", "H̆", "L̆", "N̆", "M̆", "C̆",
-        "Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ",
-        "R̈", "T̈", "S̈", "D̈", "K̈","Q̈","Ẅ", "Ÿ", "J̈", "Z̈", "V̈", "F̈", "Ḧ", "L̈", "N̈", "M̈", "C̈",
-        "R̀", "T̀", "P̀", "S̀", "D̀", "G̀", "K̀", "B̀","Q̀","Ẁ", "Ỳ", "Z̀", "V̀", "H̀", "L̀", "Ǹ", "M̀", "C̀",
-        "R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄",
-        "R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊",
-        "R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎",
-        "Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏",
-        "R̋", "T̋", "S̋", "D̋", "G̋", "K̋", "B̋","W̋", "Y̋", "J̋", "Z̋", "V̋", "F̋", "H̋", "L̋", "N̋", "M̋", "C̋",
-        "R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗",
-        "R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖",
-        "Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣",
-        "R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤",
-        "̧R", "̧T", "̧P", "̧S", "̧D", "̧G", "̧K", "̧B","̧Q","̧W", "̧Y", "̧J", "̧Z", "̧V", "̧F", "̧H", "̧L", "̧N", "̧M", "̧C"];
-    
-    let enditAV = RandomNumber(0,5); 
-    let enditAC = RandomNumber(0,3); 
-    let enditV = RandomNumber(0,4); 
-    let enditC = RandomNumber(0,20); 
-    while (aV.length > enditAV)
-    {
-        aV.splice(RandomNumber(0,aV.length),1);
-    }
-    while (aC.length > enditAC)
-    {
-        aC.splice(RandomNumber(0,aC.length-1),1);
-    }
-    for (let i = 0; i < enditV; i++)
-    {
-        v.splice(RandomNumber(0,v.length-1),1);
-    }
-    for (let i = 0; i < enditC; i++)
-    {
-        c.splice(RandomNumber(0,c.length-1),1);
-    }
-    // Applying custom values
-    if (settingBox3 === true) {
-        c = CTL(c, aC);
-        v = CTL(v, aV);
-        }
+
+
     let unit = "Mile";
 
     /// --- CREATE PRIMARIES
