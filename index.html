@@ -3,9 +3,25 @@
     <link rel="stylesheet" href="style.css">
     <header id="div1">
         <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv"></p>
-        <i>Kardzer Country Generator V2.4</i>
+        <i>Kardzer Country Generator V2.5</i>
     </header>
     <hr>
+    <div id="sectionsCustom">
+        <input type="checkbox" id="diploBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)">
+        <label for="Section1"> Show Diplomacy</label><br>
+        <input type="checkbox" id="cultBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)">
+        <label for="Section2"> Show Culture</label><br>
+        <input type="checkbox" id="geoBox" name="Section3" checked="checked" style="accent-color: rgb(153, 241, 180)">
+        <label for="Section3"> Show Geography</label><br>
+        <input type="checkbox" id="ecoBox" name="Section4" checked="checked" style="accent-color: rgb(228, 241, 153)">
+        <label for="Section4"> Show Economy</label><br>
+        <input type="checkbox" id="sitBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)">
+        <label for="Section5"> Show Situation</label><br>
+        <input type="checkbox" id="subBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)">
+        <label for="Section6"> Show Subdivisions</label><br>
+        <input type="checkbox" id="histBox" name="Section7" checked="checked" style="accent-color: white">
+        <label for="Section7"> Show History</label><br>
+    </div>
     <body>
         <title>Kardzer Country Generator Web</title>
         <button style="background-color: #65589c;" onclick=DoIt()><text style="font-size: 500%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">Generate<sub>↵</sub></text></button>
@@ -69,8 +85,8 @@
             <othertext>- Accents -</othertext><br>
             <li><input id="letterTypes" type="range" min="0" max="3" value="1"></li>
             <othertext>None | Many | Phonetic | Vekleic</othertext>
-            
-        </ul>
+        </ul><br>
+
         <hr>
         <h2>Nations Generated: <text id="numName"></text></h2>
         <br>
