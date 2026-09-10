@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="style.css">
     <header id="div1">
         <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv"></p>
-        <i>Kardzer Country Generator V2.3.1</i>
+        <i>Kardzer Country Generator V2.4</i>
     </header>
     <hr>
     <body>
@@ -12,13 +12,22 @@
             <div id="nation">
                 <text id="demo" style="font-size: 60pt;">Nation</text><br>
                 <text id="city" style="font-size: 30pt;">Capital</text><br>
-                <text style="font-size: 30pt;"><text id="leader" title="Leader's First Name">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></text><br>
+                <text style="font-size: 30pt;"><text id="leadership"></text><text id="leader" title="Leader's First Name">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></text><br>
                 <text style="font-size: 30pt;"><text id="admin">Code</text></text><br>
                 <a href="codes.html" target="_blank"><i style="font-size: 10pt;">Government Code</i></a>
             </div>
             <div id="diplo">
                 <text style="font-size: 30pt;"><text id="alliance">Alliance</text></text><br>    
                 <text id="diplomacy" style="font-size: 30pt;">Diplomacy</text><br>            
+            </div>
+            <div id="cult">
+                <text id="culture" style="font-size: 30pt;">Culture</text><br>
+                <text style="font-size: 30pt;"id="language">Language</text><br>
+                <text id="religion" style="font-size: 30pt;">Religion</text><br>
+                <text id="landm" style="font-size: 30pt;">Landmark</text><br>
+                <text id="greatwork" style="font-size: 30pt;">Great Work</text><br>
+                <text id="anthem" style="font-size: 30pt;">Anthem</text><br>
+                <text id="bassline" style="font-size: 30pt;">Bassline</text><br>
             </div>
             <div id="geot">
                 <text id="geography" style="font-size: 30pt;">Size</text><br>
@@ -38,19 +47,8 @@
                 <text id="enviro" style="font-size: 30pt;">Environment</text><br>
                 <text id="head" style="font-size: 30pt;">Headline</text><br>
             </div>
-            
-            <div id="cult">
-                <text id="culture" style="font-size: 30pt;">Culture</text><br>
-                <text style="font-size: 30pt;"id="language">Language</text><br>
-                <text id="religion" style="font-size: 30pt;">Religion</text><br>
-                <text id="landm" style="font-size: 30pt;">Landmark</text><br>
-                <text id="greatwork" style="font-size: 30pt;">Great Work</text><br>
-                <text id="anthem" style="font-size: 30pt;">Anthem</text><br>
-                <text id="bassline" style="font-size: 30pt;">Bassline</text><br>
-            </div>
             <div id="subdivy">
                 <text id="subdiv" style="font-size: 30pt;">Subdivisions</text><br>
-                <text id="subd" style="font-size: 30pt;">Subdivisions</text><br>
             </div>
             <div id="history">
                 <text id="hist" style="font-size: 30pt;">Nation</text><br>
@@ -64,19 +62,23 @@
             <li>Complex Vowels:<input type="checkbox" id="complexV" checked="true"></li>
             <li>Complex Consonants:<input type="checkbox" id="complexC" checked="true"></li>
             <li>Accents:<input type="checkbox" id="accentedBox" checked="true"></li>-->
-            <li><text id="om">Yo</text><input id="omMount" type="range" min="0" max="2" value="2"></li>
-            <li><text id="lem">Yo</text><input id="letterTypes" type="range" min="0" max="2" value="2"></li>
+            <h2>Settings will apply upon next generation</h2>
+            <othertext>- Symbols -</othertext><br>
+            <li><input id="omMount" type="range" min="0" max="2" value="2"></li>
+            <othertext>Unicode | Emojis | None</othertext><br><br>
+            <othertext>- Accents -</othertext><br>
+            <li><input id="letterTypes" type="range" min="0" max="3" value="1"></li>
+            <othertext>None | Many | Phonetic | Vekleic</othertext>
+            
         </ul>
         <hr>
         <h2>Nations Generated: <text id="numName"></text></h2>
-        <h2>Alphabet: <text id="alphabeta"></text></h2>
         <br>
         <text>Simplified Version of <a href="https://kardashtuku.itch.io/country-generator" target="_blank"><i>Kardzer Country Generator</i></a> for the web<br>Reprogrammed from Python to Javascript</text>
         <br>
         <a href="https://www.kardashtuku.com/" target="_blank"><img style="background-color: black;" width="200" src="Images/KardzerLogoFancyWhite.png"></a>
-        
+        <h2 style="width: 50%;  overflow-wrap: break-word; margin-left: auto; margin-right: auto; align-items: center;">Alphabet: <text id="alphabeta"></text></h2>
     </footer>
 
 <script src="main.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0"></script>
 </html>
