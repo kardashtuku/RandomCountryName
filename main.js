@@ -19,12 +19,6 @@ function RandomNumber(min,max) // Returns a random number in-between two values
 {
     return Math.floor(Math.random() * max) + min;
 }
-function TTT(decimal)// Translates decimals to their corresponding musical notation
-{
-    const decimals = [0.25,0.5,0.75,1];
-    const fractions = ["♪","♩","𝅗𝅥","𝅗𝅥.","𝅝"];
-    return(fractions[decimals.indexOf(decimal)])
-}
 function Translate(number,terms) // Takes a pre-generated number and applies it to a translative list
 {
     for (let i = 0; i < 10 ; i++)
@@ -42,6 +36,7 @@ function NationType(nat,union,coder)
     let governmentTypes = Math.floor(Math.random() * 6);
     let frontOrBack = Math.floor(Math.random() * 2);
     let basicLeaders = ["King","President","Chancellor","Leader","Emperor","Minister","Governor"];
+    let government;
     dynastical = 0;
     if(RandomNumber(1,9) === 1)
     {
@@ -51,35 +46,42 @@ function NationType(nat,union,coder)
     if(governmentTypes === 0) //
     {
         govBack = ["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty"];
-        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([["President","Prime Minister","Chancellor"],["President","Prime Minister","Chancellor"],["Senator","Lead Senator","Speaker"],["Consul","Pro-Consul"],basicLeaders,basicLeaders]));
+        government = RFL(govBack);
+        document.getElementById("leadership").innerHTML = coder+" "+[RFL(["President","Prime Minister","Chancellor"]),RFL(["President","Prime Minister","Chancellor"]),RFL(["Senator","Lead Senator","Speaker"]),RFL(["Consul","Pro-Consul"]),RFL(basicLeaders),RFL(basicLeaders)][govBack.indexOf(government)];
+
     }
     else if(governmentTypes === 1) //
     {
         dynastical = Math.floor(Math.random() * 5);
         govBack = ["Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy","Sultanate"];
-        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([["King","Emperor"],["Count","Governor"],["Baron","Governor"],["King","Emperor","Archduke"],["Emperor","High King"],["Duke"],["Duke","High Duke","Archduke"],["Sultan","Emperor","King","Caliph"]]));
+        government = RFL(govBack);
+        document.getElementById("leadership").innerHTML = coder+" "+[RFL(["King","Emperor"]),RFL(["Count","Governor"]),RFL(["Baron","Governor"]),RFL(["King","Emperor","Archduke"]),RFL(["Emperor","High King"]),RFL(["Duke"]),RFL(["Duke","High Duke","Archduke"]),RFL(["Sultan","Emperor","King","Caliph"])][govBack.indexOf(government)];
     }
     else if(governmentTypes === 2) //
     {
         govBack = ["Dictatorship","Regime","Fascism","Autocracy","Despotism"];
+        government = RFL(govBack);
         dynastical = Math.floor(Math.random() * 2);
-        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([["Dictator","Supreme Leader","Leader"],basicLeaders,["Dictator","Leader"],["Dictator","Leader"],["Despot","Minister","Dictator","General","Commander"]]));
+        document.getElementById("leadership").innerHTML = coder+" "+[RFL(["Dictator","Supreme Leader","Leader"]),RFL(basicLeaders),RFL(["Dictator","Leader"]),RFL(["Dictator","Leader"]),RFL(["Despot","Minister","Dictator","General","Commander"])][govBack.indexOf(government)];
     }
     else if(governmentTypes === 3) //
     {
         govBack = ["Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique"];
         dynastical = Math.floor(Math.random() * 3);
-        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([
-            ["Chief","King","Governor","Leader"],["Chief","King"],["Chief","Leader","Emperor"],["Chief"],["Chief","King","Emperor"],["Chief","Head","Emperor"],["Chief","Head","Emperor"],["Warlord","Leader","General","Commander","King","Dictator"]]));
+        government = RFL(govBack);
+        document.getElementById("leadership").innerHTML = coder+" "+[
+            RFL(["Chief","King","Governor","Leader"]),RFL(["Chief","King"]),RFL(["Chief","Leader","Emperor"]),"Chief",RFL(["Chief","King","Emperor"]),RFL(["Chief","Head","Emperor"]),RFL(["Chief","Head","Emperor"]),RFL(["Warlord","Leader","General","Commander","King","Dictator"])][govBack.indexOf(government)];
     }
     else if(governmentTypes === 4)
     {
         govBack = ["Confederation","Federation","Theocracy","Priestdom","Cult","State","Union","Khanate","Khaganate"];
-        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([basicLeaders,basicLeaders,["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"],["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"],["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"],basicLeaders,basicLeaders,["Khan","Khagan","Emperor","King","Warlord"],["Khan","Khagan","Emperor","King","Warlord"]]));
+        government = RFL(govBack);
+        document.getElementById("leadership").innerHTML = coder+" "+[basicLeaders,basicLeaders,RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(basicLeaders),RFL(basicLeaders),RFL(["Khan","Khagan","Emperor","King","Warlord"]),RFL(["Khan","Khagan","Emperor","King","Warlord"])][govBack.indexOf(government)];
     }
     else
     {
         govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"];
+        government = RFL(govBack);
         document.getElementById("leadership").innerHTML = coder+" "+RFL(["Minister","Prime Minister","Chancellor","Secretary","General Secretary","President","Chairman","Officer","Supreme Leader"]);
     }
 
@@ -87,9 +89,9 @@ function NationType(nat,union,coder)
     let suffixes = ["an", "ian", "ite", "id","ids","", "", ""];
 
     if (frontOrBack === 1) {
-        return RFL(govBack) + " of" + RFL([" ", " the "]) + nat;
+        return government + " of" + RFL([" ", " the "]) + nat;
     } else {
-        return nat + RFL(suffixes) + " " + RFL(govBack);
+        return nat + RFL(suffixes) + " " + government;
     }
 
 }
@@ -173,7 +175,7 @@ function GetScale(notes,coder,coder2)
         }
         else
         {
-            melody.push(RFL(scale)+TTT(noteLength));
+            melody.push(RFL(scale)+""+noteLength);
         }
 
     }
@@ -232,15 +234,35 @@ function GenerateRandomName(type,v,c,union,capitala,codera)  // Holds the code r
         results.push(GeneralType(rName));
     }
 
+
     return results; // return the list of names
 }
-
+document.getElementById("diploBox").addEventListener("change", function () {
+    document.getElementById("diplo").style.display =
+        this.checked ? "block" : "none";});
+document.getElementById("cultBox").addEventListener("change", function () {
+    document.getElementById("cult").style.display =
+        this.checked ? "block" : "none";});
+document.getElementById("geoBox").addEventListener("change", function () {
+    document.getElementById("geot").style.display =
+        this.checked ? "block" : "none";});
+document.getElementById("ecoBox").addEventListener("change", function () {
+    document.getElementById("econy").style.display =
+        this.checked ? "block" : "none";});
+document.getElementById("sitBox").addEventListener("change", function () {
+    document.getElementById("unrst").style.display =
+        this.checked ? "block" : "none";});
+document.getElementById("subBox").addEventListener("change", function () {
+    document.getElementById("subdivy").style.display =
+        this.checked ? "block" : "none";});
+document.getElementById("histBox").addEventListener("change", function () {
+    document.getElementById("hist").style.display =
+        this.checked ? "block" : "none";});
 let numName = 0; // Simple variable to display the number of names the user has generated in a session
 
 // The actual program code, contains UI and function calls for basic program usage
 function DoIt() {
-    numName++;
-
+    numName++
         // User interface
     // Decides what letters are allowed in the program
     let lemRange = document.getElementById("letterTypes").value;
@@ -347,14 +369,30 @@ function DoIt() {
     let density = RandomNumber(1,20)
     let size = RandomNumber(1,1000000)*Variance();
     let culturePick = RFL([finale,finale,finale,p_Demo1,p_Demo2,p_City]);
-    let reli = RFL([finale,p_Demo1,p_Demo2,p_City,(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c))]);
+    let reli = RFL([finale,p_Demo,p_Demo1,p_Demo2,p_City,(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c))]);
     let chance = RandomNumber(1,3);
 
     let corruption = RandomNumber(0,100);
     let crimeRate = RandomNumber(0,100);
     let environment = RandomNumber(0,100);
-    
-        
+
+    let landMarkType = RFL(["Statue","Gate","Wall","House","Capitol","Fountain","Lake","River","Creek","Falls","Waterfall","Bayou","Swamp","Forest","Desert","Road","Monument","Temple"]);
+    let landMarkName = RFL([finale,p_Demo,p_City,p_Demo1,p_Demo2,GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c)]);
+    let landMark = RFL([landMarkName+" "+landMarkType,landMarkType+" of "+landMarkName]);
+
+    let workType = RFL(["Book","Novel","Epic","Poem","Painting","Statue","Sculpture"]);
+    let workName = RFL([finale,p_Demo,p_City,p_Demo1,p_Demo2,GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c)]);
+    let workFinal = RFL([workName+" "+workType,workType+" of "+workName,workName+"'s "+workType]);
+
+    let subTypes = ["Provinces","Municipalities","Counties","Regions","States","Oblasts","Territories","Autonomous Republics","Autonomous Territories","Districts"];
+    let subType = RFL(subTypes);
+    subTypes.splice(subTypes.indexOf(subType),1);
+    let subType2 = RFL(subTypes);
+    subTypes.splice(subTypes.indexOf(subType2),1);
+    let subType3 = RFL(subTypes);
+    subTypes.splice(subTypes.indexOf(subType3),1);
+    let subType4 = RFL(subTypes);
+
 
     if(chance === 1)
     {
@@ -390,7 +428,7 @@ function DoIt() {
     document.getElementById("specres").innerText = codeType[10]+" "+"Resources: WIP"+" "+codeType2[10]; // TO DO
 
         //Stability
-    document.getElementById("unrest").innerText = codeType[11]+" "+"Unrest: "+Math.round(((corruption+crimeRate+environment)/3)*Variance()-20)+"%"+" "+codeType2[11];
+    document.getElementById("unrest").innerText = codeType[11]+" "+"Unrest: "+Math.round(((corruption+crimeRate+environment)/3))+"%"+" "+codeType2[11];
     document.getElementById("corr").innerText = codeType[12]+" "+"Corruption: "+Translate(corruption,["Extremely ","Very ","Very ","Very ","Quite ","","","Somewhat ","Somewhat ","Not "])+"Corrupt"+" "+codeType2[12];
     document.getElementById("crime").innerText = codeType[13]+" "+"Crime Rate: "+Translate(crimeRate,["Very High","High","Somewhat High","Average","Average","Average","Somewhat Low","Low","Very Low","Nonexistent"])+" "+codeType2[13];
     document.getElementById("enviro").innerText = codeType[14]+" "+"Environment: "+Translate(environment,(["Extremely Polluted","Polluted","Polluted","Slightly Polluted","Normal","Normal","Normal","Clean","Pristine","Pristine"]))+" "+codeType2[14];
@@ -400,13 +438,17 @@ function DoIt() {
         // Culture + 
     document.getElementById("culture").innerText = codeType[16]+" "+"Culture: "+culturePick+RFL(["an","ian","ite","ic","id","","","","",""])+" "+codeType2[16];
     document.getElementById("religion").innerText = codeType[18]+" "+"Religion: "+RFL([reli,"Tribal","Various Folk Religions","Animist","Folk","None","Atheist",reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli])+" "+codeType2[18];
-    document.getElementById("language").innerText = codeType[17]+" "+"Language: "+RFL(["Old","Middle","New","Standard","Modern","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]) + " " + RFL([finale,finale,p_City,p_Demo1,p_Demo2])+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","",""])+" "+codeType2[17];
-    document.getElementById("landm").innerText = codeType[19]+" "+"Landmark: WIP"+" "+codeType2[19]; // TO DO
-    document.getElementById("greatwork").innerText = codeType[20]+" "+"Great Work: WIP"+" "+codeType2[20]; // TO DO
+    document.getElementById("language").innerText = codeType[17]+" "+"Language: "+RFL(["Old","Middle","New","Standard","Modern","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]) + " " + RFL([finale,finale,p_City,p_Demo,p_Demo1,p_Demo2])+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","",""])+" "+codeType2[17];
+    document.getElementById("landm").innerText = codeType[19]+" "+"Landmark: "+landMark+" "+codeType2[19]; // TO DO
+    document.getElementById("greatwork").innerText = codeType[20]+" "+"Great Work: "+workFinal+" "+codeType2[20]; // TO DO
     document.getElementById("anthem").innerText = codeType[21]+" "+"Anthem: "+GetScale(notes,codeType[22],codeType2[22])+" "+codeType2[21];
 
         // Subdivisions + //$add Type
-    document.getElementById("subdiv").innerText = codeType[23]+" "+"Subdivisions: WIP"+" "+codeType2[23]; // TO DO
+    document.getElementById("subdiv").innerText = codeType[23]+" "+"Subdivisions: "+RFL(["None",
+        RandomNumber(3,100)+" "+subType,
+        RandomNumber(3,80)+" "+subType+" and "+RandomNumber(3,20)+" "+subType2,
+        RandomNumber(3,60)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", and "+RandomNumber(3,10)+" "+subType3,
+        RandomNumber(3,50)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", "+RandomNumber(3,20)+" "+subType3+", and "+RandomNumber(3,10)+" "+subType4]);
     
     document.getElementById("hist").innerText = codeType[25]+" "+"History: WIP"+" "+codeType2[25]; // TO DO
 
