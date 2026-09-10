@@ -1,3 +1,16 @@
+#sectionsCustom
+{
+    position: fixed;
+    bottom: 0;
+    margin-right: 50%;
+    font-size: 20px;
+    text-align: left;
+}
+input[type="checkbox"]
+{
+    width: 20px;
+    height: 20px;
+}
 #div1
 {
   border-radius: 25px;
