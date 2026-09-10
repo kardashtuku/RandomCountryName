@@ -5,28 +5,7 @@ function RFL(givenList)
 }
 function Commize(number)// This Helper Function will show return a number with traditional comma format for readability
 {
-    // Split the number into a list of characters '1000' = ['1','0','0','0']
-    number = number.toString().split("");
-    // Create the variable that we will return at the end of the function
-    let finalString = "";
-
-    // Reverse the split number list and add a comma every 3 digits
-    number.reverse();
-    for (let i = 0; i < number.length; i+=1)
-    {
-        if([2,5,8,11].includes(i) && i !== number.length-1)
-        {
-            finalString += number[i]+",";
-        }
-        else
-        {
-            finalString += number[i];
-        }
-    }
-    // Re-reverse the list to bring it back to its original value and convert it into a string
-    finalString = finalString.split("").reverse();
-    finalString = finalString.join("");
-    return(finalString);
+    return number.toLocaleString();
 }
 function CTL(firstList, secondList)
 { // Combines two given lists
