@@ -58,41 +58,50 @@ function Translate(number,terms) // Takes a pre-generated number and applies it 
 }
 
 // ---- | Name-type Functions | ---- //
-function NationType(nat)
+function NationType(nat,union,coder)
 {
     let governmentTypes = Math.floor(Math.random() * 6);
     let frontOrBack = Math.floor(Math.random() * 2);
+    let basicLeaders = ["King","President","Chancellor","Leader","Emperor","Minister","Governor"];
     dynastical = 0;
-
-
-
+    if(RandomNumber(1,9) === 1)
+    {
+        nat = nat+"-"+union;
+    }
     let govBack;
     if(governmentTypes === 0) //
     {
         govBack = ["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty"];
+        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([["President","Prime Minister","Chancellor"],["President","Prime Minister","Chancellor"],["Senator","Lead Senator","Speaker"],["Consul","Pro-Consul"],basicLeaders,basicLeaders]));
     }
     else if(governmentTypes === 1) //
     {
         dynastical = Math.floor(Math.random() * 5);
-        govBack = ["Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy"];
+        govBack = ["Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy","Sultanate"];
+        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([["King","Emperor"],["Count","Governor"],["Baron","Governor"],["King","Emperor","Archduke"],["Emperor","High King"],["Duke"],["Duke","High Duke","Archduke"],["Sultan","Emperor","King","Caliph"]]));
     }
     else if(governmentTypes === 2) //
     {
         govBack = ["Dictatorship","Regime","Fascism","Autocracy","Despotism"];
         dynastical = Math.floor(Math.random() * 2);
+        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([["Dictator","Supreme Leader","Leader"],basicLeaders,["Dictator","Leader"],["Dictator","Leader"],["Despot","Minister","Dictator","General","Commander"]]));
     }
     else if(governmentTypes === 3) //
     {
         govBack = ["Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique"];
         dynastical = Math.floor(Math.random() * 3);
+        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([
+            ["Chief","King","Governor","Leader"],["Chief","King"],["Chief","Leader","Emperor"],["Chief"],["Chief","King","Emperor"],["Chief","Head","Emperor"],["Chief","Head","Emperor"],["Warlord","Leader","General","Commander","King","Dictator"]]));
     }
     else if(governmentTypes === 4)
     {
-        govBack = ["Confederation","Federation","Theocracy","Priestdom","State","Union","Khanate","Khaganate"];
+        govBack = ["Confederation","Federation","Theocracy","Priestdom","Cult","State","Union","Khanate","Khaganate"];
+        document.getElementById("leadership").innerHTML = coder+" "+RFL(RFL([basicLeaders,basicLeaders,["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"],["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"],["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"],basicLeaders,basicLeaders,["Khan","Khagan","Emperor","King","Warlord"],["Khan","Khagan","Emperor","King","Warlord"]]));
     }
     else
     {
         govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"];
+        document.getElementById("leadership").innerHTML = coder+" "+RFL(["Minister","Prime Minister","Chancellor","Secretary","General Secretary","President","Chairman","Officer","Supreme Leader"]);
     }
 
 
@@ -111,16 +120,19 @@ function CityType(nat)
 
     return(RFL(govBack)+" "+nat)
 }
-function AllianceType(nat)
+function AllianceType(nat,capital)
 {
     const prefixes = ["Union of","Alliance of","Federation of","Confederation of","Pact of","Empire of","Republic of","Council of","Compact of","Treaty of"];
     const suffixes = ["Union","Alliance","Federation","Confederation","Pact","Empire","Republic","Council","Compact","Treaty","Combine"]
-    const nameHaps = ["Difficulty","The Mountain","The Wounded","Indication","Media","Mutuality","Trade","Populace","Blood","War","The Double","Bronze","Gold","Guidance","Manufacturing","Platinum","Information","Steel","Failure","Victory","Stone","Empire","Church","Confusion","Management","Freedom","Liberty","Aspects","Economy","Decisions","Opportunity","Introduction","Food","Basics","Reading","Culture","Tradition","Responsibility","Industry","Height","Attention","Preference","Democracy","Obligation","Security","Preparation","Consuls","Power","Education","Non-Aggression","Strangers","War","The Divine","God","The Heavenly"];
+    const nameHaps = ["Difficulty","The Mountain","The Wounded","Indication","Trade","Populace","Blood","War","The Double","Bronze","Gold","Guidance","Manufacturing","Platinum","Information","Steel","Failure","Victory","Stone","Empire","Church","Confusion","Management","Freedom","Liberty","Aspects","Economy","Decisions","Opportunity","Introduction","Food","Basics","Reading","Culture","Tradition","Responsibility","Industry","Height","Attention","Preference","Democracy","Obligation","Security","Preparation","Consuls","Power","Education","Non-Aggression","Strangers","War","The Divine","God","The Heavenly"];
     let base = "";
-    let hasName = Math.floor(Math.random() * 2);
+    let hasName = Math.floor(Math.random() * 3);
     let isSuffix = Math.floor(Math.random() * 2);
     if(hasName === 1){
         base = nat;
+    } else if(hasName === 2)
+    {
+        base = capital;
     }
     else{
         base = RFL(nameHaps);
@@ -191,7 +203,7 @@ function GetScale(notes,coder,coder2)
 }
 
 // ---- | Main Program Functions | ---- //
-function GenerateRandomName(type,v,c)  // Holds the code required to generate a variety of name types
+function GenerateRandomName(type,v,c,union,capitala,codera)  // Holds the code required to generate a variety of name types
 {
     // Create basic variables
     let results = []; // Will contain our final generated name
@@ -222,7 +234,7 @@ function GenerateRandomName(type,v,c)  // Holds the code required to generate a 
         // Figure out what type of name we're generating
     // Results in rName surrounded by national terms like 'Republic of,' 'Kingdom,' etc.
     if(type === "nation") {
-        results.push(NationType(rName));
+        results.push(NationType(rName,union,codera));
         finale = rName;
     }
 
@@ -233,7 +245,7 @@ function GenerateRandomName(type,v,c)  // Holds the code required to generate a 
 
     // Results in rName (potentially) surrounded by alliance terms like 'union' 'alliance' etc.
     else if(type === "alliance") {
-        results.push(AllianceType(rName));
+        results.push(AllianceType(rName,capitala));
     }
 
     // Results in rName without extra flavor
@@ -257,11 +269,7 @@ function DoIt() {
     let c = ["R", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
     let aV = [];
     let aC = [];
-    document.getElementById("lem").innerHTML = lemRange;
-    if(lemRange == 0) {
-        document.getElementById("lem").innerHTML = "No Accents";
-    } else if(lemRange == 1) {
-        document.getElementById("lem").innerHTML = "Many Accents";
+    if(lemRange == 1) {
         aV = ["Ə", "Æ","I","Ø","Œ",
             "Á","É","Í","Ó","Ú"
             ,"Ă","Ĕ","Ĭ","Ŏ","Ŭ"
@@ -296,9 +304,10 @@ function DoIt() {
             "R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤",
             "̧R", "̧T", "̧P", "̧S", "̧D", "̧G", "̧K", "̧B","̧Q","̧W", "̧Y", "̧J", "̧Z", "̧V", "̧F", "̧H", "̧L", "̧N", "̧M", "̧C"];
     } else if(lemRange == 2) {
-        document.getElementById("lem").innerHTML = "Phonetic Accents";
-        aV = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö",""];
-        aC = ["","","","",""];
+        aV = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
+        aC = ["Č","Ş"];
+    }else if(lemRange == 3) {
+        aV = ["Ė","Ê","Ü","Ë"];
     }
     // Generate List of Available Letters
     let endItAV = RandomNumber(0,5); // How many Accented Vowels are allowed to be left in a script
@@ -331,19 +340,14 @@ function DoIt() {
     let codeType = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
     let codeType2 = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
 
-    if(omRange === 0) // Displays corresponding Unicode symbols
+    if(omRange == 0) // Displays corresponding Unicode symbols
     {
-        document.getElementById("om").innerHTML = "Unicode";
         codeType = ["♔","#","♡","𓐍","∡","🏙","🗺","﹩","→","←","❖","☠","!","⛑","🛢","🗞","⛿","𐰅","♱","🏛","🕮","𝄞","𝄢","🏝","⌂","𐦆"];
         codeType2 = ["♚","#","♡","𓐍","≞","🏙","🗺","₼","←","→","❖","☠","❣","⛑","🛢","🗞","⛿","ت","☪","🏛","🕮","𝄇","𝄇","🏝","🏘","𐦂"];
-    } else if(omRange === 1) // Displays corresponding Emojis
+    } else if(omRange == 1) // Displays corresponding Emojis
     {
-        document.getElementById("om").innerHTML = "Emoji";
         codeType = ["👑","🔢","🤝","🌐","📏","🏙️","🗺️","💰","➡️","⬅️","💎","😀","😈","🚔","🪾","📰","🏴","🔤","⛪","🗼","📚","🎶","🎵","🏞️","🏡","🏛️"];
         codeType2 = ["✊","🔡","🤝","🌐","📐","🌆","🗺️","🪙","⬅️","➡️","🪵","😡","🫰","🚔","🌳","🗞️","🏳️","🔤","🕌","🗿","🖼️","🎶","🎵","🌅","🛖","🏛️"];
-    } else
-    {
-        document.getElementById("om").innerHTML = "None";
     }
 
         // Important Program-Wide Variables
@@ -355,14 +359,16 @@ function DoIt() {
 
     /// --- CREATE PRIMARIES
     // NATION
-    let p_Nation = GenerateRandomName("nation",v,c).join("\n"); // Nation name
+    
     let p_City = GenerateRandomName("city",v,c).join("\n"); // Capital City
+    let p_Demo = GenerateRandomName("general",v,c).join("\n"); // Main Demographic
     let p_Demo1 = GenerateRandomName("general",v,c).join("\n"); // Second Demographic
     let p_Demo2 = GenerateRandomName("general",v,c).join("\n"); // Third Demographic
+    let p_Nation = GenerateRandomName("nation",v,c,p_Demo,p_City,codeType[0]).join("\n"); // Nation name
     let density = RandomNumber(1,20)
     let size = RandomNumber(1,1000000)*Variance();
     let culturePick = RFL([finale,finale,finale,p_Demo1,p_Demo2,p_City]);
-    let reli = RFL([finale,p_Demo1,p_Demo2,p_City,(GenerateRandomName("general",v,c))]);
+    let reli = RFL([finale,p_Demo1,p_Demo2,p_City,(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c))]);
     let chance = RandomNumber(1,3);
 
     let corruption = RandomNumber(0,100);
@@ -373,13 +379,13 @@ function DoIt() {
 
     if(chance === 1)
     {
-        reli = reli + RFL(["ism","ism","ism","ism","ism","ism","id","ic","ian","an","a"]);
+        reli = RFL(["Reformed","Traditional","Western","Eastern","Northern","Southern","Orthodox","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]) + " " + reli + RFL(["ism","ism","ism","ism","ism","ism","id","ic","ian","an","a"]);
     } else if(chance === 2)
     {
-        reli = RFL(["Cult of ","Sect of "," Folk of "," Church of "," Temple of ",(GenerateRandomName("general",v,c)+"'s ")]) + reli + RFL(["ism","ism","ism","ism","ism","ism","id","ia","a"],v,c);
+        reli = RFL(["Reformed","Traditional","Western","Eastern","Northern","Southern","Orthodox","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]) + " " + RFL(["Cult of ","Sect of "," Folk of "," Church of "," Temple of ",(GenerateRandomName("general",v,c)+"'s ")]) + reli + RFL(["ism","ism","ism","ism","ism","ism","id","ia","a"],v,c);
     } else if(chance === 3)
     {
-        reli = reli + RFL(["ist","ist","ist","ist","ist","ist","id","ic","ian","an","a"])+" "+RFL(["Cult","Sect","Folk","Church","Temple"]);
+        reli = RFL(["Reformed","Traditional","Western","Eastern","Northern","Southern","Orthodox","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]) + " " + reli + RFL(["ist","ist","ist","ist","ist","ist","id","ic","ian","an","a"])+" "+RFL(["Cult","Sect","Folk","Church","Temple"]);
     }
     /// --- CREATE PRIMARIES
 
@@ -387,11 +393,11 @@ function DoIt() {
         // NATION
     document.getElementById("demo").innerText = p_Nation;
     document.getElementById("city").innerText = "Capital: "+p_City;
-    document.getElementById("leader").innerText = codeType[0]+" "+"Leader: "+GenerateRandomName("general",v,c).join("\n");
+    document.getElementById("leader").innerText = ": "+GenerateRandomName("general",v,c,p_Nation,p_City).join("\n");
     document.getElementById("admin").innerHTML = codeType[1]+" "+`${RFL(["A","C","U","F","S"])}${RFL(["Tr","Cl","Th","Ty","Ol","Re","De","Dy","Ci","Ec","Te","An"])}:${RFL(["0","1","2","3","4"])}`+" "+codeType2[1];
     
         // Diplomacy
-    document.getElementById("alliance").innerText = codeType[2]+" "+"Alliance: "+GenerateRandomName("alliance",v,c).join("\n")+" "+codeType2[2];
+    document.getElementById("alliance").innerText = codeType[2]+" "+"Alliance: "+RFL([GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),"None"])+" "+codeType2[2];
     document.getElementById("diplomacy").innerText = codeType[3]+" "+"Diplomacy: "+RFL(["At War","Ostracized","Hated","Isolated","On Bad Terms with Neighbors","Plentiful Border Disputes","Post-war","Neutral","Plays multiple sides","Supplies aide","Unimportant","Important ally","Regional Power","Threatening","Unassuming","Friends with the right people","Friends with the wrong people","Insignificant","Monstrous","Global Hegemon","Hegemon","Very Influencial","Strongman","Everyone's Friend"])+" "+codeType2[3];
 
         // Geography
@@ -414,15 +420,14 @@ function DoIt() {
 
         // Culture + 
     document.getElementById("culture").innerText = codeType[16]+" "+"Culture: "+culturePick+RFL(["an","ian","ite","ic","id","","","","",""])+" "+codeType2[16];
-    document.getElementById("religion").innerText = codeType[18]+" "+"Religion: "+reli+" "+codeType2[18];
-    document.getElementById("language").innerText = codeType[17]+" "+"Language: "+RFL([finale,finale,finale,finale,p_City,p_Demo1,p_Demo2])+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","",""])+" "+codeType2[17];
+    document.getElementById("religion").innerText = codeType[18]+" "+"Religion: "+RFL([reli,"Tribal","Various Folk Religions","Animist","Folk","None","Atheist",reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli])+" "+codeType2[18];
+    document.getElementById("language").innerText = codeType[17]+" "+"Language: "+RFL(["Old","Middle","New","Standard","Modern","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]) + " " + RFL([finale,finale,p_City,p_Demo1,p_Demo2])+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","",""])+" "+codeType2[17];
     document.getElementById("landm").innerText = codeType[19]+" "+"Landmark: WIP"+" "+codeType2[19]; // TO DO
     document.getElementById("greatwork").innerText = codeType[20]+" "+"Great Work: WIP"+" "+codeType2[20]; // TO DO
     document.getElementById("anthem").innerText = codeType[21]+" "+"Anthem: "+GetScale(notes,codeType[22],codeType2[22])+" "+codeType2[21];
 
         // Subdivisions + //$add Type
     document.getElementById("subdiv").innerText = codeType[23]+" "+"Subdivisions: WIP"+" "+codeType2[23]; // TO DO
-    document.getElementById("subd").innerText = codeType[24]+" "+"Subdiv Count: WIP"+" "+codeType2[24]; // TO DO
     
     document.getElementById("hist").innerText = codeType[25]+" "+"History: WIP"+" "+codeType2[25]; // TO DO
 
