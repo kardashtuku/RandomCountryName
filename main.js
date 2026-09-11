@@ -76,7 +76,7 @@ function NationType(nat,union,coder)
     {
         govBack = ["Confederation","Federation","Theocracy","Priestdom","Cult","State","Union","Khanate","Khaganate"];
         government = RFL(govBack);
-        document.getElementById("leadership").innerHTML = coder+" "+[basicLeaders,basicLeaders,RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(basicLeaders),RFL(basicLeaders),RFL(["Khan","Khagan","Emperor","King","Warlord"]),RFL(["Khan","Khagan","Emperor","King","Warlord"])][govBack.indexOf(government)];
+        document.getElementById("leadership").innerHTML = coder+" "+[RFL(basicLeaders),RFL(basicLeaders),RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),RFL(basicLeaders),RFL(basicLeaders),RFL(["Khan","Khagan","Emperor","King","Warlord"]),RFL(["Khan","Khagan","Emperor","King","Warlord"])][govBack.indexOf(government)];
     }
     else
     {
@@ -255,9 +255,10 @@ document.getElementById("sitBox").addEventListener("change", function () {
 document.getElementById("subBox").addEventListener("change", function () {
     document.getElementById("subdivy").style.display =
         this.checked ? "block" : "none";});
-document.getElementById("histBox").addEventListener("change", function () {
-    document.getElementById("hist").style.display =
+document.getElementById("checkBox").addEventListener("change", function () {
+    document.getElementById("checkboxes").style.display =
         this.checked ? "block" : "none";});
+        
 let numName = 0; // Simple variable to display the number of names the user has generated in a session
 
 // The actual program code, contains UI and function calls for basic program usage
@@ -340,15 +341,17 @@ function DoIt() {
     let omRange = document.getElementById("omMount").value;
     let codeType = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
     let codeType2 = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
-
+    let codeType3 = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
     if(omRange == 0) // Displays corresponding Unicode symbols
     {
         codeType = ["♔","#","♡","𓐍","∡","🏙","🗺","﹩","→","←","❖","☠","!","⛑","🛢","🗞","⛿","𐰅","♱","🏛","🕮","𝄞","𝄢","🏝","⌂","𐦆"];
         codeType2 = ["♚","#","♡","𓐍","≞","🏙","🗺","₼","←","→","❖","☠","❣","⛑","🛢","🗞","⛿","ت","☪","🏛","🕮","𝄇","𝄇","🏝","🏘","𐦂"];
+        codeType3 = ["◈ ","◈","◈","◈","◈","◈","⍩","⍩","⍩","Δ","Δ","⧖","🛠","🛠","🛠","🛠","🛠","🛠","🛠","🛠","🏝","🛢","🛢","⧗","⍩","⍩","🛠","🛠","🛠","𓃖","⍩","⍩","⍩","Δ","⍩","⧗","⧗","☤","🛢","☢","🛢","Δ","⚒","⚒","⤬","⤬","⚒","🖌","🖌","⚒","🖌","✝","🖌"];
     } else if(omRange == 1) // Displays corresponding Emojis
     {
         codeType = ["👑","🔢","🤝","🌐","📏","🏙️","🗺️","💰","➡️","⬅️","💎","😀","😈","🚔","🪾","📰","🏴","🔤","⛪","🗼","📚","🎶","🎵","🏞️","🏡","🏛️"];
         codeType2 = ["✊","🔡","🤝","🌐","📐","🌆","🗺️","🪙","⬅️","➡️","🪵","😡","🫰","🚔","🌳","🗞️","🏳️","🔤","🕌","🗿","🖼️","🎶","🎵","🌅","🛖","🏛️"];
+        codeType3 = ["⌛️","💎","💎","💎","💎","⛏","🌽","🥦","🍐","🐏","🧶","🪟","⛏","⛏","⛏","⛏","⛏","⛏","⛏","⛏","🪓","🏭","🛢","🧂","🍰","🥭","🪨","⛏","⛏","🐄","🥩","🍞","🍚","🐄","🍝","💧","🍺","💊","🏭","☢️","🏭","🧶","⛓","⛓","❌","❌","🖥","✒️","🖼","🎻","🏭","☯️","🎭"];
     }
 
         // Important Program-Wide Variables
@@ -366,8 +369,8 @@ function DoIt() {
     let p_Demo1 = GenerateRandomName("general",v,c).join("\n"); // Second Demographic
     let p_Demo2 = GenerateRandomName("general",v,c).join("\n"); // Third Demographic
     let p_Nation = GenerateRandomName("nation",v,c,p_Demo,p_City,codeType[0]).join("\n"); // Nation name
-    let density = RandomNumber(1,20)
-    let size = RandomNumber(1,1000000)*Variance();
+    let density = RandomNumber(1,10)
+    let size = RandomNumber(1,400000)*Variance();
     let culturePick = RFL([finale,finale,finale,p_Demo1,p_Demo2,p_City]);
     let reli = RFL([finale,p_Demo,p_Demo1,p_Demo2,p_City,(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c))]);
     let chance = RandomNumber(1,3);
@@ -375,6 +378,15 @@ function DoIt() {
     let corruption = RandomNumber(0,100);
     let crimeRate = RandomNumber(0,100);
     let environment = RandomNumber(0,100);
+    
+    let specName = GenerateRandomName("general",v,c);
+    let specSuffix = RFL([" Worm"," Spider"," Herd"," Goat"," Sheep","","","","","","","","","",""]);
+    let specSuffixAnimal = RFL(["ite","ium","ite","ium","","","","","","","","","","","",""]);
+    let specResource = RFL([specName+specSuffix+" Metal",specName+specSuffix+" Mineral",specName+" Wood",specName+specSuffixAnimal+" Milk",specName+specSuffix+" Gems",specName+specSuffix+" Crystals",specName+" Blades",specName+specSuffixAnimal+" Ales",specName+specSuffixAnimal+" Stew",specName+specSuffixAnimal+" Wool",specName+specSuffixAnimal+" Silk",specName+" Textile",specName+specSuffix+" Armor",specName+" Shields",specName+" Pendents",specName]);
+    let resources = ["Silica ","Rare Earth Minerals","Diamonds","Gems","Jewelry","Ornate Metalworkings","Crops","Vegetables","Fruit","Wools","Textiles","Glass","Iron","Steel","Titanium","Tin","Lead","Copper","Zinc","Aluminum","Wood","Coal","Oil","Spices","Sugar","Tropical Fruits","Limestone","Ores","Metals","Livestock","Meat","Wheat","Rice","Leather","Food","Water","Alcohol","Medicine","Rubber","Radioactive Materials","Plastic","Fabric","People","Slavery","None","N/A","Technology","Entertainment","Art","Talent","Clothing","Religion","Culture"];
+    let imported = RFL(resources);
+    let exported = RFL(resources);
+    
 
     let landMarkType = RFL(["Statue","Gate","Wall","House","Capitol","Fountain","Lake","River","Creek","Falls","Waterfall","Bayou","Swamp","Forest","Desert","Road","Monument","Temple"]);
     let landMarkName = RFL([finale,p_Demo,p_City,p_Demo1,p_Demo2,GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c)]);
@@ -422,17 +434,16 @@ function DoIt() {
     document.getElementById("pop").innerText = codeType[5]+" "+"Population: "+(Commize(Math.round(size*density))+" | "+Math.round(density)+" per square "+unit)+" "+codeType2[5];
     document.getElementById("geo").innerText = codeType[6]+" "+RFL(["Mostly","Partially","Entirely"])+RFL([" on an Island"," on a Peninsula"," landlocked"," across a coast"," on a strait"," on several islands"," on the mainland"," on an isthmus"])+" "+codeType2[6];
         // Economy + 
-    document.getElementById("econ").innerText = codeType[7]+" "+"Economy: WIP"+" "+codeType2[7]; // TO DO
-    document.getElementById("im").innerText = codeType[8]+" "+"Top Import: WIP"+" "+codeType2[8]; // TO DO
-    document.getElementById("ex").innerText = codeType[9]+" "+"Top Export: WIP"+" "+codeType2[9]; // TO DO
-    document.getElementById("specres").innerText = codeType[10]+" "+"Resources: WIP"+" "+codeType2[10]; // TO DO
+    document.getElementById("econ").innerText = codeType[7]+" "+"Economy: "+RFL(["Depression","Recession","Fine","Fairly Good","Good","Great","Central Trade Nation","Trade Power"])+" "+codeType2[7]; // TO DO
+    document.getElementById("im").innerText = codeType[8]+" "+"Top Import: "+imported+" "+codeType3[resources.indexOf(imported)]; // TO DO
+    document.getElementById("ex").innerText = codeType[9]+" "+"Top Export: "+exported+" "+codeType3[resources.indexOf(exported)]; // TO DO
+    document.getElementById("specres").innerText = codeType[10]+" "+"Special Resource: "+specResource+" "+codeType2[10]; // TO DO
 
         //Stability
     document.getElementById("unrest").innerText = codeType[11]+" "+"Unrest: "+Math.round(((corruption+crimeRate+environment)/3))+"%"+" "+codeType2[11];
     document.getElementById("corr").innerText = codeType[12]+" "+"Corruption: "+Translate(corruption,["Extremely ","Very ","Very ","Very ","Quite ","","","Somewhat ","Somewhat ","Not "])+"Corrupt"+" "+codeType2[12];
     document.getElementById("crime").innerText = codeType[13]+" "+"Crime Rate: "+Translate(crimeRate,["Very High","High","Somewhat High","Average","Average","Average","Somewhat Low","Low","Very Low","Nonexistent"])+" "+codeType2[13];
     document.getElementById("enviro").innerText = codeType[14]+" "+"Environment: "+Translate(environment,(["Extremely Polluted","Polluted","Polluted","Slightly Polluted","Normal","Normal","Normal","Clean","Pristine","Pristine"]))+" "+codeType2[14];
-    document.getElementById("head").innerText = codeType[15]+" "+"Headline: WIP"+codeType2[15];
     //$add Headline
 
         // Culture + 
@@ -448,9 +459,8 @@ function DoIt() {
         RandomNumber(3,100)+" "+subType,
         RandomNumber(3,80)+" "+subType+" and "+RandomNumber(3,20)+" "+subType2,
         RandomNumber(3,60)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", and "+RandomNumber(3,10)+" "+subType3,
-        RandomNumber(3,50)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", "+RandomNumber(3,20)+" "+subType3+", and "+RandomNumber(3,10)+" "+subType4]);
+        RandomNumber(3,50)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", "+RandomNumber(3,20)+" "+subType3+", and "+RandomNumber(3,10)+" "+subType4])+" "+codeType[23];
     
-    document.getElementById("hist").innerText = codeType[25]+" "+"History: WIP"+" "+codeType2[25]; // TO DO
 
     /// --- EXTRAS
     if(dynastical === 0)
