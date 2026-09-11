@@ -3,25 +3,39 @@
     <link rel="stylesheet" href="style.css">
     <header id="div1">
         <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv"></p>
-        <i>Kardzer Country Generator V2.5</i>
+        <i>Kardzer Country Generator V3.0</i>
     </header>
     <hr>
     <div id="sectionsCustom">
-        <input type="checkbox" id="diploBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)">
-        <label for="Section1"> Show Diplomacy</label><br>
-        <input type="checkbox" id="cultBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)">
-        <label for="Section2"> Show Culture</label><br>
-        <input type="checkbox" id="geoBox" name="Section3" checked="checked" style="accent-color: rgb(153, 241, 180)">
-        <label for="Section3"> Show Geography</label><br>
-        <input type="checkbox" id="ecoBox" name="Section4" checked="checked" style="accent-color: rgb(228, 241, 153)">
-        <label for="Section4"> Show Economy</label><br>
-        <input type="checkbox" id="sitBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)">
-        <label for="Section5"> Show Situation</label><br>
-        <input type="checkbox" id="subBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)">
-        <label for="Section6"> Show Subdivisions</label><br>
-        <input type="checkbox" id="histBox" name="Section7" checked="checked" style="accent-color: white">
-        <label for="Section7"> Show History</label><br>
+        <input type="checkbox" id="checkBox" name="Section8" checked="checked" style="accent-color: rgb(184, 182, 182)"><br>
+        <label for="Section8"> Toggle Options</label><br>
+        <div id="checkboxes">
+            <input type="checkbox" id="diploBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)"><br>
+            <label for="Section1" style="background-color: rgb(88, 13, 13)"> Show Diplomacy</label><br>
+            <input type="checkbox" id="cultBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)"><br>
+            <label for="Section2" style="background-color: rgb(12, 17, 83)""> Show Culture</label><br>
+            <input type="checkbox" id="geoBox" name="Section3" checked="checked" style="accent-color: rgb(153, 241, 180)"><br>
+            <label for="Section3" style="background-color: rgb(6, 48, 19)"> Show Geography</label><br>
+            <input type="checkbox" id="ecoBox" name="Section4" checked="checked" style="accent-color: rgb(228, 241, 153)"><br>
+            <label for="Section4" style="background-color: rgb(72, 82, 15)"> Show Economy</label><br>
+            <input type="checkbox" id="sitBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)"><br>
+            <label for="Section5" style="background-color: rgb(49, 11, 71)"> Show Situation</label><br>
+            <input type="checkbox" id="subBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)"><br>
+            <label for="Section6"style="background-color: rgb(14, 88, 76)"> Show Subdivisions</label><br>
+            <br>
+            <symbolDiv style="background-color: #25117e;">
+                <othertext>- Symbols -</othertext><br>
+                <li><input id="omMount" type="range" min="0" max="2" value="2" style="width: 250px;"></li>
+                <othertext>Unicode | Emojis | None</othertext><br><br>
+            </symbolDiv>
+            <accentDiv style="background-color: #7e1111;">
+                <othertext>- Accents -</othertext><br>
+                <li><input id="letterTypes" type="range" min="0" max="3" value="1" style="width: 250px;"></li>
+                <othertext>None | Many | Phonetic | Vekleic</othertext>
+            </accentDiv>
+        </div>
     </div>
+
     <body>
         <title>Kardzer Country Generator Web</title>
         <button style="background-color: #65589c;" onclick=DoIt()><text style="font-size: 500%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">Generate<sub>↵</sub></text></button>
@@ -61,30 +75,18 @@
                 <text id="corr" style="font-size: 30pt;">Corruption</text><br>
                 <text id="crime" style="font-size: 30pt;">Crime Rate</text><br>
                 <text id="enviro" style="font-size: 30pt;">Environment</text><br>
-                <text id="head" style="font-size: 30pt;">Headline</text><br>
             </div>
             <div id="subdivy">
                 <text id="subdiv" style="font-size: 30pt;">Subdivisions</text><br>
             </div>
-            <div id="history">
-                <text id="hist" style="font-size: 30pt;">Nation</text><br>
-            </div>
+
 
     </body>
     <hr>
     <footer class="page-footer">
         <ul>
-            <!--<li>Distilling of Accents:<input id="amount" type="range" min="1" max="10" value="5"></li>
-            <li>Complex Vowels:<input type="checkbox" id="complexV" checked="true"></li>
-            <li>Complex Consonants:<input type="checkbox" id="complexC" checked="true"></li>
-            <li>Accents:<input type="checkbox" id="accentedBox" checked="true"></li>-->
             <h2>Settings will apply upon next generation</h2>
-            <othertext>- Symbols -</othertext><br>
-            <li><input id="omMount" type="range" min="0" max="2" value="2"></li>
-            <othertext>Unicode | Emojis | None</othertext><br><br>
-            <othertext>- Accents -</othertext><br>
-            <li><input id="letterTypes" type="range" min="0" max="3" value="1"></li>
-            <othertext>None | Many | Phonetic | Vekleic</othertext>
+
         </ul><br>
 
         <hr>
