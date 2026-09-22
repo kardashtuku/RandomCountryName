@@ -29,7 +29,6 @@ function Translate(number,terms) // Takes a pre-generated number and applies it 
         }
     }
 }
-
 // ---- | Name-type Functions | ---- //
 function NationType(nat,union,coder)
 {
@@ -94,6 +93,20 @@ function NationType(nat,union,coder)
         return nat + RFL(suffixes) + " " + government;
     }
 
+}
+function PoliticalType(nat)
+{   
+    let frontOrBack = Math.floor(Math.random() * 2);
+    let government = RFL(["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty","Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy","Sultanate",
+        "Dictatorship","Regime","Fascism","Autocracy","Despotism","Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique","Confederation","Federation","Theocracy","Priestdom","Cult","State","Union","Khanate","Khaganate",
+        "Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"]);
+    let suffixes = ["an", "ian", "ite", "id","ids","", "", ""];
+    
+    if (frontOrBack === 1) {
+        return government + " of" + RFL([" ", " the "]) + nat;
+    } else {
+        return nat + RFL(suffixes) + " " + government;
+    }
 }
 function CityType(nat)
 {
@@ -234,6 +247,10 @@ function GenerateRandomName(type,v,c,union,capitala,codera)  // Holds the code r
         results.push(GeneralType(rName));
     }
 
+    else if(type === "political") {
+        results.push(PoliticalType(rName));
+    }
+
 
     return results; // return the list of names
 }
@@ -260,7 +277,10 @@ document.getElementById("checkBox").addEventListener("change", function () {
         this.checked ? "block" : "none";});
         
 let numName = 0; // Simple variable to display the number of names the user has generated in a session
-
+function GRN(v,c)
+{
+    return(GenerateRandomName("general",v,c));
+}
 // The actual program code, contains UI and function calls for basic program usage
 function DoIt() {
     numName++
@@ -339,18 +359,18 @@ function DoIt() {
 
     // Display symbols to aid in readability and aesthetics
     let omRange = document.getElementById("omMount").value;
-    let codeType = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
-    let codeType2 = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+    let codeType = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+    let codeType2 = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
     let codeType3 = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
     if(omRange == 0) // Displays corresponding Unicode symbols
     {
-        codeType = ["♔","#","♡","𓐍","∡","🏙","🗺","﹩","→","←","❖","☠","!","⛑","🛢","🗞","⛿","𐰅","♱","🏛","🕮","𝄞","𝄢","🏝","⌂","𐦆"];
-        codeType2 = ["♚","#","♡","𓐍","≞","🏙","🗺","₼","←","→","❖","☠","❣","⛑","🛢","🗞","⛿","ت","☪","🏛","🕮","𝄇","𝄇","🏝","🏘","𐦂"];
+        codeType = ["♔","#","♡","𓐍","∡","🏙","🗺","﹩","→","←","❖","☠","!","⛑","🛢","🗞","⛿","𐰅","♱","🏛","🕮","𝄞","𝄢","🏝","⌂","𐦆","⇝"];
+        codeType2 = ["♚","#","♡","𓐍","≞","🏙","🗺","₼","←","→","❖","☠","❣","⛑","🛢","🗞","⛿","ت","☪","🏛","🕮","𝄇","𝄇","🏝","🏘","𐦂","⇜"];
         codeType3 = ["◈ ","◈","◈","◈","◈","◈","⍩","⍩","⍩","Δ","Δ","⧖","🛠","🛠","🛠","🛠","🛠","🛠","🛠","🛠","🏝","🛢","🛢","⧗","⍩","⍩","🛠","🛠","🛠","𓃖","⍩","⍩","⍩","Δ","⍩","⧗","⧗","☤","🛢","☢","🛢","Δ","⚒","⚒","⤬","⤬","⚒","🖌","🖌","⚒","🖌","✝","🖌"];
     } else if(omRange == 1) // Displays corresponding Emojis
     {
-        codeType = ["👑","🔢","🤝","🌐","📏","🏙️","🗺️","💰","➡️","⬅️","💎","😀","😈","🚔","🪾","📰","🏴","🔤","⛪","🗼","📚","🎶","🎵","🏞️","🏡","🏛️"];
-        codeType2 = ["✊","🔡","🤝","🌐","📐","🌆","🗺️","🪙","⬅️","➡️","🪵","😡","🫰","🚔","🌳","🗞️","🏳️","🔤","🕌","🗿","🖼️","🎶","🎵","🌅","🛖","🏛️"];
+        codeType = ["👑","🔢","🤝","🌐","📏","🏙️","🗺️","💰","➡️","⬅️","💎","😀","😈","🚔","🪾","📰","🏴","🔤","⛪","🗼","📚","🎶","🎵","🏞️","🏡","🏛️","💥"];
+        codeType2 = ["✊","🔡","🤝","🌐","📐","🌆","🗺️","🪙","⬅️","➡️","🪵","😡","🫰","🚔","🌳","🗞️","🏳️","🔤","🕌","🗿","🖼️","🎶","🎵","🌅","🛖","🏛️","🕊️"];
         codeType3 = ["⌛️","💎","💎","💎","💎","⛏","🌽","🥦","🍐","🐏","🧶","🪟","⛏","⛏","⛏","⛏","⛏","⛏","⛏","⛏","🪓","🏭","🛢","🧂","🍰","🥭","🪨","⛏","⛏","🐄","🥩","🍞","🍚","🐄","🍝","💧","🍺","💊","🏭","☢️","🏭","🧶","⛓","⛓","❌","❌","🖥","✒️","🖼","🎻","🏭","☯️","🎭"];
     }
 
@@ -461,6 +481,21 @@ function DoIt() {
         RandomNumber(3,60)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", and "+RandomNumber(3,10)+" "+subType3,
         RandomNumber(3,50)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", "+RandomNumber(3,20)+" "+subType3+", and "+RandomNumber(3,10)+" "+subType4])+" "+codeType[23];
     
+        // Added after 3.0
+    // 9/22/2026
+    otherNation = PoliticalType(GRN(v,c));
+    otherAlliance = GenerateRandomName("alliance",v,c,GRN(v,c),GRN(v,c));
+    civilNation = PoliticalType(RFL([GRN(v,c),p_Demo,p_Demo1,p_Demo2,finale,finale,finale,finale,finale,finale,finale]));
+    rebellion = RFL([GRN(v,c),p_Demo,p_Demo1,p_Demo2])+RFL(["an", "ian", "ite", "id","ids","", "", ""]);
+    document.getElementById("politic").innerText = codeType[26]+"Situation: "+RFL([
+        "At war with the "+otherNation, // One
+        "At peace ", 
+        "At war with the "+otherAlliance, // Alliance
+        "In a civil war with the "+civilNation, // One
+        "Dealing with the "+rebellion+" rebellion", // Nation
+
+
+    ])+" "+codeType2[26];
 
     /// --- EXTRAS
     if(dynastical === 0)
