@@ -1,103 +1,127 @@
-<!DOCTYPE html> 
-<html>
-    <link rel="stylesheet" href="style.css">
-    <header id="div1">
-        <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv"></p>
-        <i>Kardzer Country Generator V3.1</i>
-    </header>
-    <hr>
-    <div id="sectionsCustom">
-        <input type="checkbox" id="checkBox" name="Section8" checked="checked" style="accent-color: rgb(184, 182, 182)"><br>
-        <label for="Section8"> Toggle Options</label><br>
-        <div id="checkboxes">
-            <input type="checkbox" id="diploBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)"><br>
-            <label for="Section1" style="background-color: rgb(88, 13, 13)"> Show Diplomacy</label><br>
-            <input type="checkbox" id="cultBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)"><br>
-            <label for="Section2" style="background-color: rgb(12, 17, 83)""> Show Culture</label><br>
-            <input type="checkbox" id="geoBox" name="Section3" checked="checked" style="accent-color: rgb(153, 241, 180)"><br>
-            <label for="Section3" style="background-color: rgb(6, 48, 19)"> Show Geography</label><br>
-            <input type="checkbox" id="ecoBox" name="Section4" checked="checked" style="accent-color: rgb(228, 241, 153)"><br>
-            <label for="Section4" style="background-color: rgb(72, 82, 15)"> Show Economy</label><br>
-            <input type="checkbox" id="sitBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)"><br>
-            <label for="Section5" style="background-color: rgb(49, 11, 71)"> Show Situation</label><br>
-            <input type="checkbox" id="subBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)"><br>
-            <label for="Section6"style="background-color: rgb(14, 88, 76)"> Show Subdivisions</label><br>
-            <br>
-            <symbolDiv style="background-color: #25117e;">
-                <othertext>- Symbols -</othertext><br>
-                <li><input id="omMount" type="range" min="0" max="2" value="2" style="width: 250px;"></li>
-                <othertext>Unicode | Emojis | None</othertext><br><br>
-            </symbolDiv>
-            <accentDiv style="background-color: #7e1111;">
-                <othertext>- Accents -</othertext><br>
-                <li><input id="letterTypes" type="range" min="0" max="3" value="1" style="width: 250px;"></li>
-                <othertext>None | Many | Phonetic | Vekleic</othertext>
-            </accentDiv>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+<header id="div1">
+    <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv" alt="kcg"></p>
+    <i>Kardzer Country Generator V3.2</i>
+</header>
+<div id="sectionsCustom">
+    <input type="checkbox" id="checkBox" name="Section8" checked="checked" style="accent-color: rgb(184, 182, 182)"><br>
+    <label for="checkBox"> Toggle Options</label><br>
+    <div id="checkboxes">
+        <input type="checkbox" id="diploBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)"><br>
+        <label for="diploBox" style="background-color: rgb(88, 13, 13)"> Show Diplomacy</label><br>
+        <input type="checkbox" id="cultBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)"><br>
+        <label for="cultBox" style="background-color: rgb(12, 17, 83)"> Show Culture</label><br>
+        <input type="checkbox" id="cult2Box" name="Section3" checked="checked" style="accent-color: rgb(190 193 236)"><br>
+        <label for="cult2Box" style="background-color: rgb(44 50 103)"> Show Culture+</label><br>
+        <input type="checkbox" id="geoBox" name="Section3" checked="checked" style="accent-color: rgb(153, 241, 180)"><br>
+        <label for="geoBox" style="background-color: rgb(6, 48, 19)"> Show Geography</label><br>
+        <input type="checkbox" id="ecoBox" name="Section4" checked="checked" style="accent-color: rgb(228, 241, 153)"><br>
+        <label for="ecoBox" style="background-color: rgb(72, 82, 15)"> Show Economy</label><br>
+        <input type="checkbox" id="sitBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)"><br>
+        <label for="sitBox" style="background-color: rgb(49, 11, 71)"> Show Situation</label><br>
+        <input type="checkbox" id="subBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)"><br>
+        <label for="subBox" style="background-color: rgb(14, 88, 76)"> Show Subdivisions</label><br>
+        <input type="checkbox" id="demoBox" name="Section6" checked="checked" style="accent-color: rgb(250 151 66)"><br>
+        <label for="demoBox" style="background-color: rgb(184 97 20)"> Show Demographics</label><br>
+        <br>
+        <symboldiv style="background-color: #25117e;">
+            <othertext>- Symbols -</othertext><br>
+            <!--<li><input id="omMount" type="range" min="0" max="2" value="2" style="width: 250px;"></li>-->
+
+            <select name="chars" id="omMount">
+                <option value="2">None</option>
+                <option value="1">Emojis</option>
+                <option value="0">Unicode</option>
+            </select><br>
+        </symboldiv>
+        <br>
+        <accentdiv style="background-color: #25117e;">
+            <othertext>- Accents -</othertext><br>
+            <!--<li><input id="letterTypes" type="range" min="0" max="3" value="1" style="width: 250px;"></li>-->
+            <select name="letterTypes" id="letterTypes">
+                <option value="0">None</option>
+                <option value="1">Many</option>
+                <option value="2">Phonetic</option>
+                <option value="3">Vekleic</option>
+            </select><br>
+            <othertext>None | Many | Phonetic | Vekleic</othertext>
+        </accentdiv>
     </div>
+</div>
+<title>Kardzer Country Generator Web</title>
 
-    <body>
-        <title>Kardzer Country Generator Web</title>
-        <button style="background-color: #65589c;" onclick=DoIt()><text style="font-size: 500%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">Generate<sub>↵</sub></text></button>
-            <div id="nation">
-                <text id="demo" style="font-size: 60pt;">Nation</text><br>
-                <text id="city" style="font-size: 30pt;">Capital</text><br>
-                <text style="font-size: 30pt;"><text id="leadership"></text><text id="leader" title="Leader's First Name">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></text><br>
-                <text style="font-size: 30pt;"><text id="admin">Code</text></text><br>
-                <a href="codes.html" target="_blank"><i style="font-size: 10pt;">Government Code</i></a>
-            </div>
-            <div id="diplo">
-                <text style="font-size: 30pt;"><text id="alliance">Alliance</text></text><br>    
-                <text id="diplomacy" style="font-size: 30pt;">Diplomacy</text><br>
-                <text id="politic" style="font-size: 20pt;">Political Situation</text><br>            
-            </div>
-            <div id="cult">
-                <text id="culture" style="font-size: 30pt;">Culture</text><br>
-                <text style="font-size: 30pt;"id="language">Language</text><br>
-                <text id="religion" style="font-size: 30pt;">Religion</text><br>
-                <text id="landm" style="font-size: 30pt;">Landmark</text><br>
-                <text id="greatwork" style="font-size: 30pt;">Great Work</text><br>
-                <text id="anthem" style="font-size: 30pt;">Anthem</text><br>
-                <text id="bassline" style="font-size: 30pt;">Bassline</text><br>
-            </div>
-            <div id="geot">
-                <text id="geography" style="font-size: 30pt;">Size</text><br>
-                <text id="pop" style="font-size: 30pt;">Population</text><br>
-                <text id="geo" style="font-size: 30pt;">Geography</text><br>
-            </div>
-            <div id="econy">
-                <text id="econ" style="font-size: 30pt;">Economy</text><br>
-                <text id="im" style="font-size: 30pt;">Imports</text><br>
-                <text id="ex" style="font-size: 30pt;">Exports</text><br>
-                <text id="specres" style="font-size: 30pt;">Special Resource</text><br>
-            </div>
-            <div id="unrst">
-                <text id="unrest" style="font-size: 30pt;">Unrest</text><br>
-                <text id="corr" style="font-size: 30pt;">Corruption</text><br>
-                <text id="crime" style="font-size: 30pt;">Crime Rate</text><br>
-                <text id="enviro" style="font-size: 30pt;">Environment</text><br>
-            </div>
-            <div id="subdivy">
-                <text id="subdiv" style="font-size: 30pt;">Subdivisions</text><br>
-            </div>
+<body>
+<button style="background-color: #65589c;" onclick=DoIt()><text style="font-size: 500%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">Generate<sub>↵</sub></text></button>
+<div id="nation">
+    <text id="demo" style="font-size: 60pt;">Nation</text><br>
+    <text id="city" style="font-size: 30pt;">Capital</text><br>
+    <text style="font-size: 30pt;"><text id="leadership"></text><text id="leader">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></text><br>
+    <text style="font-size: 30pt;"><text id="admin">Code</text></text><br>
+    <a href="codes.html" target="_blank"><i style="font-size: 10pt;">Government Code</i></a>
+</div>
+<div id="diplo">
+    <text style="font-size: 30pt;"><text id="alliance">Alliance</text></text><br>
+    <text id="diplomacy" style="font-size: 30pt;">Diplomacy</text><br>
+    <text id="politic" style="font-size: 20pt;">Political Situation</text><br>
+</div>
+<div id="cult">
+    <text id="culture" style="font-size: 30pt;">Culture</text><br>
+    <text style="font-size: 30pt;"id="language">Language</text><br>
+    <text id="religion" style="font-size: 30pt;">Religion</text><br>
+</div>
+<div id="cultureplus">
+    <text id="landm" style="font-size: 30pt;">Landmark</text><br>
+    <text id="greatwork" style="font-size: 30pt;">Great Work</text><br>
+    <text id="anthem" style="font-size: 30pt;">Anthem</text><br>
+    <text id="bassline" style="font-size: 30pt;">Bassline</text><br>
+</div>
+<div id="geot">
+    <text id="geography" style="font-size: 30pt;">Size</text><br>
+    <text id="pop" style="font-size: 30pt;">Population</text><br>
+    <text id="geo" style="font-size: 30pt;">Geography</text><br>
+</div>
+<div id="econy">
+    <text id="econ" style="font-size: 30pt;">Economy</text><br>
+    <text id="im" style="font-size: 30pt;">Imports</text><br>
+    <text id="ex" style="font-size: 30pt;">Exports</text><br>
+    <text id="specres" style="font-size: 30pt;">Special Resource</text><br>
+</div>
+<div id="unrst">
+    <text id="unrest" style="font-size: 30pt;">Unrest</text><br>
+    <text id="corr" style="font-size: 30pt;">Corruption</text><br>
+    <text id="crime" style="font-size: 30pt;">Crime Rate</text><br>
+    <text id="enviro" style="font-size: 30pt;">Environment</text><br>
+</div>
+<div id="subdivy">
+    <text id="subdiv" style="font-size: 30pt;">Subdivisions</text><br>
+</div>
+<div id="demoy">
+    <text id="demo0" style="font-size: 20pt;">Demographic #1</text><br>
+    <text id="demo1" style="font-size: 20pt;">Demographic #2</text><br>
+    <text id="demo2" style="font-size: 20pt;">Demographic #3</text><br>
+    <text id="demo3" style="font-size: 20pt;">Demographic #4</text><br>
+    <text id="demoLeft" style="font-size: 20pt;">Leftover Demographic</text>
+</div>
 
 
-    </body>
+</body>
+<hr>
+<footer class="page-footer">
+    <ul>
+        <h2>Settings will apply upon next generation</h2>
+
+    </ul><br>
+
     <hr>
-    <footer class="page-footer">
-        <ul>
-            <h2>Settings will apply upon next generation</h2>
-
-        </ul><br>
-
-        <hr>
-        <h2>Nations Generated: <text id="numName"></text></h2>
-        <br>
-        <text>Simplified Version of <a href="https://kardashtuku.itch.io/country-generator" target="_blank"><i>Kardzer Country Generator</i></a> for the web<br>Reprogrammed from Python to Javascript</text>
-        <br>
-        <a href="https://www.kardashtuku.com/" target="_blank"><img style="background-color: black;" width="200" src="Images/KardzerLogoFancyWhite.png"></a>
-        <h2 style="width: 50%;  overflow-wrap: break-word; margin-left: auto; margin-right: auto; align-items: center;">Alphabet: <text id="alphabeta"></text></h2>
-    </footer>
+    <h2>Nations Generated: <text id="numName"></text></h2>
+    <br>
+    <text>Simplified Version of <a href="https://kardashtuku.itch.io/country-generator" target="_blank"><i>Kardzer Country Generator</i></a> for the web<br>Reprogrammed from Python to Javascript</text>
+    <br>
+    <a href="https://www.kardashtuku.com/" target="_blank"><img style="background-color: black;" width="200" src="Images/KardzerLogoFancyWhite.png"></a>
+    <h2 style="width: 50%;  overflow-wrap: break-word; margin-left: auto; margin-right: auto; align-items: center;">Alphabet: <text id="alphabeta"></text></h2>
+</footer>
 
 <script src="main.js" ></script>
 </html>
