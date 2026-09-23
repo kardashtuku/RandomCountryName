@@ -1,7 +1,7 @@
 #sectionsCustom
 {
     position: absolute;
-    top: 150;
+    top: 15%;
     margin-right: 50%;
     font-size: 20px;
     text-align: left;
@@ -13,42 +13,56 @@ input[type="checkbox"]
 }
 #div1
 {
-  border-radius: 25px;
-  border: 4px solid #ffffff;
-  padding: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  align-items: center;
-  
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+
 }
 #nation
 {
-  color: white;
+    color: white;
 }
 #diplo
 {
-  color: rgb(241, 153, 153);
+    color: rgb(241, 153, 153);
+}
+#demoy
+{
+    color: rgb(255 119 0);
 }
 #unrst
 {
-  color: rgb(209, 153, 241);
+    color: rgb(209, 153, 241);
 }
 #econy
 {
-  color: rgb(228, 241, 153);
+    color: rgb(228, 241, 153);
 }
 #subdivy
 {
-  color: rgb(153, 241, 226);
+    color: rgb(153, 241, 226);
 }
 #geot
 {
-  color: rgb(153, 241, 180);
+    color: rgb(153, 241, 180);
 }
 #cult
 {
-  color: rgb(153, 159, 241);
+    color: rgb(153, 159, 241);
 }
+#cultureplus
+{
+    color: rgb(203 206 248);
+}
+
+select{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    color: white;
+    accent-color: red;
+    background-color: #352481;
+}
+
 html {
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: white;
@@ -58,7 +72,7 @@ html {
 
 #imageDiv
 {
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
