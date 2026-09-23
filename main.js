@@ -13,11 +13,11 @@ function CTL(firstList, secondList)
 }
 function Variance() // Adds a small amount of random variance when multiplied by a number
 {
-    return (Math.floor(Math.random() * 1025) + 975) / 1000;
+    return Math.floor(Math.random() * (1200 - 800) + 800) / 1000;
 }
 function RandomNumber(min,max) // Returns a random number in-between two values
 {
-    return Math.floor(Math.random() * max) + min;
+    return Math.floor(Math.random() * (max - min) + min);
 }
 function Translate(number,terms) // Takes a pre-generated number and applies it to a translative list
 {
@@ -95,13 +95,13 @@ function NationType(nat,union,coder)
 
 }
 function PoliticalType(nat)
-{   
+{
     let frontOrBack = Math.floor(Math.random() * 2);
     let government = RFL(["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty","Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy","Sultanate",
         "Dictatorship","Regime","Fascism","Autocracy","Despotism","Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique","Confederation","Federation","Theocracy","Priestdom","Cult","State","Union","Khanate","Khaganate",
         "Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"]);
     let suffixes = ["an", "ian", "ite", "id","ids","", "", ""];
-    
+
     if (frontOrBack === 1) {
         return government + " of" + RFL([" ", " the "]) + nat;
     } else {
@@ -206,7 +206,7 @@ function GenerateRandomName(type,v,c,union,capitala,codera)  // Holds the code r
     let flipBetween = Math.floor(Math.random() * 5); // Picks whether the letter is a consonant or vowel
     let start = 0;
     let iteration = [0, 2, 4, 6, 8, 10, 12, 14, 16]; // Makes it so every other letter should be different type
-        // *for some reason it sometimes doubles up on a letter type anyway, but it's fine because it adds some variety
+    // *for some reason it sometimes doubles up on a letter type anyway, but it's fine because it adds some variety
 
     // Generates a random string of letters with some structure
     for (let i = 0; i < lengthOf; i++) {
@@ -225,7 +225,7 @@ function GenerateRandomName(type,v,c,union,capitala,codera)  // Holds the code r
         start++;
     }
 
-        // Figure out what type of name we're generating
+    // Figure out what type of name we're generating
     // Results in rName surrounded by national terms like 'Republic of,' 'Kingdom,' etc.
     if(type === "nation") {
         results.push(NationType(rName,union,codera));
@@ -260,6 +260,12 @@ document.getElementById("diploBox").addEventListener("change", function () {
 document.getElementById("cultBox").addEventListener("change", function () {
     document.getElementById("cult").style.display =
         this.checked ? "block" : "none";});
+document.getElementById("cult2Box").addEventListener("change", function () {
+    document.getElementById("cultureplus").style.display =
+        this.checked ? "block" : "none";});
+document.getElementById("demoBox").addEventListener("change", function () {
+    document.getElementById("demoy").style.display =
+        this.checked ? "block" : "none";});
 document.getElementById("geoBox").addEventListener("change", function () {
     document.getElementById("geot").style.display =
         this.checked ? "block" : "none";});
@@ -275,7 +281,7 @@ document.getElementById("subBox").addEventListener("change", function () {
 document.getElementById("checkBox").addEventListener("change", function () {
     document.getElementById("checkboxes").style.display =
         this.checked ? "block" : "none";});
-        
+
 let numName = 0; // Simple variable to display the number of names the user has generated in a session
 function GRN(v,c)
 {
@@ -284,8 +290,9 @@ function GRN(v,c)
 // The actual program code, contains UI and function calls for basic program usage
 function DoIt() {
     numName++
-        // User interface
+    // User interface
     // Decides what letters are allowed in the program
+    const SUFFIXES = ["an","ian","ite","ic","id","","","","",""];
     let lemRange = document.getElementById("letterTypes").value;
     let v = ["A", "U","I", "O","E"];
     let c = ["R", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
@@ -374,7 +381,7 @@ function DoIt() {
         codeType3 = ["⌛️","💎","💎","💎","💎","⛏","🌽","🥦","🍐","🐏","🧶","🪟","⛏","⛏","⛏","⛏","⛏","⛏","⛏","⛏","🪓","🏭","🛢","🧂","🍰","🥭","🪨","⛏","⛏","🐄","🥩","🍞","🍚","🐄","🍝","💧","🍺","💊","🏭","☢️","🏭","🧶","⛓","⛓","❌","❌","🖥","✒️","🖼","🎻","🏭","☯️","🎭"];
     }
 
-        // Important Program-Wide Variables
+    // Important Program-Wide Variables
     // Notes
     let notes = ['C','D♭','D','E♭','E','F','G♭','G','A♭','A','B♭','B'];
 
@@ -383,13 +390,13 @@ function DoIt() {
 
     /// --- CREATE PRIMARIES
     // NATION
-    
+
     let p_City = GenerateRandomName("city",v,c).join("\n"); // Capital City
     let p_Demo = GenerateRandomName("general",v,c).join("\n"); // Main Demographic
     let p_Demo1 = GenerateRandomName("general",v,c).join("\n"); // Second Demographic
     let p_Demo2 = GenerateRandomName("general",v,c).join("\n"); // Third Demographic
     let p_Nation = GenerateRandomName("nation",v,c,p_Demo,p_City,codeType[0]).join("\n"); // Nation name
-    let density = RandomNumber(1,10)
+    let density = RandomNumber(10,100) / 10;
     let size = RandomNumber(1,400000)*Variance();
     let culturePick = RFL([finale,finale,finale,p_Demo1,p_Demo2,p_City]);
     let reli = RFL([finale,p_Demo,p_Demo1,p_Demo2,p_City,(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c)),(GenerateRandomName("general",v,c))]);
@@ -398,7 +405,7 @@ function DoIt() {
     let corruption = RandomNumber(0,100);
     let crimeRate = RandomNumber(0,100);
     let environment = RandomNumber(0,100);
-    
+
     let specName = GenerateRandomName("general",v,c);
     let specSuffix = RFL([" Worm"," Spider"," Herd"," Goat"," Sheep","","","","","","","","","",""]);
     let specSuffixAnimal = RFL(["ite","ium","ite","ium","","","","","","","","","","","",""]);
@@ -406,7 +413,7 @@ function DoIt() {
     let resources = ["Silica ","Rare Earth Minerals","Diamonds","Gems","Jewelry","Ornate Metalworkings","Crops","Vegetables","Fruit","Wools","Textiles","Glass","Iron","Steel","Titanium","Tin","Lead","Copper","Zinc","Aluminum","Wood","Coal","Oil","Spices","Sugar","Tropical Fruits","Limestone","Ores","Metals","Livestock","Meat","Wheat","Rice","Leather","Food","Water","Alcohol","Medicine","Rubber","Radioactive Materials","Plastic","Fabric","People","Slavery","None","N/A","Technology","Entertainment","Art","Talent","Clothing","Religion","Culture"];
     let imported = RFL(resources);
     let exported = RFL(resources);
-    
+
 
     let landMarkType = RFL(["Statue","Gate","Wall","House","Capitol","Fountain","Lake","River","Creek","Falls","Waterfall","Bayou","Swamp","Forest","Desert","Road","Monument","Temple"]);
     let landMarkName = RFL([finale,p_Demo,p_City,p_Demo1,p_Demo2,GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c),GenerateRandomName("general",v,c)]);
@@ -439,68 +446,104 @@ function DoIt() {
     /// --- CREATE PRIMARIES
 
     /// --- ADD NAMES
-        // NATION
+    // NATION
     document.getElementById("demo").innerText = p_Nation;
     document.getElementById("city").innerText = "Capital: "+p_City;
     document.getElementById("leader").innerText = ": "+GenerateRandomName("general",v,c,p_Nation,p_City).join("\n");
     document.getElementById("admin").innerHTML = codeType[1]+" "+`${RFL(["A","C","U","F","S"])}${RFL(["Tr","Cl","Th","Ty","Ol","Re","De","Dy","Ci","Ec","Te","An"])}:${RFL(["0","1","2","3","4"])}`+" "+codeType2[1];
-    
-        // Diplomacy
+
+    // Diplomacy
     document.getElementById("alliance").innerText = codeType[2]+" "+"Alliance: "+RFL([GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),GenerateRandomName("alliance",v,c,p_Nation,p_City).join("\n"),"None"])+" "+codeType2[2];
     document.getElementById("diplomacy").innerText = codeType[3]+" "+"Diplomacy: "+RFL(["At War","Ostracized","Hated","Isolated","On Bad Terms with Neighbors","Plentiful Border Disputes","Post-war","Neutral","Plays multiple sides","Supplies aide","Unimportant","Important ally","Regional Power","Threatening","Unassuming","Friends with the right people","Friends with the wrong people","Insignificant","Monstrous","Global Hegemon","Hegemon","Very Influencial","Strongman","Everyone's Friend"])+" "+codeType2[3];
 
-        // Geography
+    // Geography
     document.getElementById("geography").innerText = codeType[4]+" "+"Size: "+Commize((Math.round(size)))+" "+codeType2[4];
-    document.getElementById("pop").innerText = codeType[5]+" "+"Population: "+(Commize(Math.round(size*density))+" | "+Math.round(density)+" per square "+unit)+" "+codeType2[5];
+    document.getElementById("pop").innerText = codeType[5]+" "+"Population: "+(Commize(Math.round(size*density))+" | "+density+" per square "+unit)+" "+Variance()+" "+codeType2[5];
     document.getElementById("geo").innerText = codeType[6]+" "+RFL(["Mostly","Partially","Entirely"])+RFL([" on an Island"," on a Peninsula"," landlocked"," across a coast"," on a strait"," on several islands"," on the mainland"," on an isthmus"])+" "+codeType2[6];
-        // Economy + 
+    // Economy +
     document.getElementById("econ").innerText = codeType[7]+" "+"Economy: "+RFL(["Depression","Recession","Fine","Fairly Good","Good","Great","Central Trade Nation","Trade Power"])+" "+codeType2[7]; // TO DO
     document.getElementById("im").innerText = codeType[8]+" "+"Top Import: "+imported+" "+codeType3[resources.indexOf(imported)]; // TO DO
     document.getElementById("ex").innerText = codeType[9]+" "+"Top Export: "+exported+" "+codeType3[resources.indexOf(exported)]; // TO DO
     document.getElementById("specres").innerText = codeType[10]+" "+"Special Resource: "+specResource+" "+codeType2[10]; // TO DO
 
-        //Stability
+    //Stability
     document.getElementById("unrest").innerText = codeType[11]+" "+"Unrest: "+Math.round(((corruption+crimeRate+environment)/3))+"%"+" "+codeType2[11];
     document.getElementById("corr").innerText = codeType[12]+" "+"Corruption: "+Translate(corruption,["Extremely ","Very ","Very ","Very ","Quite ","","","Somewhat ","Somewhat ","Not "])+"Corrupt"+" "+codeType2[12];
     document.getElementById("crime").innerText = codeType[13]+" "+"Crime Rate: "+Translate(crimeRate,["Very High","High","Somewhat High","Average","Average","Average","Somewhat Low","Low","Very Low","Nonexistent"])+" "+codeType2[13];
     document.getElementById("enviro").innerText = codeType[14]+" "+"Environment: "+Translate(environment,(["Extremely Polluted","Polluted","Polluted","Slightly Polluted","Normal","Normal","Normal","Clean","Pristine","Pristine"]))+" "+codeType2[14];
     //$add Headline
 
-        // Culture + 
-    document.getElementById("culture").innerText = codeType[16]+" "+"Culture: "+culturePick+RFL(["an","ian","ite","ic","id","","","","",""])+" "+codeType2[16];
+    // Culture +
+    let topCulture = culturePick+RFL(SUFFIXES);
+    document.getElementById("culture").innerText = codeType[16]+" "+"Culture: "+topCulture+" "+codeType2[16];
     document.getElementById("religion").innerText = codeType[18]+" "+"Religion: "+RFL([reli,"Tribal","Various Folk Religions","Animist","Folk","None","Atheist",reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli,reli])+" "+codeType2[18];
     document.getElementById("language").innerText = codeType[17]+" "+"Language: "+RFL(["Old","Middle","New","Standard","Modern","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]) + " " + RFL([finale,finale,p_City,p_Demo,p_Demo1,p_Demo2])+RFL(["ic","ic","ic","ic","ish","an","in","","","","","","",""])+" "+codeType2[17];
+
+    // Culture+
     document.getElementById("landm").innerText = codeType[19]+" "+"Landmark: "+landMark+" "+codeType2[19]; // TO DO
     document.getElementById("greatwork").innerText = codeType[20]+" "+"Great Work: "+workFinal+" "+codeType2[20]; // TO DO
     document.getElementById("anthem").innerText = codeType[21]+" "+"Anthem: "+GetScale(notes,codeType[22],codeType2[22])+" "+codeType2[21];
 
-        // Subdivisions + //$add Type
+    // Subdivisions + //$add Type
     document.getElementById("subdiv").innerText = codeType[23]+" "+"Subdivisions: "+RFL(["None",
         RandomNumber(3,100)+" "+subType,
         RandomNumber(3,80)+" "+subType+" and "+RandomNumber(3,20)+" "+subType2,
         RandomNumber(3,60)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", and "+RandomNumber(3,10)+" "+subType3,
         RandomNumber(3,50)+" "+subType+", "+RandomNumber(3,30)+" "+subType2+", "+RandomNumber(3,20)+" "+subType3+", and "+RandomNumber(3,10)+" "+subType4])+" "+codeType[23];
-    
-        // Added after 3.0
+
+    // Added after 3.0
     // 9/22/2026
-    otherNation = PoliticalType(GRN(v,c));
-    otherAlliance = GenerateRandomName("alliance",v,c,GRN(v,c),GRN(v,c));
-    civilNation = PoliticalType(RFL([GRN(v,c),p_Demo,p_Demo1,p_Demo2,finale,finale,finale,finale,finale,finale,finale]));
-    rebellion = RFL([GRN(v,c),p_Demo,p_Demo1,p_Demo2])+RFL(["an", "ian", "ite", "id","ids","", "", ""]);
+    let otherNation = PoliticalType(GRN(v,c));
+    let otherAlliance = GenerateRandomName("alliance",v,c,GRN(v,c),GRN(v,c));
+    let civilNation = PoliticalType(RFL([GRN(v,c),p_Demo,p_Demo1,p_Demo2,finale,finale,finale,finale,finale,finale,finale]));
+    let rebellion = RFL([GRN(v,c),p_Demo,p_Demo1,p_Demo2])+RFL(SUFFIXES);
     document.getElementById("politic").innerText = codeType[26]+"Situation: "+RFL([
         "At war with the "+otherNation, // One
-        "At peace ", 
+        "At peace ",
         "At war with the "+otherAlliance, // Alliance
         "In a civil war with the "+civilNation, // One
         "Dealing with the "+rebellion+" rebellion", // Nation
-
-
     ])+" "+codeType2[26];
 
+    //Demographics
+    let demographics = [finale,p_Demo2,p_Demo1,p_Demo,p_City];
+
+    let percentOf = 10000;
+    let takeAway;
+
+    let currentDemo;
+    let demoList = [];
+
+    for(let i = 0; i < 4; i++) {
+        takeAway = RandomNumber(percentOf/100,percentOf);
+        percentOf -= takeAway;
+        if(i === 0)
+        {
+            currentDemo = topCulture;
+        }
+        else
+        {
+            currentDemo = RFL(demographics);
+        }
+
+        demoList.push(currentDemo+RFL(SUFFIXES) + ": " + takeAway / 100 + "% ");
+        if(i === 0)
+        {
+            demographics.splice(demographics.indexOf(culturePick),1);
+        }
+        else {
+            demographics.splice(demographics.indexOf(currentDemo), 1);
+        }
+    }
+    document.getElementById("demo0").innerText = demoList[0];
+    document.getElementById("demo1").innerText = demoList[1];
+    document.getElementById("demo2").innerText = demoList[2];
+    document.getElementById("demo3").innerText = demoList[3];
+    document.getElementById("demoLeft").innerText = "Other: "+percentOf/100+"%";
     /// --- EXTRAS
     if(dynastical === 0)
     {
-    document.getElementById("last").innerText = GenerateRandomName("general",v,c).join("\n");
+        document.getElementById("last").innerText = GenerateRandomName("general",v,c).join("\n");
     }
     else
     {
