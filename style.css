@@ -1,16 +1,15 @@
 #sectionsCustom
 {
-    position: fixed;
-    bottom: 1%;
+    position: absolute;
+    top: 150;
     margin-right: 50%;
-    font-size: 2.8vh;
+    font-size: 20px;
     text-align: left;
 }
-
 input[type="checkbox"]
 {
-    width: 4.6vh;
-    height: 4.6vh;
+    width: 50px;
+    height: 50px;
 }
 #div1
 {
@@ -63,4 +62,3 @@ html {
   margin-left: auto;
   margin-right: auto;
 }
-
