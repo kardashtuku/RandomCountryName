@@ -1,10 +1,6 @@
 // ---- | Helper Functions | ---- //
 const HLPR =
 {
-    Locate(pulledObject, inList, pulledFrom)
-    {
-        return list2[pullFrom.indexOf(list1)];
-    },
     RFL(givenList)
     { // Returns a random value from a list
         return givenList[Math.floor(Math.random() * givenList.length)];
