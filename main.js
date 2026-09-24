@@ -234,7 +234,7 @@ function DoIt() {
     const SUFFIXES = ["an","ian","ite","ic","id","","","","",""];
     let lemRange = document.getElementById("letterTypes").value;
     let v = ["A", "U","I", "O","E"];
-    let c = ["R", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
+    let c = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
     let aV = [];
     let aC = [];
     if(lemRange == 1) {
