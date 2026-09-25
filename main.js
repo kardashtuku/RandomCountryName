@@ -270,7 +270,7 @@ function DoIt() {
     } else if(lemRange == 2) {
         aV = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
         aC = ["Č","Ş"];
-    } else if(lemRange == 3) 
+    } else if(lemRange == 3)
     {
         aV = ["Ė","Ê","Ü","Ë"];
         aC = ["Ḟ"];
@@ -298,25 +298,31 @@ function DoIt() {
     {
         aV = ["Á", "É", "Í", "Ó", "Ú", "Ü"];
         aC = ["Ñ"];
+    }   else if(lemRange == 8)
+    {
+        aC = PhoType(0);
+        aV = PhoType(1)
+        c = PhoType(2)
+        v = PhoType(3)
     }
     // Generate List of Available Letters
     let endItAV = HLPR.RandomNumber(0,5); // How many Accented Vowels are allowed to be left in a script
     let endItAC = HLPR.RandomNumber(0,3); // How many Accented Consonants are allowed to be left
-    let endItV = HLPR.RandomNumber(0,4); // How many basic Vowels are allowed to be removed
-    let endItC = HLPR.RandomNumber(0,20); // How many basic consonants are allowed to be removed
+    let endItV = HLPR.RandomNumber(1,4); // How many basic Vowels are allowed to be removed
+    let endItC = HLPR.RandomNumber(5,20); // How many basic consonants are allowed to be removed
 
     // Loop through the lists and remove some letters
     while (aV.length > endItAV) {
         aV.splice(HLPR.RandomNumber(0,aV.length),1);
     }
     while (aC.length > endItAC) {
-        aC.splice(HLPR.RandomNumber(0,aC.length-1),1);
+        aC.splice(HLPR.RandomNumber(0,aC.length),1);
     }
-    for (let i = 0; i < endItV; i++) {
-        v.splice(HLPR.RandomNumber(0,v.length-1),1);
+    while (v.length > endItV) {
+        v.splice(HLPR.RandomNumber(0,v.length),1);
     }
-    for (let i = 0; i < endItC; i++) {
-        c.splice(HLPR.RandomNumber(0,c.length-1),1);
+    while (c.length > endItC) {
+        c.splice(HLPR.RandomNumber(0,c.length),1);
     }
 
     // Applying custom values
@@ -553,3 +559,101 @@ document.getElementById("checkBox").addEventListener("change", function () {
 
 let numName = 0; // Simple variable to display the number of names the user has generated in a session
 dynastical = 0;
+
+// Phoneme Classes are groups of phonemes that more commonly go together
+// Phoneme Clusters are groups of similar phonemes
+// Phoneme Type determines what kind of groupings can occur
+
+BASIC_VOWELS = ["A", "U","I", "O","E"];
+BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C",];
+AV = [["Ə", "Æ","I","Ø","Œ"],
+    ["Á","É","Í","Ó","Ú"],
+    ["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],
+    ["Ȧ","Ė","İ","Ȯ","U̇"],
+    ["Ä","Ë","Ï","Ö","Ü"],
+    ["Ả","Ẻ","Ỉ","Ỏ","Ủ"],
+    ["À","È","Ì","Ò","Ù"],
+    ["Ā","Ē","Ī","Ō","Ū"],
+    ["Å","E̊","I̊","O̊","Ů"],
+    ["A̎","E̎","I̎","O̎","U̎"],
+    ["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
+    ["Â","Ê","Î","Ô","Û"],
+    ["Ő","Ű"],
+    ["A̗","E̗","I̗","O̗","U̗"],
+    ["A̖","E̖","I̖","O̖","U̖",],
+    ["Ạ", "Ụ","Ị", "Ọ","Ẹ",],
+    ["A̤", "Ṳ","I̤", "O̤","E̤","'"]];
+AC = [["Ğ", "Ð", "Þ","Β","Ʋ","𐌢"],
+    ["Ŕ", "T́", "Ṕ", "Ś", "Ǵ", "Ḱ", "B́","Q́","Ẃ", "Ý", "J́", "Ź", "V́", "F́", "H́", "Ĺ", "Ń", "Ḿ", "Ć"],
+    ["R̆", "T̆", "P̆", "S̆", "D̆", "Ğ", "K̆", "B̆","Q̆","W̆", "Y̆", "J̆", "Z̆", "V̆", "F̆", "H̆", "L̆", "N̆", "M̆", "C̆"],
+    ["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
+    ["R̈", "T̈", "S̈", "D̈", "K̈","Q̈","Ẅ", "Ÿ", "J̈", "Z̈", "V̈", "F̈", "Ḧ", "L̈", "N̈", "M̈", "C̈"],
+    ["R̀", "T̀", "P̀", "S̀", "D̀", "G̀", "K̀", "B̀","Q̀","Ẁ", "Ỳ", "Z̀", "V̀", "H̀", "L̀", "Ǹ", "M̀", "C̀"],
+    ["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],
+    ["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
+    ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],
+    ["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],
+    ["R̋", "T̋", "S̋", "D̋", "G̋", "K̋", "B̋","W̋", "Y̋", "J̋", "Z̋", "V̋", "F̋", "H̋", "L̋", "N̋", "M̋", "C̋"],
+    ["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
+    ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],
+    ["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],
+    ["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
+    ["̧R", "̧T", "̧P", "̧S", "̧D", "̧G", "̧K", "̧B","̧Q","̧W", "̧Y", "̧J", "̧Z", "̧V", "̧F", "̧H", "̧L", "̧N", "̧M"],
+    ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"]];
+
+function PhoType(i)
+{
+    let phoType = HLPR.RandomNumber(1,7);
+    phoType = 3;
+    let aCC = [];
+    let aVV = [];
+    let bCC = [];
+    let bVV = [];
+    switch (phoType)
+    {
+        case 1: // basic
+            aCC = [...new Set(HLPR.CTL(HLPR.RFL(AC),HLPR.RFL(AC)))];
+            aVV = [...new Set(HLPR.CTL(HLPR.RFL(AV),HLPR.RFL(AV)))];
+            bCC = BASIC_CONSONANTS;
+            bVV = BASIC_VOWELS;
+            break;
+        case 2: // chaotic
+            aCC = AC.flat();
+            aVV = AV.flat();
+            bCC = BASIC_CONSONANTS;
+            bVV = BASIC_VOWELS;
+            break;
+        case 3: // Barely Vowels
+            aCC = [...new Set(HLPR.CTL(HLPR.RFL(AC),HLPR.RFL(AC)))];
+            bCC = BASIC_CONSONANTS;
+            bVV = [HLPR.RFL(BASIC_VOWELS),HLPR.RFL(BASIC_VOWELS)].flat();
+            break;
+        case 4: // Barely Consonants
+            bVV = BASIC_VOWELS;
+            aCC = [...new Set(HLPR.CTL(HLPR.RFL(AV),HLPR.RFL(AV)))];
+            bCC = [HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS)].flat();
+            break;
+        case 5: // Barely Anything
+            bCC = [HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS)].flat();
+            bVV = [HLPR.RFL(BASIC_VOWELS),HLPR.RFL(BASIC_VOWELS)].flat();
+            break;
+        case 6: // One accent
+            if(HLPR.RandomNumber(1,2) === 1)
+            {
+                aCC = HLPR.RFL(AC.flat());
+            } else
+            {
+                aVV = HLPR.RFL(AV.flat());
+            }
+            bCC = BASIC_CONSONANTS;
+            bVV = BASIC_VOWELS;
+            break;
+        case 7: // Entirely Accents
+            aCC = HLPR.RFL(AC.flat());
+            aVV = HLPR.RFL(AV.flat());
+            break;
+        default:
+    }
+    return ([aCC,aVV,bCC,bVV][i]);
+}
+
