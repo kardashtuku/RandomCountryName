@@ -604,7 +604,6 @@ AC = [["Ğ", "Ð", "Þ","Β","Ʋ","𐌢"],
 function PhoType(i)
 {
     let phoType = HLPR.RandomNumber(1,7);
-    phoType = 3;
     let aCC = [];
     let aVV = [];
     let bCC = [];
