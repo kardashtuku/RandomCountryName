@@ -342,7 +342,7 @@ function DoIt() {
         v = PhoType(3)
     }
     // Generate List of Available Letters
-    let endItV = HLPR.RandomNumber(1,5); // How many basic Vowels are allowed to be removed
+    let endItV = HLPR.RandomNumber(3,5); // How many basic Vowels are allowed to be removed
     let endItC = HLPR.RandomNumber(HLPR.RandomNumber(10,16),23); // How many basic consonants are allowed to be removed
     let endItAV = HLPR.RandomNumber(1,HLPR.RandomNumber(3,7)); // How many Accented Vowels are allowed to be left in a script
     let endItAC = HLPR.RandomNumber(1,HLPR.RandomNumber(4,6)); // How many Accented Consonants are allowed to be left
