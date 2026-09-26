@@ -227,46 +227,82 @@ function DoIt() {
     numName++
     // User interface
     // Decides what letters are allowed in the program
-    const SUFFIXES = ["an","ian","ite","ic","id","","","","",""];
+    
     let lemRange = document.getElementById("letterTypes").value;
     let v = ["A", "U","I", "O","E"];
     let c = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
     let aV = [];
     let aC = [];
     if(lemRange == 1) {
-        aV = ["Ə", "Æ","I","Ø","Œ",
-            "Á","É","Í","Ó","Ú"
-            ,"Ă","Ĕ","Ĭ","Ŏ","Ŭ"
-            ,"Ȧ","Ė","İ","Ȯ","U̇"
-            ,"Ä","Ë","Ï","Ö","Ü"
-            ,"Ả","Ẻ","Ỉ","Ỏ","Ủ"
-            ,"À","È","Ì","Ò","Ù"
-            ,"Ā","Ē","Ī","Ō","Ū"
-            ,"Å","E̊","I̊","O̊","Ů"
-            ,"A̎","E̎","I̎","O̎","U̎"
-            ,"Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"
-            ,"Â","Ê","Î","Ô","Û"
-            ,"Ő","Ű"
-            ,"A̗","E̗","I̗","O̗","U̗"
-            ,"A̖","E̖","I̖","O̖","U̖",
-            "Ạ", "Ụ","Ị", "Ọ","Ẹ",
-            "A̤", "Ṳ","I̤", "O̤","E̤","'"];
-        aC = ["Ğ", "Ð", "Þ","Β","Ʋ","𐌢",
-            "Ŕ", "T́", "Ṕ", "Ś", "Ǵ", "Ḱ", "B́","Q́","Ẃ", "Ý", "J́", "Ź", "V́", "F́", "H́", "Ĺ", "Ń", "Ḿ", "Ć",
-            "R̆", "T̆", "P̆", "S̆", "D̆", "Ğ", "K̆", "B̆","Q̆","W̆", "Y̆", "J̆", "Z̆", "V̆", "F̆", "H̆", "L̆", "N̆", "M̆", "C̆",
-            "Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ",
-            "R̈", "T̈", "S̈", "D̈", "K̈","Q̈","Ẅ", "Ÿ", "J̈", "Z̈", "V̈", "F̈", "Ḧ", "L̈", "N̈", "M̈", "C̈",
-            "R̀", "T̀", "P̀", "S̀", "D̀", "G̀", "K̀", "B̀","Q̀","Ẁ", "Ỳ", "Z̀", "V̀", "H̀", "L̀", "Ǹ", "M̀", "C̀",
-            "R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄",
-            "R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊",
-            "R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎",
-            "Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏",
-            "R̋", "T̋", "S̋", "D̋", "G̋", "K̋", "B̋","W̋", "Y̋", "J̋", "Z̋", "V̋", "F̋", "H̋", "L̋", "N̋", "M̋", "C̋",
-            "R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗",
-            "R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖",
-            "Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣",
-            "R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤",
-            "̧R", "̧T", "̧P", "̧S", "̧D", "̧G", "̧K", "̧B","̧Q","̧W", "̧Y", "̧J", "̧Z", "̧V", "̧F", "̧H", "̧L", "̧N", "̧M"];
+        aV = [["Ə", "Æ","I","Ø","Œ"],
+        ["Á","É","Í","Ó","Ú"],
+        ["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],
+        ["Ȧ","Ė","İ","Ȯ","U̇"],
+        ["Ä","Ë","Ï","Ö","Ü"],
+        ["Ả","Ẻ","Ỉ","Ỏ","Ủ"],
+        ["À","È","Ì","Ò","Ù"],
+        ["Â","Ê","Î","Ô","Û"],
+        ["Ã","Ẽ","Ĩ","Õ","Ũ"],
+        ["A̅","E̅","I̅","O̅","U̅"],
+        ["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],
+        ["Ő","Ű"],
+        ["Ě"],
+        ["A̭","Ḙ","I̭","O̭","Ṷ"],
+        ["A̰","Ḛ","Ḭ","O̰","Ṵ"],
+        ["A̱","E̱","I̱","O̱","U̱"],
+        ["A̯","E̯","I̯","O̯","U̯"],
+        ["A̮","E̮","I̮","O̮","U̮"],
+        ["Ą","Ę","Į","Ǫ","Ų"],
+        ["Ḁ","E̥","I̥","O̥","U̥"],
+        ["A̬","E̬","I̬","O̬","U̬"],
+        ["A̩","E̩","I̩","O̩","U̩"],
+        ["A̩","E̩","I̩","O̩","U̩"],
+        ["A̧","Ȩ","I̧","O̧","U̧"],
+        ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
+        ["Ā","Ē","Ī","Ō","Ū"],
+        ["Å","E̊","I̊","O̊","Ů"],
+        ["A̎","E̎","I̎","O̎","U̎"],
+        ["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
+        ["Â","Ê","Î","Ô","Û"],
+        ["Ő","Ű"],
+        ["A̗","E̗","I̗","O̗","U̗"],
+        ["A̖","E̖","I̖","O̖","U̖"],
+        ["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
+        ["A̤", "Ṳ","I̤", "O̤","E̤"],
+        ["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]].flat();
+        aC = [["Ğ", "Ð", "Þ","Β","Ʋ"],
+        ["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],
+        ["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
+        ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],
+        ["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
+        ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],
+        ["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
+        ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],
+        ["Ř","Ť","Š","Ď","Ň","Č"],
+        ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],
+        ["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
+        ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],
+        ["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
+        ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],
+        ["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
+        ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],
+        ["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
+        ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],
+        ["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
+        ["Ẅ", "Ÿ"],
+        ["Ẁ", "Ỳ"],
+        ["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],
+        ["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
+        ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],
+        ["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],        ["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
+        ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],
+        ["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],
+        ["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
+        ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],
+        ["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],
+        ["Ʈ", "Ɖ", "Ƒ", "ʔ", "Ɱ", "Ɲ", "Ɲ", "Ŋ", "ʙ", "ʀ", "Ɱ", "ɾ", "Ɽ","Φ", "Β", "Θ", "Ð", "Ʃ", "Ʒ", "Ƨ", "Ƶ", "Ç", "Ƴ", "X", "Ɣ", "Χ","ʁ", "Ħ", "ʕ", "Ȟ", "Ɬ", "Ɬ", "Ʋ", "Ɍ", "Ʀ", "Ⱳ", "L", "Ƚ", "Ƞ","ʟ", "Ɫ", "Ƚ̆", "Ƞ̆"],
+        ["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],
+        ["Ɓ", "Ɗ", "Ƒ", "Ɠ", "Ɠ"]].flat();
     } else if(lemRange == 2) {
         aV = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
         aC = ["Č","Ş"];
@@ -306,31 +342,34 @@ function DoIt() {
         v = PhoType(3)
     }
     // Generate List of Available Letters
-    let endItAV = HLPR.RandomNumber(0,5); // How many Accented Vowels are allowed to be left in a script
-    let endItAC = HLPR.RandomNumber(0,5); // How many Accented Consonants are allowed to be left
     let endItV = HLPR.RandomNumber(1,5); // How many basic Vowels are allowed to be removed
-    let endItC = HLPR.RandomNumber(9,20); // How many basic consonants are allowed to be removed
+    let endItC = HLPR.RandomNumber(HLPR.RandomNumber(10,16),23); // How many basic consonants are allowed to be removed
+    let endItAV = HLPR.RandomNumber(1,HLPR.RandomNumber(3,7)); // How many Accented Vowels are allowed to be left in a script
+    let endItAC = HLPR.RandomNumber(1,HLPR.RandomNumber(4,6)); // How many Accented Consonants are allowed to be left
 
     // Loop through the lists and remove some letters
-    while (aV.length > endItAV) {
-        aV.splice(HLPR.RandomNumber(0,aV.length-1),1);
-    }
-    while (aC.length > endItAC) {
-        aC.splice(HLPR.RandomNumber(0,aC.length-1),1);
-    }
+    
     while (v.length > endItV) {
-        v.splice(HLPR.RandomNumber(0,v.length-1),1);
+        v.splice(HLPR.RandomNumber(0,v.length),1);
     }
     while (c.length > endItC) {
-        c.splice(HLPR.RandomNumber(0,c.length-1),1);
+        c.splice(HLPR.RandomNumber(0,c.length),1);
     }
-
     // Applying custom values
     if (lemRange != 0) {
+        while (aV.length > endItAV) {
+            aV.splice(HLPR.RandomNumber(0,aV.length),1);
+        }
+        while (aC.length > endItAC) {   
+            aC.splice(HLPR.RandomNumber(0,aC.length),1);
+        }
+        
         c = HLPR.CTL(c, aC);
         v = HLPR.CTL(v, aV);
     }
 
+    uniqueSuffix = (HLPR.RFL([HLPR.RFL(v)+HLPR.RFL(c),HLPR.RFL(c)+HLPR.RFL(v),HLPR.RFL(v)+HLPR.RFL(c)+HLPR.RFL(v),HLPR.RFL(c)+HLPR.RFL(v)+HLPR.RFL(c)])).toLowerCase();
+    let SUFFIXES = ["an","ian","ite","ic","id","","","","","","","","","","","","","","","","","",uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix];
     // Display symbols to aid in readability and aesthetics
     let omRange = document.getElementById("omMount").value;
     let codeType = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
@@ -521,7 +560,8 @@ function DoIt() {
     {
         document.getElementById("last").innerText = c_Main;
     }
-    document.getElementById("alphabeta").innerText = HLPR.CTL(c,v) + " " + HLPR.CTL(c,v).length+" letters";
+    document.getElementById("alphabeta").innerText = HLPR.CTL(c,v);
+    document.getElementById("lettercount").innerText = " "+HLPR.CTL(c,v).length+" letters";
     document.getElementById("suffix").innerHTML = HLPR.RFL(["","","","","","","","","","","","","","","","","","","","","","","","","","","Jr.","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII"])+codeType[0];
 
     /// --- EXTRAS
@@ -564,45 +604,79 @@ dynastical = 0;
 // Phoneme Clusters are groups of similar phonemes
 // Phoneme Type determines what kind of groupings can occur
 
-BASIC_VOWELS = ["A", "U","I", "O","E"];
-BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C",];
-AV = [["Ə", "Æ","I","Ø","Œ"],
-    ["Á","É","Í","Ó","Ú"],
-    ["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],
-    ["Ȧ","Ė","İ","Ȯ","U̇"],
-    ["Ä","Ë","Ï","Ö","Ü"],
-    ["Ả","Ẻ","Ỉ","Ỏ","Ủ"],
-    ["À","È","Ì","Ò","Ù"],
-    ["Ā","Ē","Ī","Ō","Ū"],
-    ["Å","E̊","I̊","O̊","Ů"],
-    ["A̎","E̎","I̎","O̎","U̎"],
-    ["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
-    ["Â","Ê","Î","Ô","Û"],
-    ["Ő","Ű"],
-    ["A̗","E̗","I̗","O̗","U̗"],
-    ["A̖","E̖","I̖","O̖","U̖",],
-    ["Ạ", "Ụ","Ị", "Ọ","Ẹ",],
-    ["A̤", "Ṳ","I̤", "O̤","E̤","'"]];
-AC = [["Ğ", "Ð", "Þ","Β","Ʋ","𐌢"],
-    ["Ŕ", "T́", "Ṕ", "Ś", "Ǵ", "Ḱ", "B́","Q́","Ẃ", "Ý", "J́", "Ź", "V́", "F́", "H́", "Ĺ", "Ń", "Ḿ", "Ć"],
-    ["R̆", "T̆", "P̆", "S̆", "D̆", "Ğ", "K̆", "B̆","Q̆","W̆", "Y̆", "J̆", "Z̆", "V̆", "F̆", "H̆", "L̆", "N̆", "M̆", "C̆"],
-    ["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
-    ["R̈", "T̈", "S̈", "D̈", "K̈","Q̈","Ẅ", "Ÿ", "J̈", "Z̈", "V̈", "F̈", "Ḧ", "L̈", "N̈", "M̈", "C̈"],
-    ["R̀", "T̀", "P̀", "S̀", "D̀", "G̀", "K̀", "B̀","Q̀","Ẁ", "Ỳ", "Z̀", "V̀", "H̀", "L̀", "Ǹ", "M̀", "C̀"],
-    ["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],
-    ["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
-    ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],
-    ["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],
-    ["R̋", "T̋", "S̋", "D̋", "G̋", "K̋", "B̋","W̋", "Y̋", "J̋", "Z̋", "V̋", "F̋", "H̋", "L̋", "N̋", "M̋", "C̋"],
-    ["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
-    ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],
-    ["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],
-    ["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
-    ["̧R", "̧T", "̧P", "̧S", "̧D", "̧G", "̧K", "̧B","̧Q","̧W", "̧Y", "̧J", "̧Z", "̧V", "̧F", "̧H", "̧L", "̧N", "̧M"],
-    ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"]];
 
 function PhoType(i)
 {
+    let BASIC_VOWELS = ["A", "U","I", "O","E"];
+    let BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C"];
+    let AV = [["Ə", "Æ","I","Ø","Œ"],
+        ["Á","É","Í","Ó","Ú"],
+        ["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],
+        ["Ȧ","Ė","İ","Ȯ","U̇"],
+        ["Ä","Ë","Ï","Ö","Ü"],
+        ["Ả","Ẻ","Ỉ","Ỏ","Ủ"],
+        ["À","È","Ì","Ò","Ù"],
+        ["Â","Ê","Î","Ô","Û"],
+        ["Ã","Ẽ","Ĩ","Õ","Ũ"],
+        ["A̅","E̅","I̅","O̅","U̅"],
+        ["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],
+        ["Ő","Ű"],
+        ["Ě"],
+        ["A̭","Ḙ","I̭","O̭","Ṷ"],
+        ["A̰","Ḛ","Ḭ","O̰","Ṵ"],
+        ["A̱","E̱","I̱","O̱","U̱"],
+        ["A̯","E̯","I̯","O̯","U̯"],
+        ["A̮","E̮","I̮","O̮","U̮"],
+        ["Ą","Ę","Į","Ǫ","Ų"],
+        ["Ḁ","E̥","I̥","O̥","U̥"],
+        ["A̬","E̬","I̬","O̬","U̬"],
+        ["A̩","E̩","I̩","O̩","U̩"],
+        ["A̩","E̩","I̩","O̩","U̩"],
+        ["A̧","Ȩ","I̧","O̧","U̧"],
+        ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
+        ["Ā","Ē","Ī","Ō","Ū"],
+        ["Å","E̊","I̊","O̊","Ů"],
+        ["A̎","E̎","I̎","O̎","U̎"],
+        ["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
+        ["Â","Ê","Î","Ô","Û"],
+        ["Ő","Ű"],
+        ["A̗","E̗","I̗","O̗","U̗"],
+        ["A̖","E̖","I̖","O̖","U̖"],
+        ["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
+        ["A̤", "Ṳ","I̤", "O̤","E̤"],
+        ["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]];
+    let AC = [["Ğ", "Ð", "Þ","Β","Ʋ"],
+        ["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],
+        ["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
+        ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],
+        ["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
+        ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],
+        ["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
+        ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],
+        ["Ř","Ť","Š","Ď","Ň","Č"],
+        ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],
+        ["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
+        ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],
+        ["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
+        ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],
+        ["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
+        ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],
+        ["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
+        ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],
+        ["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
+        ["Ẅ", "Ÿ"],
+        ["Ẁ", "Ỳ"],
+        ["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],
+        ["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
+        ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],
+        ["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],        ["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
+        ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],
+        ["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],
+        ["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
+        ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],
+        ["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],
+        ["ʈ", "ɖ", "ɟ","ʔ","ɱ", "ɳ", "ɲ", "ŋ","ʙ", "ʀ","ⱱ", "ɾ", "ɽ","ɸ", "β", "θ", "ð", "ʃ", "ʒ","ʂ", "ʐ", "ç", "ʝ", "x", "ɣ", "χ", "ʁ", "ħ", "ʕ", "ɦ","ɬ", "ɮ", "ʋ", "ɹ", "ɻ", "ɰ","l", "ɭ", "ʎ", "ʟ","ɺ", "ɭ̆", "ʎ̆"],
+        ["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],["ɓ", "ɗ", "ʄ", "ɠ", "ʛ"]];
     let phoType = HLPR.RandomNumber(1,7);
     let aCC = [];
     let aVV = [];
@@ -612,32 +686,28 @@ function PhoType(i)
     switch (phoType)
     {
         case 1: // basic
-            aCC = [...new Set(HLPR.CTL(HLPR.RFL(AC),HLPR.RFL(AC)))];
-            aVV = [...new Set(HLPR.CTL(HLPR.RFL(AV),HLPR.RFL(AV)))];
+            aCC = [...new Set((HLPR.RFL(AC),HLPR.RFL(AC),HLPR.RFL(AC)).flat())]
+            aVV = [...new Set((HLPR.RFL(AV),HLPR.RFL(AV),HLPR.RFL(AV)).flat())]
             bCC = BASIC_CONSONANTS;
             bVV = BASIC_VOWELS;
-            document.getElementById("sar").innerHTML = " (Basic)";
             break;
         case 2: // chaotic
             aCC = AC.flat();
             aVV = AV.flat();
             bCC = BASIC_CONSONANTS;
             bVV = BASIC_VOWELS;
-            document.getElementById("sar").innerHTML = " (Chaotic)";
             break;
         case 3: // Barely Vowels
             aCC = AC.flat();
             bCC = BASIC_CONSONANTS;
             bVV = [...new Set([HLPR.RFL(BASIC_VOWELS)].flat())];
             aVV = [...new Set([HLPR.RFL(HLPR.RFL(AV))].flat())];
-            document.getElementById("sar").innerHTML = " (Barely Vowels)";
             break;
         case 4: // Barely Consonants
             bVV = BASIC_VOWELS;
             aVV = AV.flat();
             aCC = [...new Set([HLPR.RFL(HLPR.RFL(AC)),HLPR.RFL(HLPR.RFL(AC))].flat())];
             bCC = [...new Set([HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS)].flat())];
-            document.getElementById("sar").innerHTML = " (Barely Consonants)";
             break;
         case 5: // Barely Anything
         aCC = [...new Set(HLPR.CTL(HLPR.RFL(AV),HLPR.RFL(AV)))];
@@ -645,7 +715,6 @@ function PhoType(i)
             aVV = [...new Set([HLPR.RFL(HLPR.RFL(AV))].flat())];
             aCC = [...new Set([HLPR.RFL(HLPR.RFL(AC)),HLPR.RFL(HLPR.RFL(AC))].flat())];
             bCC = [...new Set([HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS)].flat())];
-            document.getElementById("sar").innerHTML = " (Small)";
             break;
         case 6: // One accent
             if(HLPR.RandomNumber(1,2) === 1)
@@ -657,12 +726,10 @@ function PhoType(i)
             }
             bCC = BASIC_CONSONANTS;
             bVV = BASIC_VOWELS;
-            document.getElementById("sar").innerHTML = " (One Accent)";
             break;
         case 7: // Entirely Accents
             bCC = AC.flat();
             bVV = AV.flat();
-            document.getElementById("sar").innerHTML = " (Entirely Accents)";
         default:
     }
     return ([aCC,aVV,bCC,bVV][i]);
