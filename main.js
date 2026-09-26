@@ -307,22 +307,22 @@ function DoIt() {
     }
     // Generate List of Available Letters
     let endItAV = HLPR.RandomNumber(0,5); // How many Accented Vowels are allowed to be left in a script
-    let endItAC = HLPR.RandomNumber(0,3); // How many Accented Consonants are allowed to be left
-    let endItV = HLPR.RandomNumber(1,4); // How many basic Vowels are allowed to be removed
-    let endItC = HLPR.RandomNumber(5,20); // How many basic consonants are allowed to be removed
+    let endItAC = HLPR.RandomNumber(0,5); // How many Accented Consonants are allowed to be left
+    let endItV = HLPR.RandomNumber(1,5); // How many basic Vowels are allowed to be removed
+    let endItC = HLPR.RandomNumber(9,20); // How many basic consonants are allowed to be removed
 
     // Loop through the lists and remove some letters
     while (aV.length > endItAV) {
-        aV.splice(HLPR.RandomNumber(0,aV.length),1);
+        aV.splice(HLPR.RandomNumber(0,aV.length-1),1);
     }
     while (aC.length > endItAC) {
-        aC.splice(HLPR.RandomNumber(0,aC.length),1);
+        aC.splice(HLPR.RandomNumber(0,aC.length-1),1);
     }
     while (v.length > endItV) {
-        v.splice(HLPR.RandomNumber(0,v.length),1);
+        v.splice(HLPR.RandomNumber(0,v.length-1),1);
     }
     while (c.length > endItC) {
-        c.splice(HLPR.RandomNumber(0,c.length),1);
+        c.splice(HLPR.RandomNumber(0,c.length-1),1);
     }
 
     // Applying custom values
@@ -608,6 +608,7 @@ function PhoType(i)
     let aVV = [];
     let bCC = [];
     let bVV = [];
+    
     switch (phoType)
     {
         case 1: // basic
@@ -615,42 +616,53 @@ function PhoType(i)
             aVV = [...new Set(HLPR.CTL(HLPR.RFL(AV),HLPR.RFL(AV)))];
             bCC = BASIC_CONSONANTS;
             bVV = BASIC_VOWELS;
+            document.getElementById("sar").innerHTML = " (Basic)";
             break;
         case 2: // chaotic
             aCC = AC.flat();
             aVV = AV.flat();
             bCC = BASIC_CONSONANTS;
             bVV = BASIC_VOWELS;
+            document.getElementById("sar").innerHTML = " (Chaotic)";
             break;
         case 3: // Barely Vowels
-            aCC = [...new Set(HLPR.CTL(HLPR.RFL(AC),HLPR.RFL(AC)))];
+            aCC = AC.flat();
             bCC = BASIC_CONSONANTS;
-            bVV = [HLPR.RFL(BASIC_VOWELS),HLPR.RFL(BASIC_VOWELS)].flat();
+            bVV = [...new Set([HLPR.RFL(BASIC_VOWELS)].flat())];
+            aVV = [...new Set([HLPR.RFL(HLPR.RFL(AV))].flat())];
+            document.getElementById("sar").innerHTML = " (Barely Vowels)";
             break;
         case 4: // Barely Consonants
             bVV = BASIC_VOWELS;
-            aCC = [...new Set(HLPR.CTL(HLPR.RFL(AV),HLPR.RFL(AV)))];
-            bCC = [HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS)].flat();
+            aVV = AV.flat();
+            aCC = [...new Set([HLPR.RFL(HLPR.RFL(AC)),HLPR.RFL(HLPR.RFL(AC))].flat())];
+            bCC = [...new Set([HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS)].flat())];
+            document.getElementById("sar").innerHTML = " (Barely Consonants)";
             break;
         case 5: // Barely Anything
-            bCC = [HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS)].flat();
-            bVV = [HLPR.RFL(BASIC_VOWELS),HLPR.RFL(BASIC_VOWELS)].flat();
+        aCC = [...new Set(HLPR.CTL(HLPR.RFL(AV),HLPR.RFL(AV)))];
+            bVV = [...new Set([HLPR.RFL(BASIC_VOWELS)].flat())];
+            aVV = [...new Set([HLPR.RFL(HLPR.RFL(AV))].flat())];
+            aCC = [...new Set([HLPR.RFL(HLPR.RFL(AC)),HLPR.RFL(HLPR.RFL(AC))].flat())];
+            bCC = [...new Set([HLPR.RFL(BASIC_CONSONANTS),HLPR.RFL(BASIC_CONSONANTS)].flat())];
+            document.getElementById("sar").innerHTML = " (Small)";
             break;
         case 6: // One accent
             if(HLPR.RandomNumber(1,2) === 1)
             {
-                aCC = HLPR.RFL(AC.flat());
+                aCC = [HLPR.RFL(HLPR.RFL(AC))];
             } else
             {
-                aVV = HLPR.RFL(AV.flat());
+                aVV = [HLPR.RFL(HLPR.RFL(AV))];
             }
             bCC = BASIC_CONSONANTS;
             bVV = BASIC_VOWELS;
+            document.getElementById("sar").innerHTML = " (One Accent)";
             break;
         case 7: // Entirely Accents
-            aCC = HLPR.RFL(AC.flat());
-            aVV = HLPR.RFL(AV.flat());
-            break;
+            bCC = AC.flat();
+            bVV = AV.flat();
+            document.getElementById("sar").innerHTML = " (Entirely Accents)";
         default:
     }
     return ([aCC,aVV,bCC,bVV][i]);
