@@ -18,43 +18,42 @@ input[type="checkbox"]
     align-items: center;
 
 }
-#nation
+#NationSection
 {
     color: white;
 }
-#diplo
+#DiplomacySection
 {
     color: rgb(241, 153, 153);
 }
-#demoy
+#DemographicSection
 {
     color: rgb(255 119 0);
 }
-#unrst
+#UnrestSection
 {
     color: rgb(209, 153, 241);
 }
-#econy
+#EconomySection
 {
     color: rgb(228, 241, 153);
 }
-#subdivy
+#SubdivisionSection
 {
     color: rgb(153, 241, 226);
 }
-#geot
+#GeographySection
 {
     color: rgb(153, 241, 180);
 }
-#cult
+#CultureSection
 {
     color: rgb(153, 159, 241);
 }
-#cultureplus
+#CulturePlusSection
 {
     color: rgb(203 206 248);
 }
-
 select{
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
