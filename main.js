@@ -9,8 +9,13 @@ const Help =
     { // Combines two given lists
         return firstList.concat(secondList);
     },
+    Find(listList, fromList, whatInList)
+    {
+        return Help.RFL(listList[fromList.indexOf(whatInList)]);
+    },
     RandomNumber(min,max) // Returns a random number in-between two values
     {
+        max++;
         return Math.floor(Math.random() * (max - min) + min);
     },
     Translate(number,terms) // Takes a pre-generated number and applies it to a translation list
@@ -56,63 +61,139 @@ const generate =  // Holds the code required to generate a variety of name types
 {
     NationType(nat,union,coder)
     {
-        let governmentTypes = Math.floor(Math.random() * 6);
-        let frontOrBack = Math.floor(Math.random() * 2);
+        dynastical = 0;
+        let governmentTypes = Help.RandomNumber(0,10);
+        let frontOrBack = Help.RandomNumber(1,2);
         let basicLeaders = ["King","President","Chancellor","Leader","Emperor","Minister","Governor"];
         let government;
-        if(Help.RandomNumber(1,9) === 1)
+        let suffixes = ["an", "ian", "ite", "id","id","", "", ""];
+        let leaderType;
+        let leaderTypes;
+        let unionType = "";
+        let ifUnion = "";
+        let specials = Help.RandomNumber(1,20);
+        if(specials <= 3)
         {
             nat = nat+"-"+union;
+        } else if(specials === 4)
+        {
+            ifUnion = "s";
+            if(frontOrBack === 1)
+            {
+                unionType = Help.RFL(["United ", "Federal ", "Allied "]);
+            } else {
+                unionType = Help.RFL(["Union of ","Federation of ","Confederation of ","Alliance of ","Commonwealth of "]);
+            }
         }
         let govBack;
-        if(governmentTypes === 0) //
+        if(governmentTypes === 0) // Democracy
         {
-            govBack = ["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty"];
+            govBack = ["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignt"];
+            leaderTypes = [["President","Prime Minister","Chancellor"],["President","Prime Minister","Chancellor"],["Senator","Lead Senator","Speaker"],["Consul","Pro-Consul"],basicLeaders,basicLeaders];
             government = Help.RFL(govBack);
-            document.getElementById("leadership").innerHTML = coder+" "+[Help.RFL(["President","Prime Minister","Chancellor"]),Help.RFL(["President","Prime Minister","Chancellor"]),Help.RFL(["Senator","Lead Senator","Speaker"]),Help.RFL(["Consul","Pro-Consul"]),Help.RFL(basicLeaders),Help.RFL(basicLeaders)][govBack.indexOf(government)];
+            leaderType = Help.Find(leaderTypes,govBack,government);
         }
-        else if(governmentTypes === 1) //
+        else if(governmentTypes === 1) // Monarchy
         {
-            dynastical = Math.floor(Math.random() * 3);
-            govBack = ["Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy","Sultanate"];
+
+            govBack = ["Count","Baron","Kingdom","Empire","Duch","Archduch"];
+            leaderTypes = [["Count","Governor"],["Baron","Governor"],["King","Emperor","Archduke"],["Emperor","High King"],["Duke"],["Duke","High Duke","Archduke"]];
             government = Help.RFL(govBack);
-            document.getElementById("leadership").innerHTML = coder+" "+[Help.RFL(["King","Emperor"]),Help.RFL(["Count","Governor"]),Help.RFL(["Baron","Governor"]),Help.RFL(["King","Emperor","Archduke"]),Help.RFL(["Emperor","High King"]),Help.RFL(["Duke"]),Help.RFL(["Duke","High Duke","Archduke"]),Help.RFL(["Sultan","Emperor","King","Caliph"])][govBack.indexOf(government)];
+            leaderType = Help.Find(leaderTypes,govBack,government);
+            dynastical = Help.RandomNumber(0,3);
         }
-        else if(governmentTypes === 2) //
+        else if(governmentTypes === 2) // Tyranny
         {
-            govBack = ["Dictatorship","Regime","Fascism","Autocracy","Despotism"];
+            govBack = ["Dictatorship","Regime","Fascism","Autocrac","Despotism"];
+            leaderTypes = [["Dictator","Supreme Leader","Leader"],basicLeaders,["Dictator","Leader"],["Dictator","Leader"],["Despot","Minister","Dictator","General","Commander"]];
             government = Help.RFL(govBack);
-            dynastical = Math.floor(Math.random() * 2);
-            document.getElementById("leadership").innerHTML = coder+" "+[Help.RFL(["Dictator","Supreme Leader","Leader"]),Help.RFL(basicLeaders),Help.RFL(["Dictator","Leader"]),Help.RFL(["Dictator","Leader"]),Help.RFL(["Despot","Minister","Dictator","General","Commander"])][govBack.indexOf(government)];
+            leaderType = Help.Find(leaderTypes,govBack,government);
+
+            dynastical = Help.RandomNumber(0,1);
         }
-        else if(governmentTypes === 3) //
+        else if(governmentTypes === 3) // Tribal
         {
             govBack = ["Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique"];
-            dynastical = Math.floor(Math.random() * 2);
+            leaderTypes = [["Chief","King","Governor","Leader"],["Chief","King"],["Chief","Leader","Emperor"],["Chief"],["Chief","King","Emperor"],["Chief","Head","Emperor"],["Chief","Head","Emperor"],["Warlord","Leader","General","Commander","King","Dictator"]];
             government = Help.RFL(govBack);
-            document.getElementById("leadership").innerHTML = coder+" "+[
-                Help.RFL(["Chief","King","Governor","Leader"]),Help.RFL(["Chief","King"]),Help.RFL(["Chief","Leader","Emperor"]),"Chief",Help.RFL(["Chief","King","Emperor"]),Help.RFL(["Chief","Head","Emperor"]),Help.RFL(["Chief","Head","Emperor"]),Help.RFL(["Warlord","Leader","General","Commander","King","Dictator"])][govBack.indexOf(government)];
+            leaderType = Help.Find(leaderTypes,govBack,government);
+
+            dynastical = Help.RandomNumber(0,1);
         }
-        else if(governmentTypes === 4)
+        else if(governmentTypes === 4) // Religious
         {
-            govBack = ["Confederation","Federation","Theocracy","Priestdom","Cult","State","Union","Khanate","Khaganate"];
+            govBack = ["Theocracy","Priestdom","Cult"];
+            leaderTypes = ["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"];
             government = Help.RFL(govBack);
-            document.getElementById("leadership").innerHTML = coder+" "+[Help.RFL(basicLeaders),Help.RFL(basicLeaders),Help.RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),Help.RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),Help.RFL(["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"]),Help.RFL(basicLeaders),Help.RFL(basicLeaders),Help.RFL(["Khan","Khagan","Emperor","King","Warlord"]),Help.RFL(["Khan","Khagan","Emperor","King","Warlord"])][govBack.indexOf(government)];
+            leaderType = Help.RFL(leaderTypes);
         }
-        else
+        else if(governmentTypes === 5) // Socialist
         {
-            govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"];
+            govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democrac","People's Republic"];
+            leaderTypes = ["Minister","Prime Minister","Chancellor","Secretary","General Secretary","President","Chairman","Officer","Supreme Leader"];
             government = Help.RFL(govBack);
-            document.getElementById("leadership").innerHTML = coder+" "+Help.RFL(["Minister","Prime Minister","Chancellor","Secretary","General Secretary","President","Chairman","Officer","Supreme Leader"]);
+            leaderType = Help.RFL(leaderTypes);
+        } else if(governmentTypes === 6) // Dynastic
+        {
+            govBack = ["Dynast","Empire","Kingdom","Clan"];
+            leaderTypes = [["Emperor","Head"],["Emperor"],["King"],["King","Leader","Head"]];
+            government = Help.RFL(govBack);
+            leaderType = Help.Find(leaderTypes,govBack,government);
+
+            dynastical = 0;
+        } else if(governmentTypes === 7) // Union
+        {
+            govBack = ["Union","Federation","Confederation","State"];
+            government = Help.RFL(govBack);
+            leaderType = Help.RFL(basicLeaders);
+        } else if(governmentTypes === 8) // Muslim / Persian / Arabic
+        {
+            govBack = ["Sultanate","Caliphate","Imamate","Emirate","Shahdom","Sheikhdom","Empire"];
+            leaderTypes = [["Sultan","Caliph"],["Caliph","Sultan"],["Imam"],["Shah"],["Sheikh"],["Sultan","Caliph","Imam","Shah","Sheikh"]]
+            government = Help.RFL(govBack);
+            leaderType = Help.Find(leaderTypes,govBack,government);
+
+            dynastical = Help.RandomNumber(0,9);
+            suffixes = ["id","id","id","id","id","id","an","","",""];
+        } else if(governmentTypes === 9) // Exotic
+        {
+            govBack = ["Tsardom","Empire","Compan"];
+            leaderTypes = [["Tsar"],["Tsar","Caesar","Kaiser","Imperator"],basicLeaders,["CEO","Executive","Governor","Supervisor"]];
+            government = Help.RFL(govBack);
+            leaderType = Help.Find(leaderTypes,govBack,government);
+        } else if(governmentTypes === 10) // Nomadic
+        {
+            govBack = ["Khanate", "Khaganate", "Confederation","Clique"];
+            leaderTypes = ["Khan","Khagan","Emperor","King","Warlord"];
+            government = Help.RFL(govBack);
+            leaderType = Help.RFL(leaderTypes);
         }
-
-
-        let suffixes = ["an", "ian", "ite", "id","id","", "", ""];
-
+        let acies = ["Democrac","Autonom","Sovereignt","Autocrac","Count","Baron","Duch","Archduch","Compan","Social Democrac","Theocrac","Dynast"];
+        if(acies.includes(government))
+        {
+            if(ifUnion === "s")
+            {
+                ifUnion = "ies";
+            } else
+            {
+                government = government + "y";
+            }
+        }
+        if(government === "Reserve" && ifUnion === "s")
+        {
+            government = "Reservation";
+        }
+        document.getElementById("leadership").innerText = coder+" "+leaderType;
         if (frontOrBack === 1) {
-            return government + " of" + Help.RFL([" ", " the "]) + nat;
+            if(Help.RandomNumber(1,2) === 1)
+            {
+                return unionType+government+ifUnion + " of " +nat;
+            } else
+            {
+                return unionType+government+ifUnion + " of the " + nat+Help.RFL(suffixes)+Help.RFL(["s",""]);
+            }
         } else {
-            return nat + Help.RFL(suffixes) + " " + government;
+            return unionType+nat + Help.RFL(suffixes) + " " + government+ifUnion;
         }
     },
     PoliticalType(nat)
@@ -234,13 +315,14 @@ const generate =  // Holds the code required to generate a variety of name types
         return melody.join(" | ");
     }
 };
-
+let prevAlphabet = [];
 // The actual program code, contains UI and function calls for basic program usage
 function DoIt() {
     numName++
     // User interface
     // Decides what letters are allowed in the program
-    
+
+
     let lemRange = document.getElementById("letterTypes").value;
     let v = ["A", "U","I", "O","E"];
     let c = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
@@ -381,7 +463,12 @@ function DoIt() {
         c = Help.CTL(c, aC);
         v = Help.CTL(v, aV);
     }
-
+    if(locked === true)
+    {
+        v = prevAlphabet[0];
+        c = prevAlphabet[1];
+    }
+    prevAlphabet = [v,c];
     let uniqueSuffix = (Help.RFL([Help.RFL(v)+Help.RFL(c),Help.RFL(c)+Help.RFL(v),Help.RFL(v)+Help.RFL(c)+Help.RFL(v),Help.RFL(c)+Help.RFL(v)+Help.RFL(c)])).toLowerCase();
     let SUFFIXES = ["an","ian","ite","ic","id","","","","","","","","","","","","","","","","","",uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix];
     // Display symbols to aid in readability and aesthetics
@@ -580,7 +667,6 @@ function DoIt() {
 
     /// --- EXTRAS
     document.getElementById("numName").innerText = String(numName);
-
 }
 
 
@@ -728,5 +814,10 @@ for(let i = 0; i < ids.length; i++)
         document.getElementById(ids[i] + "Section").style.display = this.checked ? "block" : "none";
     });
 }
+let locked = false;
+document.getElementById("LockBox").addEventListener("change", function()
+{
+    locked = !!this.checked;
+});
 let numName = 0; // Simple variable to display the number of names the user has generated in a session
 let dynastical = 0;
