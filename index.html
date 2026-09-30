@@ -4,13 +4,15 @@
 <link rel="icon" type="image/x-icon" href="Images/kcgicon.ico">
 <header id="div1">
     <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv" alt="kcg"></p>
-    <i>Kardzer Country Generator V3.5.1</i>
+    <i>Kardzer Country Generator V3.6.0</i>
     <a href="updates.html" target="_blank"><i style="font-size: 10pt;">Updates</i></a>
 </header>
 <div id="sectionsCustom">
     <input type="checkbox" id="CheckBox" name="Section8" checked="checked" style="accent-color: rgb(184, 182, 182)"><br>
     <label for="CheckBox"> Toggle Options</label><br>
     <div id="CheckSection">
+        <input type="checkbox" id="GovernmentBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)"><br>
+        <label for="GovernmentBox" style="background-color: rgb(14, 88, 76)"> Show Government</label><br>
         <input type="checkbox" id="DiplomacyBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)"><br>
         <label for="DiplomacyBox" style="background-color: rgb(88, 13, 13)"> Show Diplomacy</label><br>
         <input type="checkbox" id="CultureBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)"><br>
@@ -23,8 +25,6 @@
         <label for="EconomyBox" style="background-color: rgb(72, 82, 15)"> Show Economy</label><br>
         <input type="checkbox" id="UnrestBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)"><br>
         <label for="UnrestBox" style="background-color: rgb(49, 11, 71)"> Show Situation</label><br>
-        <input type="checkbox" id="SubdivisionBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)"><br>
-        <label for="SubdivisionBox" style="background-color: rgb(14, 88, 76)"> Show Subdivisions</label><br>
         <input type="checkbox" id="DemographicBox" name="Section6" checked="checked" style="accent-color: rgb(250 151 66)"><br>
         <label for="DemographicBox" style="background-color: rgb(184 97 20)"> Show Demographics</label><br>
         <br>
@@ -65,6 +65,19 @@
         <text style="font-size: 30pt;"><text id="admin">Code</text></text><br>
         <a href="codes.html" target="_blank"><i style="font-size: 10pt;">Government Code</i></a>
     </div>
+    <div id="GovernmentSection">
+        <text id="government" style="font-size: 30pt;">Government Type</text><br>
+        <text id="Party" style="font-size: 30pt">Party Type</text><br>
+        <select name="Parties" id="Parties" class="partyList">
+            <option id="Party0">Political Parties</option>
+            <option id="Party1">2nd Party</option>
+            <option id="Party2">3rd Party</option>
+            <option id="Party3">4th Party</option>
+            <option id="Independent">Independents</option>
+        </select><br>
+        <text id="subdiv" style="font-size: 20pt;">Subdivisions</text><br>
+
+    </div>
     <div id="DiplomacySection">
         <text style="font-size: 30pt;"><text id="alliance">Alliance</text></text><br>
         <text id="diplomacy" style="font-size: 30pt;">Diplomacy</text><br>
@@ -99,9 +112,6 @@
         <text id="crime" style="font-size: 30pt;">Crime Rate</text><br>
         <text id="enviro" style="font-size: 30pt;">Environment</text><br>
     </div>
-    <div id="SubdivisionSection">
-        <text id="subdiv" style="font-size: 30pt;">Subdivisions</text><br>
-    </div>
     <div id="DemographicSection">
         <text id="demo0" style="font-size: 20pt;">Demographic #1</text><br>
         <text id="demo1" style="font-size: 20pt;">Demographic #2</text><br>
@@ -116,6 +126,9 @@
     <input type="checkbox" id="LockBox" name="Section9" style="accent-color: rgb(243 94 90)"><br>
     <label for="LockBox" style="accent-color: rgb(243 94 90)">Lock Alphabet</label>
     <h2>Nations Generated: <text id="numName"></text></h2>
+    <br>
+    <input type="text" id="dkey" value="debug"><br>
+    <input type="text" id="dvar" value="=">
     <br>
     <text>Simplified Version of <a href="https://kardashtuku.itch.io/country-generator" target="_blank"><i>Kardzer Country Generator</i></a> for the web<br>Reprogrammed from Python to Javascript</text>
     <br>
