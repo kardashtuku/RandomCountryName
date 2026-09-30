@@ -59,11 +59,24 @@ function BaseSeq(v,c)
 // ---- | Main Program Functions | ---- //
 const generate =  // Holds the code required to generate a variety of name types
 {
-    NationType(nat,union,coder)
+    NationType(nat,union,coder,isSide,govcode)
     {
+        // (debug/front | 1) : Nation name will be in front of government name
+        let debug = document.getElementById("dkey").value;
+        let debugVariable = document.getElementById("dvar").value;
+        if(debug === "debug/name")
+        {
+            nat = debugVariable;
+        }
+        let maintainDynastical;
+        if(isSide) {maintainDynastical = dynastical}
         dynastical = 0;
         let governmentTypes = Help.RandomNumber(0,10);
         let frontOrBack = Help.RandomNumber(1,2);
+        if(debug === "debug/front")
+        {
+            frontOrBack = parseInt(debugVariable);
+        }
         let basicLeaders = ["King","President","Chancellor","Leader","Emperor","Minister","Governor"];
         let government;
         let suffixes = ["an", "ian", "ite", "id","id","", "", ""];
@@ -72,6 +85,11 @@ const generate =  // Holds the code required to generate a variety of name types
         let unionType = "";
         let ifUnion = "";
         let specials = Help.RandomNumber(1,20);
+
+        if(debug === "debug/union")
+        {
+            specials = parseInt(debugVariable);
+        }
         if(specials <= 3)
         {
             nat = nat+"-"+union;
@@ -86,16 +104,22 @@ const generate =  // Holds the code required to generate a variety of name types
             }
         }
         let govBack;
+        let gPrimary;
+        let partyType;
+        let gSecondary = Help.RFL(["Representative","Absolute","Constitutional","Tyrannical","Libertarian","Liberal","Conservative"]);
         if(governmentTypes === 0) // Democracy
         {
-            govBack = ["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignt"];
+            partyType = ["Congress","Parliament","Legislature","Senate","House of Reps","Representatives","Electors"];
+            gPrimary = ["Republic","Democracy","Dictatorship","Junta","Pseudo-Republic","Republic","Democracy","Republic","Democracy"];
+            govBack = ["Republic","Democrac","Senate","Consulship","Autonom","Sovereignt"];
             leaderTypes = [["President","Prime Minister","Chancellor"],["President","Prime Minister","Chancellor"],["Senator","Lead Senator","Speaker"],["Consul","Pro-Consul"],basicLeaders,basicLeaders];
             government = Help.RFL(govBack);
             leaderType = Help.Find(leaderTypes,govBack,government);
         }
         else if(governmentTypes === 1) // Monarchy
         {
-
+            partyType = ["Parliament","Court","Council"];
+            gPrimary = ["Monarchy","Dynasty","Monarchy","Monarchy","Dictatorship"];
             govBack = ["Count","Baron","Kingdom","Empire","Duch","Archduch"];
             leaderTypes = [["Count","Governor"],["Baron","Governor"],["King","Emperor","Archduke"],["Emperor","High King"],["Duke"],["Duke","High Duke","Archduke"]];
             government = Help.RFL(govBack);
@@ -104,6 +128,8 @@ const generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 2) // Tyranny
         {
+            partyType = ["Cabinet","Inner Circle"];
+            gPrimary = ["Dictatorship","Fascism","Autocracy","Junta","Republic"];
             govBack = ["Dictatorship","Regime","Fascism","Autocrac","Despotism"];
             leaderTypes = [["Dictator","Supreme Leader","Leader"],basicLeaders,["Dictator","Leader"],["Dictator","Leader"],["Despot","Minister","Dictator","General","Commander"]];
             government = Help.RFL(govBack);
@@ -113,6 +139,8 @@ const generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 3) // Tribal
         {
+            partyType = ["Council","Leadership"];
+            gPrimary = ["Republic","Monarchy","Democracy","Anarchy","Commune","Tribe"];
             govBack = ["Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique"];
             leaderTypes = [["Chief","King","Governor","Leader"],["Chief","King"],["Chief","Leader","Emperor"],["Chief"],["Chief","King","Emperor"],["Chief","Head","Emperor"],["Chief","Head","Emperor"],["Warlord","Leader","General","Commander","King","Dictator"]];
             government = Help.RFL(govBack);
@@ -122,6 +150,8 @@ const generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 4) // Religious
         {
+            partyType = ["Clergy","Council","Mass"];
+            gPrimary = ["Theocracy","Monarchy","Dictatorship","Republic"];
             govBack = ["Theocracy","Priestdom","Cult"];
             leaderTypes = ["Theocrat","Priest","Pope","Caliph","Imam","Bishop","Cardinal","Oracle","Elder","Father"];
             government = Help.RFL(govBack);
@@ -129,12 +159,16 @@ const generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 5) // Socialist
         {
+            partyType = ["Congress","Council","Parliament","Cabinet","Senate","People's Congress"];
+            gPrimary = ["Social Democracy","Socialism","Communism","Commune","Republic"];
             govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democrac","People's Republic"];
             leaderTypes = ["Minister","Prime Minister","Chancellor","Secretary","General Secretary","President","Chairman","Officer","Supreme Leader"];
             government = Help.RFL(govBack);
             leaderType = Help.RFL(leaderTypes);
         } else if(governmentTypes === 6) // Dynastic
         {
+            partyType = ["Court","Advisors"];
+            gPrimary = ["Monarchy","Dynasty"];
             govBack = ["Dynast","Empire","Kingdom","Clan"];
             leaderTypes = [["Emperor","Head"],["Emperor"],["King"],["King","Leader","Head"]];
             government = Help.RFL(govBack);
@@ -143,11 +177,15 @@ const generate =  // Holds the code required to generate a variety of name types
             dynastical = 0;
         } else if(governmentTypes === 7) // Union
         {
+            partyType = ["Council","High Council","Senate","Congress","Group"];
+            gPrimary = ["Monarchy","Union","Federation","Confederation","Nation-State","Republic"];
             govBack = ["Union","Federation","Confederation","State"];
             government = Help.RFL(govBack);
             leaderType = Help.RFL(basicLeaders);
         } else if(governmentTypes === 8) // Muslim / Persian / Arabic
         {
+            partyType = ["Court"];
+            gPrimary = ["Monarchy","Dynasty"];
             govBack = ["Sultanate","Caliphate","Imamate","Emirate","Shahdom","Sheikhdom","Empire"];
             leaderTypes = [["Sultan","Caliph"],["Caliph","Sultan"],["Imam"],["Shah"],["Sheikh"],["Sultan","Caliph","Imam","Shah","Sheikh"]]
             government = Help.RFL(govBack);
@@ -157,18 +195,31 @@ const generate =  // Holds the code required to generate a variety of name types
             suffixes = ["id","id","id","id","id","id","an","","",""];
         } else if(governmentTypes === 9) // Exotic
         {
+            partyType = ["Advisors","Court","Council","Congress"];
+            gPrimary = ["Monarchy","Trade Company"];
             govBack = ["Tsardom","Empire","Compan"];
             leaderTypes = [["Tsar"],["Tsar","Caesar","Kaiser","Imperator"],basicLeaders,["CEO","Executive","Governor","Supervisor"]];
             government = Help.RFL(govBack);
             leaderType = Help.Find(leaderTypes,govBack,government);
         } else if(governmentTypes === 10) // Nomadic
         {
+            partyType = ["Court","Council","Gathering"];
+            gPrimary = ["Horde","Tribe","Republic","Monarchy"];
             govBack = ["Khanate", "Khaganate", "Confederation","Clique"];
             leaderTypes = ["Khan","Khagan","Emperor","King","Warlord"];
             government = Help.RFL(govBack);
             leaderType = Help.RFL(leaderTypes);
         }
+        gPrimary.push("Oligarchy");
+        if(isSide === false) {
+            document.getElementById("government").innerText = gSecondary+" "+Help.RFL(gPrimary);
+            document.getElementById("Party").innerText = generate.PartyType(partyType);
+        }
         let acies = ["Democrac","Autonom","Sovereignt","Autocrac","Count","Baron","Duch","Archduch","Compan","Social Democrac","Theocrac","Dynast"];
+        if(debug === "debug/government")
+        {
+            government = debugVariable;
+        }
         if(acies.includes(government))
         {
             if(ifUnion === "s")
@@ -183,7 +234,17 @@ const generate =  // Holds the code required to generate a variety of name types
         {
             government = "Reservation";
         }
-        document.getElementById("leadership").innerText = coder+" "+leaderType;
+        if(isSide === false) {
+            document.getElementById("leadership").innerText = coder + " " + leaderType;
+        }
+        if(isSide)
+        {
+            dynastical = maintainDynastical;
+        }
+        if(debug === "debug/dynasty")
+        {
+            dynastical = parseInt(debugVariable);
+        }
         if (frontOrBack === 1) {
             if(Help.RandomNumber(1,2) === 1)
             {
@@ -196,19 +257,31 @@ const generate =  // Holds the code required to generate a variety of name types
             return unionType+nat + Help.RFL(suffixes) + " " + government+ifUnion;
         }
     },
-    PoliticalType(nat)
+    PartyType(name)
     {
-        let frontOrBack = Math.floor(Math.random() * 2);
-        let government = Help.RFL(["Republic","Democracy","Senate","Consulship","Autonomy","Sovereignty","Dynasty","County","Barony","Kingdom","Empire","Duchy","Archduchy","Sultanate",
-            "Dictatorship","Regime","Fascism","Autocracy","Despotism","Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique","Confederation","Federation","Theocracy","Priestdom","Cult","State","Union","Khanate","Khaganate",
-            "Soviet Republic","Syndicate","Socialist Republic","Social Democracy","People's Republic"]);
-        let suffixes = ["an", "ian", "ite", "id","id","", "", ""];
+        let parties = ["Communist","Socialist","Democratic Socialist","Progressive","Liberal","Moderate","Fascist","Conservative","Libertarian","Anarchist","Capitalist","Democratic","Republican","Monarchist","Federalist","Nationalist"];
 
-        if (frontOrBack === 1) {
-            return government + " of" + Help.RFL([" ", " the "]) + nat;
-        } else {
-            return nat + Help.RFL(suffixes) + " " + government;
+        let percentOf = 10000;
+        let takeAway;
+
+        let currentParty;
+        let partyList = [];
+
+        for(let i = 0; i < 4; i++) {
+            takeAway = Help.RandomNumber(percentOf/100,percentOf);
+            percentOf -= takeAway;
+
+            currentParty = Help.RFL(parties);
+
+            partyList.push((currentParty) + ": " + takeAway / 100 + "% ");
+            parties.splice(parties.indexOf(currentParty), 1);
         }
+        document.getElementById("Party0").innerText = partyList[0];
+        document.getElementById("Party1").innerText = partyList[1];
+        document.getElementById("Party2").innerText = partyList[2];
+        document.getElementById("Party3").innerText = partyList[3];
+        document.getElementById("Independent").innerText = "Other: "+percentOf/100+"%";
+        return Help.RFL(name);
     },
     CityType(nat)
     {
@@ -556,7 +629,7 @@ function DoIt() {
     }
 
     // NATION
-    document.getElementById("demo").innerText = generate.NationType(c_Main,c_One,codeType[0]);
+    document.getElementById("demo").innerText = generate.NationType(c_Main,c_One,codeType[0],false);
     document.getElementById("city").innerText = "Capital: "+capitalCity;
     document.getElementById("leader").innerText = ": "+BaseSeq(v,c);
     document.getElementById("admin").innerHTML = codeType[1]+" "+`${Help.RFL(["A","C","U","F","S"])}${Help.RFL(["Tr","Cl","Th","Ty","Ol","Re","De","Dy","Ci","Ec","Te","An"])}:${Help.RFL(["0","1","2","3","4"])}`+" "+codeType2[1];
@@ -609,18 +682,26 @@ function DoIt() {
         Help.RandomNumber(3,60)+" "+subType+", "+Help.RandomNumber(3,30)+" "+subType2+", and "+Help.RandomNumber(3,10)+" "+subType3,
         Help.RandomNumber(3,50)+" "+subType+", "+Help.RandomNumber(3,30)+" "+subType2+", "+Help.RandomNumber(3,20)+" "+subType3+", and "+Help.RandomNumber(3,10)+" "+subType4])+" "+codeType[23];
 
-    // Added after 3.0
-    // 9/22/2026
-    let otherNation = generate.PoliticalType(BaseSeq(v,c));
-    let otherAlliance = generate.AllianceType(BaseSeq(v,c),BaseSeq(v,c));
-    let civilNation = generate.PoliticalType(Help.RFL([BaseSeq(v,c)+Help.RFL(SUFFIXES),adj_One,adj_Two,adj_Three,adj_Main,adj_Main,adj_Main,adj_Main,adj_Main,adj_Main,adj_Main]));
+
+    let otherNationMain = BaseSeq(v,c);
+    let otherNationAdj = otherNationMain + Help.RFL(SUFFIXES);
+    let civilMains = [otherNationMain,c_One,c_Two,c_Three,c_Main,c_Main,c_Main,c_Main,c_Main,c_Main,c_Main];
+    let civilAdjs = [otherNationAdj,adj_One,adj_Two,adj_Three,adj_Main,adj_Main,adj_Main,adj_Main,adj_Main,adj_Main,adj_Main];
+
+    let civilNationMain = Help.RFL(civilMains);
+    let civilNationAdj = Help.Find(civilAdjs,civilMains,civilNationMain);
     let rebellion = Help.RFL([BaseSeq(v,c)+Help.RFL(SUFFIXES),adj_One,adj_Two,adj_Three]);
+
+    let civilNation = generate.NationType(civilNationMain,civilNationAdj,"",true);
+    let otherNation = generate.NationType(otherNationMain,otherNationAdj,"",true);
+    let otherAlliance = generate.AllianceType(BaseSeq(v,c),BaseSeq(v,c));
+
     document.getElementById("politic").innerText = codeType[26]+"Situation: "+Help.RFL([
         "At war with the "+otherNation, // One
         "At peace ",
-        "At war with the "+otherAlliance, // Alliance
-        "In a civil war with the "+civilNation, // One
-        "Dealing with the "+rebellion+" rebellion", // Nation
+        "At war with the " + otherAlliance, // Alliance
+        "In a civil war with the " + civilNation, // One
+        "Dealing with the " + rebellion + " rebellion", // Nation
     ])+" "+codeType2[26];
 
     //Demographics
@@ -806,7 +887,7 @@ function PhoType(i)
     return ([aCC,aVV,bCC,bVV][i]);
 }
 
-const ids = ["Diplomacy","Culture","CulturePlus","Geography","Economy","Unrest","Subdivision","Demographic","Check"];
+const ids = ["Diplomacy","Culture","CulturePlus","Geography","Economy","Unrest","Government","Demographic","Check"];
 for(let i = 0; i < ids.length; i++)
 {
     document.getElementById(ids[i] + "Box").addEventListener("change", function ()
@@ -821,3 +902,11 @@ document.getElementById("LockBox").addEventListener("change", function()
 });
 let numName = 0; // Simple variable to display the number of names the user has generated in a session
 let dynastical = 0;
+
+// (Debug Key | Example Variable) : Description
+    // (debug/dynasty | 1) : Leader's last name will always match the nation
+    // (debug/government | "Republic") : Government name will always be "Republic"
+    // (debug/name | "Germany") : Nation name will always be "Germany"
+    // (debug/union | 1) : Nation will have a basic union
+    // (debug/union | 4) : Nation will have a complex union
+    // (debug/front | 0) : Nation name will be in front of government name
