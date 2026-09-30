@@ -11,6 +11,17 @@ input[type="checkbox"]
     width: 50px;
     height: 50px;
 }
+.partyList
+{
+    width: 500px;
+    height: 60px;
+    text-align: center;
+    background-color: black;
+    color: rgb(153, 241, 226);
+    font-size: 30pt;
+    accent-color: black;
+    border-color: #292929;
+}
 #div1
 {
     margin-left: auto;
@@ -28,7 +39,7 @@ input[type="checkbox"]
 }
 #DemographicSection
 {
-    color: rgb(255 119 0);
+    color: rgb(255 190 137);
 }
 #UnrestSection
 {
@@ -38,7 +49,7 @@ input[type="checkbox"]
 {
     color: rgb(228, 241, 153);
 }
-#SubdivisionSection
+#GovernmentSection
 {
     color: rgb(153, 241, 226);
 }
