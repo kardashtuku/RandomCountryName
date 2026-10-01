@@ -17,10 +17,8 @@ input[type="checkbox"]
     height: 60px;
     text-align: center;
     color: rgb(153, 241, 226);
-    background-color: rgb(13 21 20);
-    border-color: rgb(153 241 226 / 0.05);
-    accent-color: black;
     font-size: 30pt;
+    background-color: black;
 }
 .demoList
 {
@@ -28,10 +26,8 @@ input[type="checkbox"]
     height: 60px;
     text-align: center;
     color: rgb(255 190 137);
-    border-color: rgb(255 190 137 / 0.05);
-    accent-color: black;
-    background-color: rgb(41 30 21);
     font-size: 30pt;
+    background-color: black;
 }
 
 #div1
@@ -43,48 +39,39 @@ input[type="checkbox"]
 }
 #NationSection
 {
-    background-color: rgb(101 88 156 / 0.05);
-    color: rgb(164 145 246);
+    color: white;
 }
 #DiplomacySection
 {
     color: rgb(241, 153, 153);
-    background-color: rgb(241 153 153 / 0.05);
 }
 #DemographicSection
 {
     color: rgb(255 190 137);
-    background-color: rgb(255 190 137 / 0.05);
 }
 #UnrestSection
 {
     color: rgb(209, 153, 241);
-    background-color: rgb(209 153 241 / 0.05);
 }
 #EconomySection
 {
     color: rgb(228, 241, 153);
-    background-color: rgb(228 241 153 / 0.05);
 }
 #GovernmentSection
 {
     color: rgb(153, 241, 226);
-    background-color: rgb(153 241 226 / 0.05);
 }
 #GeographySection
 {
     color: rgb(153, 241, 180);
-    background-color: rgb(153 241 180 / 0.05);
 }
 #CultureSection
 {
     color: rgb(153, 159, 241);
-    background-color: rgb(153 159 241 / 0.05);
 }
 #CulturePlusSection
 {
     color: rgb(203 206 248);
-    background-color: rgb(203 206 248 / 0.05);
 }
 select{
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -99,7 +86,6 @@ html {
     color: white;
     text-align: center;
     background-color: black;
-    text-shadow: 2px 1px 3px rgb(255 255 255 / 0.31);
 }
 
 #imageDiv
