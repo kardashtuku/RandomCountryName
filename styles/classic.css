@@ -1,0 +1,96 @@
+#sectionsCustom
+{
+    position: fixed;
+    font-size: 90%;
+    bottom: 10px;
+    text-align: left;
+}
+input[type="checkbox"]
+{
+    width: 50px;
+    height: 50px;
+}
+
+.partyList
+{
+    width: 500px;
+    height: 60px;
+    text-align: center;
+    color: rgb(153, 241, 226);
+    font-size: 30pt;
+    background-color: black;
+}
+.demoList
+{
+    width: 500px;
+    height: 60px;
+    text-align: center;
+    color: rgb(255 190 137);
+    font-size: 30pt;
+    background-color: black;
+}
+
+#div1
+{
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+
+}
+#NationSection
+{
+    color: white;
+}
+#DiplomacySection
+{
+    color: rgb(241, 153, 153);
+}
+#DemographicSection
+{
+    color: rgb(255 190 137);
+}
+#UnrestSection
+{
+    color: rgb(209, 153, 241);
+}
+#EconomySection
+{
+    color: rgb(228, 241, 153);
+}
+#GovernmentSection
+{
+    color: rgb(153, 241, 226);
+}
+#GeographySection
+{
+    color: rgb(153, 241, 180);
+}
+#CultureSection
+{
+    color: rgb(153, 159, 241);
+}
+#CulturePlusSection
+{
+    color: rgb(203 206 248);
+}
+select{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    color: white;
+    accent-color: red;
+    background-color: #352481;
+}
+
+html {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+    text-align: center;
+    background-color: black;
+}
+
+#imageDiv
+{
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
