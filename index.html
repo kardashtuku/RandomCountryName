@@ -1,81 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="style.css">
+<link id="stylesheet" rel="stylesheet" href="styles/style.css">
 <link rel="icon" type="image/x-icon" href="Images/kcgicon.ico">
 <header id="div1">
     <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv" alt="kcg"></p>
-    <i>Kardzer Country Generator V3.6.1</i>
-    <a href="updates.html" target="_blank"><i style="font-size: 10pt;">Updates</i></a>
+    <a target="_blank" href="updates.html"><i>Kardzer Country Generator V3.7.0</i></a>
 </header>
-<div id="sectionsCustom">
-    <input type="checkbox" id="CheckBox" name="Section8" checked="checked" style="accent-color: rgb(184, 182, 182)"><br>
-    <label for="CheckBox"> Toggle Options</label><br>
-    <div id="CheckSection">
-        <input type="checkbox" id="GovernmentBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)"><br>
-        <label for="GovernmentBox" style="background-color: rgb(14, 88, 76)"> Show Government</label><br>
-        <input type="checkbox" id="DiplomacyBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)"><br>
-        <label for="DiplomacyBox" style="background-color: rgb(88, 13, 13)"> Show Diplomacy</label><br>
-        <input type="checkbox" id="CultureBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)"><br>
-        <label for="CultureBox" style="background-color: rgb(12, 17, 83)"> Show Culture</label><br>
-        <input type="checkbox" id="CulturePlusBox" name="Section3" checked="checked" style="accent-color: rgb(190 193 236)"><br>
-        <label for="CulturePlusBox" style="background-color: rgb(44 50 103)"> Show Culture+</label><br>
-        <input type="checkbox" id="GeographyBox" name="Section3" checked="checked" style="accent-color: rgb(153, 241, 180)"><br>
-        <label for="GeographyBox" style="background-color: rgb(6, 48, 19)"> Show Geography</label><br>
-        <input type="checkbox" id="EconomyBox" name="Section4" checked="checked" style="accent-color: rgb(228, 241, 153)"><br>
-        <label for="EconomyBox" style="background-color: rgb(72, 82, 15)"> Show Economy</label><br>
-        <input type="checkbox" id="UnrestBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)"><br>
-        <label for="UnrestBox" style="background-color: rgb(49, 11, 71)"> Show Situation</label><br>
-        <input type="checkbox" id="DemographicBox" name="Section6" checked="checked" style="accent-color: rgb(250 151 66)"><br>
-        <label for="DemographicBox" style="background-color: rgb(184 97 20)"> Show Demographics</label><br>
-        <br>
-        <symboldiv style="background-color: #25117e;">
-            <othertext>- Symbols -</othertext><br>
-            <select name="chars" id="omMount">
-                <option value="2">None</option>
-                <option value="1">Emojis</option>
-                <option value="0">Unicode</option>
-            </select><br>
-        </symboldiv>
-        <br>
-        <accentdiv style="background-color: #25117e;">
-            <othertext>- Accents -</othertext><br>
-            <select name="letterTypes" id="letterTypes">
-                <option value="0">None</option>
-                <option value="1">Many 🌪️</option>
-                <option value="2">Phonetic 💬</option>
-                <option value="3">Vekleic ✴</option>
-                <option value="4">Turkish 🇹🇷</option>
-                <option value="5">Maltese 🇲🇹</option>
-                <option value="6">French 🇫🇷</option>
-                <option value="7">Spanish 🇪🇸</option>
-                <option value="8">Smart Accents (Experimental) 🧪</option>
-            </select><br>
-        </accentdiv>
-    </div>
-</div>
+<button style="background-color: #65589c; text-shadow: 1px 1px 1px rgb(67 67 67);" onclick=DoIt()><text style="font-size: 400%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">GENERATE</text></button>
+
 <title>Kardzer Country Generator</title>
 
 <body>
-    <button style="background-color: #65589c;" onclick=DoIt()><text style="font-size: 500%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">Generate<sub>↵</sub></text></button>
     <!--<p style="width: 50%;  overflow-wrap: break-word; font-size: 60px;" id="test"></p>-->
     <div id="NationSection">
         <text id="demo" style="font-size: 60pt;">Nation</text><br>
         <text id="city" style="font-size: 30pt;">Capital</text><br>
         <text style="font-size: 30pt;"><text id="leadership"></text><text id="leader">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></text><br>
-        <text style="font-size: 30pt;"><text id="admin">Code</text></text><br>
-        <a href="codes.html" target="_blank"><i style="font-size: 10pt;">Government Code</i></a>
     </div>
     <div id="GovernmentSection">
-        <text id="government" style="font-size: 30pt;">Government Type</text><br>
-        <text id="Party" style="font-size: 30pt">Party Type</text><br>
+        <select name="TheGovernment" class="partyList">
+            <option id="government" style="font-size: 30pt;">Government Type</option><br>
+            <option id="Party">Administration</option>
+        </select><br>
         <select name="Parties" id="Parties" class="partyList">
             <option id="Party0">Political Parties</option>
             <option id="Party1">2nd Party</option>
             <option id="Party2">3rd Party</option>
             <option id="Party3">4th Party</option>
-            <option id="Independent">Independents</option>
+            <option id="Party4">Independents</option>
         </select><br>
-        <text id="subdiv" style="font-size: 20pt;">Subdivisions</text><br>
+        <select name="Subdivisions" id="Subdivisions" class="partyList">
+            <option id="Sub0">First-Level</option>
+            <option id="Sub1">Second-Level</option>
+            <option id="Sub2">Third-Level</option>
+        </select>
 
     </div>
     <div id="DiplomacySection">
@@ -85,7 +43,7 @@
     </div>
     <div id="CultureSection">
         <text id="culture" style="font-size: 30pt;">Culture</text><br>
-        <text style="font-size: 30pt;"id="language">Language</text><br>
+        <text style="font-size: 30pt;" id="language">Language</text><br>
         <text id="religion" style="font-size: 30pt;">Religion</text><br>
     </div>
     <div id="CulturePlusSection">
@@ -113,13 +71,77 @@
         <text id="enviro" style="font-size: 30pt;">Environment</text><br>
     </div>
     <div id="DemographicSection">
-        <text id="demo0" style="font-size: 20pt;">Demographic #1</text><br>
-        <text id="demo1" style="font-size: 20pt;">Demographic #2</text><br>
-        <text id="demo2" style="font-size: 20pt;">Demographic #3</text><br>
-        <text id="demo3" style="font-size: 20pt;">Demographic #4</text><br>
-        <text id="demoLeft" style="font-size: 20pt;">Leftover Demographic</text>
+        <select name="Demographics" id="Demographics" class="demoList">
+            <option id="demo0" style="font-size: 20pt;">Demographic #1</option>
+            <option id="demo1" style="font-size: 20pt;">Demographic #2</option>
+            <option id="demo2" style="font-size: 20pt;">Demographic #3</option>
+            <option id="demo3" style="font-size: 20pt;">Demographic #4</option>
+            <option id="demo4" style="font-size: 20pt;">Leftover Demographic</option>
+        </select>
     </div>
 </body>
+<div id="sectionsCustom">
+    <div id="CheckSection">
+        <div>
+            <text>- Symbols -</text><br>
+            <select name="chars" id="omMount">
+                <option value="0">None</option>
+                <option value="2">Emojis</option>
+                <option value="1">Unicode</option>
+            </select>
+        </div><br>
+        <div>
+            <text>- Accents -</text><br>
+            <select name="letterTypes" id="letterTypes">
+                <option value="0">None</option>
+                <option value="8">Smart Accents 🧠</option>
+                <option value="1">Many 🌪️</option>
+                <option value="2">Phonetic 💬</option>
+                <option value="3">Vekleic ✴</option>
+                <option value="4">Turkish 🇹🇷</option>
+                <option value="5">Maltese 🇲🇹</option>
+                <option value="6">French 🇫🇷</option>
+                <option value="7">Spanish 🇪🇸</option>
+            </select><br>
+        </div><br>
+        <div class="symbols">
+            <text>- Modes -</text><br>
+            <select name="modeTypes" id="modeTypes">
+                <option value="style">Official</option>
+                <option value="classic">Classic</option>
+                <option value="boringLight">Light</option>
+            </select><br>
+        </div><br>
+        <div class="symbols">
+            <text>- Fonts -</text><br>
+            <select name="modeTypes" id="fontTypes">
+                <option value="Georgia, 'Times New Roman', Times, serif">Times</option>
+                <option value="Alef">Alef</option>
+                <option value="Comic Sans MS">Comic Sans</option>
+                <option value="Impact">Impact</option>
+                <option value="Courier New">Courier</option>
+            </select><br>
+        </div><br>
+        <input type="checkbox" id="GovernmentBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)">
+        <input type="checkbox" id="DiplomacyBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)">
+        <input type="checkbox" id="CultureBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)">
+        <input type="checkbox" id="CulturePlusBox" name="Section3" checked="checked" style="accent-color: rgb(190 193 236)">
+        <input type="checkbox" id="GeographyBox" name="Section3" checked="checked" style="accent-color: rgb(153, 241, 180)">
+        <input type="checkbox" id="EconomyBox" name="Section4" checked="checked" style="accent-color: rgb(228, 241, 153)">
+        <input type="checkbox" id="UnrestBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)">
+        <input type="checkbox" id="DemographicBox" name="Section6" checked="checked" style="accent-color: rgb(250 151 66)"><br>
+        <label for="GovernmentBox" style="background-color: rgb(14, 88, 76)">Govern.</label>
+        <label for="DiplomacyBox" style="background-color: rgb(88, 13, 13)">Diplomacy</label>
+        <label for="CultureBox" style="background-color: rgb(12, 17, 83)">Culture</label>
+        <label for="CulturePlusBox" style="background-color: rgb(44 50 103)">Culture+</label>
+        <label for="GeographyBox" style="background-color: rgb(6, 48, 19)">Landscape</label>
+        <label for="EconomyBox" style="background-color: rgb(72, 82, 15)">Economy</label>
+        <label for="UnrestBox" style="background-color: rgb(49, 11, 71)">Unrest</label>
+        <label for="DemographicBox" style="background-color: rgb(184 97 20)">Demographics</label>
+    </div><br>
+    <input type="checkbox" id="CheckBox" name="Section8" checked="checked" style="accent-color: rgb(184, 182, 182)">
+    <label for="CheckBox"> Toggle Options</label><br><br>
+</div>
 <footer class="page-footer">
     <hr>
     <h2 style="width: 80%;  overflow-wrap: break-word; margin-left: auto; margin-right: auto; align-items: center;">Alphabet<text id="sar"></text>: <br><text id="alphabeta"></text><br><text id="lettercount"></text></h2>
@@ -132,7 +154,7 @@
     <br>
     <text>Simplified Version of <a href="https://kardashtuku.itch.io/country-generator" target="_blank"><i>Kardzer Country Generator</i></a> for the web<br>Reprogrammed from Python to Javascript</text>
     <br>
-    <a href="https://www.kardashtuku.com/" target="_blank"><img style="background-color: black;" width="200" src="Images/KardzerLogoFancyWhite.png"></a>
+    <a href="https://www.kardashtuku.com/" target="_blank"><img alt="kardzer" style="background-color: black;" width="200" src="Images/KardzerLogoFancyWhite.png"></a>
     
     <br>
 </footer>
