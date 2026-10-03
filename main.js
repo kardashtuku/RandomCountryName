@@ -15,8 +15,7 @@ const Help =
     },
     RandomNumber(min,max) // Returns a random number in-between two values
     {
-        max++;
-        return Math.floor(Math.random() * (max - min) + min);
+        return Math.floor(Math.random() * (max - min + 1) + min);
     },
     SuperSplice(givenList,howMany)
     {
@@ -36,15 +35,15 @@ const Help =
             }
         }
     },
-    Dropdown(howMany,variable,htmlID)
-    {
+    Dropdown(howMany,variable,htmlID) // Creates a dropdown list in html
+    { // howMany is how many dropdown options are available; variable is a list containing all of the imported variables
         for(let i = 0; i < howMany; i++)
         {
             document.getElementById(htmlID+""+i).innerText = variable[i];
         }
     },
-    Breakdown(givenList,amount,htmlID,other)
-    {
+    Breakdown(givenList,amount,htmlID,other) // Breaks 100% down into random self-dependent parts
+    { // givenList is the list we are pulling from, amount is how many divisions we're taking, other is the leftover name
         let percentOf = 10000;
         let takeAway;
 
@@ -64,7 +63,7 @@ const Help =
         Help.Dropdown(amount,itemList,htmlID);
     },
     U(which,number)
-    {
+    { // Adds a symbol
         let omRange = parseInt(document.getElementById("omMount").value);
         let codeType =
         [
@@ -86,8 +85,8 @@ function BaseSeq(v,c)
 {
         // Create basic variables
     let rName = ""; // Will be the basic generated string of characters applied to all complex names
-    let lengthOf = Math.floor(Math.random() * (7 - 4 + 1)) + 4; // Picks a random length for the name
-    let flipBetween = Math.floor(Math.random() * 5); // Picks whether the letter is a consonant or vowel
+    let lengthOf = Help.RandomNumber(4,7); // Picks a random length for the name
+    let flipBetween = Help.RandomNumber(0,4); // Picks whether the letter is a consonant or vowel
     let start = 0;
     let iteration = [0, 2, 4, 6, 8, 10, 12, 14, 16]; // Makes it so every other letter should be different type
 
@@ -110,19 +109,16 @@ function BaseSeq(v,c)
     return rName;
 }
 // ---- | Main Program Functions | ---- //
-const generate =  // Holds the code required to generate a variety of name types
+const Generate =  // Holds the code required to generate a variety of name types
 {
-    NationType(nat,union,isSide)
+    NationType(nat,union,isSide,adj)
     {
-        // (debug/front | 1) : Nation name will be in front of government name
         let debug = document.getElementById("dkey").value;
         let debugVariable = document.getElementById("dvar").value;
-        if(debug === "debug/name")
-        {
-            nat = debugVariable;
-        }
         let maintainDynastical;
+        if(debug === "debug/name"){nat = debugVariable;}
         if(isSide) {maintainDynastical = dynastical}
+        
         dynastical = 0;
         let governmentTypes = Help.RandomNumber(0,10);
         let frontOrBack = Help.RandomNumber(1,2);
@@ -132,7 +128,6 @@ const generate =  // Holds the code required to generate a variety of name types
         }
         let basicLeaders = ["King","President","Chancellor","Leader","Emperor","Minister","Governor"];
         let government;
-        let suffixes = ["an", "ian", "ite", "id","id","", "", ""];
         let leaderType;
         let leaderTypes;
         let unionType = "";
@@ -146,6 +141,7 @@ const generate =  // Holds the code required to generate a variety of name types
         if(specials <= 3)
         {
             nat = nat+"-"+union;
+            adj = adj+"-"+union;
         } else if(specials === 4)
         {
             ifUnion = "s";
@@ -240,12 +236,11 @@ const generate =  // Holds the code required to generate a variety of name types
             partyType = ["Court"];
             gPrimary = ["Monarchy","Dynasty"];
             govBack = ["Sultanate","Caliphate","Imamate","Emirate","Shahdom","Sheikhdom","Empire"];
-            leaderTypes = [["Sultan","Caliph"],["Caliph","Sultan"],["Imam"],["Shah"],["Sheikh"],["Sultan","Caliph","Imam","Shah","Sheikh"]]
+            leaderTypes = [["Sultan","Caliph"],["Caliph","Sultan"],["Imam"],["Emir"],["Shah"],["Sheikh"],["Sultan","Caliph","Imam","Shah","Sheikh"],]
             government = Help.RFL(govBack);
             leaderType = Help.RFL(Help.Find(leaderTypes,govBack,government));
 
             dynastical = Help.RandomNumber(0,9);
-            suffixes = ["id","id","id","id","id","id","an","","",""];
         } else if(governmentTypes === 9) // Exotic
         {
             partyType = ["Advisors","Court","Council","Congress"];
@@ -263,12 +258,14 @@ const generate =  // Holds the code required to generate a variety of name types
             government = Help.RFL(govBack);
             leaderType = Help.RFL(leaderTypes);
         }
+        
         gPrimary.push("Oligarchy");
         if(isSide === false) {
             let parties = ["Communist","Socialist","Democratic Socialist","Progressive","Liberal","Moderate","Fascist","Conservative","Libertarian","Anarchist","Capitalist","Democratic","Republican","Monarchist","Federalist","Nationalist"];
             document.getElementById("government").innerText = gSecondary+" "+Help.RFL(gPrimary);
             Help.Breakdown(parties,4,"Party","Other");
-            document.getElementById("Party").innerText = Help.RFL(["Unicameral","Unicameral","Unicameral","Unicameral","Bicameral","Bicameral","Bicameral","Tricameral","Quadcameral","","","","",""])+" "+Help.RFL(partyType);
+            document.getElementById("Legis").innerText = "Legislature: "+Help.RFL(["Unicameral","Unicameral","Unicameral","Unicameral","Bicameral","Bicameral","Bicameral","Tricameral","Quadcameral","","","","",""])+" "+Help.RFL(partyType);
+            document.getElementById("Judis").innerText = "Judiciary: "+Help.RFL(["Civil","Centralized","Civil and Central"])+" "+Help.RFL(["Local","Supreme","Local and Supreme","Private","Communal"])+" "+Help.RFL(["Courts","Juries","Tribunals"]);
         }
         let acies = ["Democrac","Autonom","Sovereignt","Autocrac","Count","Baron","Duch","Archduch","Compan","Social Democrac","Theocrac","Dynast"];
         if(debug === "debug/government")
@@ -306,10 +303,10 @@ const generate =  // Holds the code required to generate a variety of name types
                 return unionType+government+ifUnion + " of " +nat;
             } else
             {
-                return unionType+government+ifUnion + " of the " + nat+Help.RFL(suffixes)+Help.RFL(["s",""]);
+                return unionType+government+ifUnion + " of the " + adj+Help.RFL(["s",""]);
             }
         } else {
-            return unionType+nat + Help.RFL(suffixes) + " " + government+ifUnion;
+            return unionType+adj + " " + government+ifUnion;
         }
     },
     CityType(nat)
@@ -323,8 +320,8 @@ const generate =  // Holds the code required to generate a variety of name types
         const suffixes = ["Union","Alliance","Federation","Confederation","Pact","Empire","Republic","Council","Compact","Treaty","Combine"]
         const nameHaps = ["Difficulty","The Mountain","The Wounded","Indication","Trade","Populace","Blood","War","The Double","Bronze","Gold","Guidance","Manufacturing","Platinum","Information","Steel","Failure","Victory","Stone","Empire","Church","Confusion","Management","Freedom","Liberty","Aspects","Economy","Decisions","Opportunity","Introduction","Food","Basics","Reading","Culture","Tradition","Responsibility","Industry","Height","Attention","Preference","Democracy","Obligation","Security","Preparation","Consuls","Power","Education","Non-Aggression","Strangers","War","The Divine","God","The Heavenly"];
         let base = "";
-        let hasName = Math.floor(Math.random() * 3);
-        let isSuffix = Math.floor(Math.random() * 2);
+        let hasName = Help.RandomNumber(1,3);
+        let isSuffix = Help.RandomNumber(1,2);
         if(hasName === 1){
             base = nat;
         } else if(hasName === 2)
@@ -337,10 +334,10 @@ const generate =  // Holds the code required to generate a variety of name types
 
         if(isSuffix === 1)
         {
-            return(Help.RFL(prefixes)+" "+base)
+            return Help.RFL(prefixes)+" "+base;
         }
         else{
-            return(base+" "+Help.RFL(suffixes))
+            return base+" "+Help.RFL(suffixes);
         }
     },
     GetScale(notes,specialName)
@@ -414,6 +411,70 @@ const generate =  // Holds the code required to generate a variety of name types
         document.getElementById("scaleAnthem").innerText = scaleName+" "+scale;
         document.getElementById("bassline").innerText = Help.U(0,22)+" Bassline: "+bassline+" "+Help.U(1,22);
         return melody.join(" | ");
+    },
+    PhoType(i)
+    {
+    AV = ACCENTED_VOWELS;
+    AC = ACCENTED_CONSONANTS;
+    BV = BASIC_VOWELS;
+    BC = BASIC_CONSONANTS;
+    let phoType = Help.RandomNumber(1,7);
+    let aCC = [];
+    let aVV = [];
+    let bCC = [];
+    let bVV = [];
+    
+    switch (phoType)
+    {
+        case 1: // basic
+            aCC = [...new Set([Help.RFL(AC),Help.RFL(AC),Help.RFL(AC)].flat())];
+            aVV = [...new Set([Help.RFL(AV),Help.RFL(AV),Help.RFL(AV)].flat())];
+            bCC = BC;
+            bVV = BV;
+            break;
+        case 2: // chaotic
+            aCC = AC.flat();
+            aVV = AV.flat();
+            bCC = BC;
+            bVV = BV;
+            break;
+        case 3: // Barely Vowels
+            aCC = AC.flat();
+            bCC = BC;
+            bVV = [...new Set([Help.RFL(BV)].flat())];
+            aVV = [...new Set([Help.RFL(Help.RFL(AV))].flat())];
+            break;
+        case 4: // Barely Consonants
+            bVV = BV;
+            aVV = AV.flat();
+            aCC = [...new Set([Help.RFL(Help.RFL(AC)),Help.RFL(Help.RFL(AC))].flat())];
+            bCC = [...new Set([Help.RFL(BC),Help.RFL(BC)].flat())];
+            break;
+        case 5: // Barely Anything
+            aCC = [...new Set(Help.CTL(Help.RFL(AV),Help.RFL(AV)))];
+            bVV = [...new Set([Help.RFL(BV)].flat())];
+            aVV = [...new Set([Help.RFL(Help.RFL(AV))].flat())];
+            aCC = [...new Set([Help.RFL(Help.RFL(AC)),Help.RFL(Help.RFL(AC))].flat())];
+            bCC = [...new Set([Help.RFL(BC),Help.RFL(BC)].flat())];
+            break;
+        case 6: // One accent
+            if(Help.RandomNumber(1,2) === 1)
+            {
+                aCC = [Help.RFL(Help.RFL(AC))];
+            } else
+            {
+                aVV = [Help.RFL(Help.RFL(AV))];
+            }
+            bCC = BC;
+            bVV = BV;
+            break;
+        case 7: // Entirely Accents
+            bCC = AC.flat();
+            bVV = AV.flat();
+            break;
+        default:
+    }
+    return ([aCC,aVV,bCC,bVV][i]);
     }
 };
 let prevAlphabet = [];
@@ -424,118 +485,51 @@ function DoIt() {
     // Decides what letters are allowed in the program
 
     let lemRange = document.getElementById("letterTypes").value;
-    let v = ["A", "U","I", "O","E"];
-    let c = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Gh", "Kh", "Z", "V", "Ch", "Th", "F", "H", "L", "Sh", "N", "M", "C",];
+    let v = BASIC_VOWELS;
+    let c = BASIC_CONSONANTS;
     let aV = [];
     let aC = [];
     if(lemRange === "1") {
-        aV = [["Ə", "Æ","I","Ø","Œ"],
-        ["Á","É","Í","Ó","Ú"],
-        ["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],
-        ["Ȧ","Ė","İ","Ȯ","U̇"],
-        ["Ä","Ë","Ï","Ö","Ü"],
-        ["Ả","Ẻ","Ỉ","Ỏ","Ủ"],
-        ["À","È","Ì","Ò","Ù"],
-        ["Â","Ê","Î","Ô","Û"],
-        ["Ã","Ẽ","Ĩ","Õ","Ũ"],
-        ["A̅","E̅","I̅","O̅","U̅"],
-        ["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],
-        ["Ő","Ű"],
-        ["Ě"],
-        ["A̭","Ḙ","I̭","O̭","Ṷ"],
-        ["A̰","Ḛ","Ḭ","O̰","Ṵ"],
-        ["A̱","E̱","I̱","O̱","U̱"],
-        ["A̯","E̯","I̯","O̯","U̯"],
-        ["A̮","E̮","I̮","O̮","U̮"],
-        ["Ą","Ę","Į","Ǫ","Ų"],
-        ["Ḁ","E̥","I̥","O̥","U̥"],
-        ["A̬","E̬","I̬","O̬","U̬"],
-        ["A̩","E̩","I̩","O̩","U̩"],
-        ["A̩","E̩","I̩","O̩","U̩"],
-        ["A̧","Ȩ","I̧","O̧","U̧"],
-        ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
-        ["Ā","Ē","Ī","Ō","Ū"],
-        ["Å","E̊","I̊","O̊","Ů"],
-        ["A̎","E̎","I̎","O̎","U̎"],
-        ["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
-        ["Â","Ê","Î","Ô","Û"],
-        ["Ő","Ű"],
-        ["A̗","E̗","I̗","O̗","U̗"],
-        ["A̖","E̖","I̖","O̖","U̖"],
-        ["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
-        ["A̤", "Ṳ","I̤", "O̤","E̤"],
-        ["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]].flat();
-        aC = [["Ğ", "Ð", "Þ","Β","Ʋ"],
-        ["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],
-        ["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
-        ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],
-        ["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
-        ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],
-        ["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
-        ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],
-        ["Ř","Ť","Š","Ď","Ň","Č"],
-        ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],
-        ["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
-        ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],
-        ["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
-        ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],
-        ["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
-        ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],
-        ["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
-        ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],
-        ["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
-        ["Ẅ", "Ÿ"],
-        ["Ẁ", "Ỳ"],
-        ["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],
-        ["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
-        ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],
-        ["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],        ["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
-        ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],
-        ["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],
-        ["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
-        ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],
-        ["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],
-        ["Ʈ", "Ɖ", "Ƒ", "ʔ", "Ɱ", "Ɲ", "Ɲ", "Ŋ", "ʙ", "ʀ", "Ɱ", "ɾ", "Ɽ","Φ", "Β", "Θ", "Ð", "Ʃ", "Ʒ", "Ƨ", "Ƶ", "Ç", "Ƴ", "X", "Ɣ", "Χ","ʁ", "Ħ", "ʕ", "Ȟ", "Ɬ", "Ɬ", "Ʋ", "Ɍ", "Ʀ", "Ⱳ", "L", "Ƚ", "Ƞ","ʟ", "Ɫ", "Ƚ̆", "Ƞ̆"],
-        ["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],
-        ["Ɓ", "Ɗ", "Ƒ", "Ɠ", "Ɠ"]].flat();
+        aV = ACCENTED_VOWELS.flat();
+        aC = ACCENTED_CONSONANTS.flat();
     }
     else if(lemRange === "2") {
-        aV = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
-        aC = ["Č","Ş"];
+        aV = PHONETIC_VOWELS;
+        aC = PHONETIC_CONSONANTS;
     } else if(lemRange === "3")
     {
-        aV = ["Ė","Ê","Ü","Ë"];
-        aC = ["Ḟ"];
+        aV = VEKLEIC_VOWELS;
+        aC = VEKLEIC_CONSONANTS;
         v.splice(v.indexOf('I'),1);
     } else if(lemRange === "4") // Turkish
     {
-        aV = ["I", "Ö", "Ü"];
-        aC = ["Ç", "Ş", "Ğ"];
+        aV = TURKISH_VOWELS;
+        aC = TURKISH_CONSONANTS;
         c.splice(c.indexOf('Q'),1);
         c.splice(c.indexOf('W'),1);
         c.splice(c.indexOf('X'),1);
 
     } else if(lemRange === "5") // Maltese
     {
-        aV = ["À", "È", "Ì", "Ò", "Ù"];
-        aC = ["Ħ", "Ċ", "Ġ", "Ż"];
+        aV = MALTESE_VOWELS;
+        aC = MALTESE_CONSONANTS;
         c.splice(c.indexOf('C'),1);
         c.splice(c.indexOf('Y'),1);
 
     } else if(lemRange === "63") // French
     {
-        aV = ["É", "È", "À", "Ù", "Â", "Ê", "Î", "Ô", "Û"];
-        aC = ["Ç"];
+        aV = FRENCH_VOWELS;
+        aC = FRENCH_CONSONANTS;
     } else if(lemRange === "7") // Spanish
     {
-        aV = ["Á", "É", "Í", "Ó", "Ú", "Ü"];
-        aC = ["Ñ"];
+        aV = SPANISH_VOWELS;
+        aC = SPANISH_CONSONANTS;
     }   else if(lemRange === "8")
     {
-        aC = PhoType(0);
-        aV = PhoType(1)
-        c = PhoType(2)
-        v = PhoType(3)
+        aC = Generate.PhoType(0);
+        aV = Generate.PhoType(1)
+        c = Generate.PhoType(2)
+        v = Generate.PhoType(3)
     }
 
     // Loop through the lists and remove some letters
@@ -562,7 +556,7 @@ function DoIt() {
 
     prevAlphabet = [v,c];
 
-    let uniqueSuffix = (Help.RFL([Help.RFL(v)+Help.RFL(c),Help.RFL(c)+Help.RFL(v),Help.RFL(v)+Help.RFL(c)+Help.RFL(v),Help.RFL(c)+Help.RFL(v)+Help.RFL(c)])).toLowerCase();
+    let uniqueSuffix = (Help.RFL([Help.RFL(v),Help.RFL(c),Help.RFL(v)+Help.RFL(c),Help.RFL(c)+Help.RFL(v),Help.RFL(v)+Help.RFL(c),Help.RFL(c)+Help.RFL(v),Help.RFL(v)+Help.RFL(c)+Help.RFL(v),Help.RFL(c)+Help.RFL(v)+Help.RFL(c)])).toLowerCase();
     let SUFFIXES = ["an","ian","ite","ic","id","","","","","","","","","","","","","","","","","",uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix];
     // Display symbols to aid in readability and aesthetics
 
@@ -582,11 +576,11 @@ function DoIt() {
     }
 
     // Capital
-    let capitalCity = generate.CityType(BaseSeq(v,c));
+    let capitalCity = Generate.CityType(BaseSeq(v,c));
     let adj_City = capitalCity + Help.RFL(SUFFIXES);
         // Secondaries - Other things are based on these, and these are based on the primaries
     // Alliance
-    let alliance = generate.AllianceType(c_N[0],capitalCity);
+    let alliance = Help.RFL(["Alliance","Treaty","Treatise","Pact","Defensive Pact","Alliance","Alliance","Alliance"])+": "+Generate.AllianceType(c_N[0],capitalCity);
     if(Help.RandomNumber(1,10) === 1){alliance = "None";}
     // Religion
     let reli = Help.RFL([c_N[0],c_N[1],c_N[2],c_N[3],capitalCity,(BaseSeq(v,c)),(BaseSeq(v,c)),(BaseSeq(v,c)),(BaseSeq(v,c))]);
@@ -630,13 +624,12 @@ function DoIt() {
     }
 
     // NATION
-    document.getElementById("demo").innerText = generate.NationType(c_N[0],c_N[1],false);
+    document.getElementById("demo").innerText = Generate.NationType(c_N[0],c_N[1],false,c_A[0]);
     document.getElementById("city").innerText = "Capital: "+capitalCity;
     document.getElementById("leader").innerText = ": "+BaseSeq(v,c);
 
     // Diplomacy
     document.getElementById("alliance").innerText = Help.U(0,2)+" "+alliance+" "+Help.U(1,2);
-    
     document.getElementById("diplomacy").innerText = Help.U(0,3)+" "+"Diplomacy: "+Help.RFL(["At War","Ostracized","Hated","Isolated","On Bad Terms with Neighbors","Plentiful Border Disputes","Post-war","Neutral","Plays multiple sides","Supplies aide","Unimportant","Important ally","Regional Power","Threatening","Unassuming","Friends with the right people","Friends with the wrong people","Insignificant","Monstrous","Global Hegemon","Hegemon","Very Influential","Strongman","Everyone's Friend"])+" "+Help.U(1,3);
 
     // Geography
@@ -651,10 +644,10 @@ function DoIt() {
     document.getElementById("specres").innerText = Help.U(0,10)+" "+"Special Resource: "+specResource+" "+Help.U(1,10); // TO DO
 
     //Stability
-    document.getElementById("unrest").innerText = Help.U(0,11)+" "+"Unrest: "+Math.round(((corruption+crimeRate+environment)/3))+"%"+" "+Help.U(1,11);
+    document.getElementById("unrest").innerText = Help.U(0,11)+" "+"Unrest: "+Math.round((100-(corruption+crimeRate+environment)/3))+"%"+" "+Help.U(1,11);
     document.getElementById("corr").innerText = Help.U(0,12)+" "+"Corruption: "+Help.Translate(corruption,["Extremely ","Very ","Very ","Very ","Quite ","","","Somewhat ","Somewhat ","Not "])+"Corrupt"+" "+Help.U(1,12);
     document.getElementById("crime").innerText = Help.U(0,13)+" "+"Crime Rate: "+Help.Translate(crimeRate,["Very High","High","Somewhat High","Average","Average","Average","Somewhat Low","Low","Very Low","Nonexistent"])+" "+Help.U(1,13);
-    document.getElementById("enviro").innerText = Help.U(0,14)+" "+"Environment: "+Help.Translate(environment,(["Extremely Polluted","Polluted","Polluted","Slightly Polluted","Normal","Normal","Normal","Clean","Pristine","Pristine"]))+" "+Help.U(1,14);
+    document.getElementById("enviro").innerText = Help.U(0,14)+" "+"Environment: "+Help.Translate(environment,["Extremely Polluted","Polluted","Polluted","Slightly Polluted","Normal","Normal","Normal","Clean","Pristine","Pristine"])+" "+Help.U(1,14);
     //$add Headline
 
     // Culture +
@@ -665,12 +658,22 @@ function DoIt() {
     // Culture+
     document.getElementById("landm").innerText = Help.U(0,19)+" "+"Landmark: "+landMark+" "+Help.U(1,19); // TO DO
     document.getElementById("greatwork").innerText = Help.U(0,20)+" "+"Great Work: "+workFinal+" "+Help.U(1,20); // TO DO
-    document.getElementById("anthem").innerText = Help.U(0,21)+" "+"Anthem: " + generate.GetScale(notes,BaseSeq(v,c)+Help.RFL(SUFFIXES))+" "+Help.U(1,21);
+    document.getElementById("anthem").innerText = Help.U(0,21)+" "+"Anthem: " + Generate.GetScale(notes,BaseSeq(v,c)+Help.RFL(SUFFIXES))+" "+Help.U(1,21);
 
     // Subdivisions + //$add Type
     let subTypes = ["Provinces","Municipalities","Counties","Regions","States","Oblasts","Territories","Autonomous Republics","Autonomous Territories","Districts"];
     let givenSub = Help.SuperSplice(subTypes,3);
     Help.Dropdown(givenSub.length,givenSub,"Sub")
+
+    let healthCare = Help.RFL(["Public","Private","Religious","Communal","No"]) + " Healthcare";
+    let army = Help.RFL(["Early","Mandatory","Optional","No","Restrictive","Conscriptive"]) + " Military Service";
+    let slavery = "Slavery is "+Help.RFL(["Banned","Legalized","Common","Taboo","Institutional","Banned","Illegal"]);
+    let speech = Help.RFL(["Restricted","Unrestricted","Monitored","Free"])+" Speech";
+    let education = Help.RFL(["Public","Private","Public and Private","Religious"])+" Schooling";
+    let religious = Help.RFL(["Freedom of","Restriction of","Enforced"])+" Religion";
+
+    let policies = [healthCare,army,slavery,speech,education,religious]
+    Help.Dropdown(policies.length,policies,"Policy")
 
     let otherNationMain = BaseSeq(v,c);
     let otherNationAdj = otherNationMain + Help.RFL(SUFFIXES);
@@ -681,9 +684,9 @@ function DoIt() {
     let civilNationAdj = Help.Find(civilAdjs,civilMains,civilNationMain);
     let rebellion = Help.RFL([BaseSeq(v,c)+Help.RFL(SUFFIXES),c_A[1],c_A[2],c_A[3]]);
 
-    let civilNation = generate.NationType(civilNationMain,civilNationAdj,true);
-    let otherNation = generate.NationType(otherNationMain,otherNationAdj,true);
-    let otherAlliance = generate.AllianceType(BaseSeq(v,c),BaseSeq(v,c));
+    let civilNation = Generate.NationType(civilNationMain,BaseSeq(v,c),true,civilNationAdj);
+    let otherNation = Generate.NationType(otherNationMain,BaseSeq(v,c),true,otherNationAdj);
+    let otherAlliance = Generate.AllianceType(BaseSeq(v,c),BaseSeq(v,c));
 
     document.getElementById("politic").innerText = Help.U(0,26)+"Situation: "+Help.RFL([
         "At war with the "+otherNation, // One
@@ -708,172 +711,79 @@ function DoIt() {
     }
     document.getElementById("alphabeta").innerText = Help.CTL(c,v);
     document.getElementById("lettercount").innerText = " "+String(Help.CTL(c,v).length)+" letters";
-    document.getElementById("suffix").innerHTML = Help.RFL(["","","","","","","","","","","","","","","","","","","","","","","","","","","Jr.","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII"])+Help.U(0,0);
+    document.getElementById("suffix").innerHTML = Help.RFL(["","","","","","","","","","","","","","","","","","","","","","","","","","","Jr.","II","III","IV","V","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"])+Help.U(0,0);
 
     /// --- EXTRAS
     document.getElementById("numName").innerText = String(numName);
 }
 
-
-// Phoneme Classes are groups of phonemes that more commonly go together
-// Phoneme Clusters are groups of similar phonemes
-// Phoneme Type determines what kind of groupings can occur
-
-
-function PhoType(i)
-{
-    let BASIC_VOWELS = ["A", "U","I", "O","E"];
-    let BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C"];
-    let AV = [["Ə", "Æ","I","Ø","Œ"],
-        ["Á","É","Í","Ó","Ú"],
-        ["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],
-        ["Ȧ","Ė","İ","Ȯ","U̇"],
-        ["Ä","Ë","Ï","Ö","Ü"],
-        ["Ả","Ẻ","Ỉ","Ỏ","Ủ"],
-        ["À","È","Ì","Ò","Ù"],
-        ["Â","Ê","Î","Ô","Û"],
-        ["Ã","Ẽ","Ĩ","Õ","Ũ"],
-        ["A̅","E̅","I̅","O̅","U̅"],
-        ["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],
-        ["Ő","Ű"],
-        ["Ě"],
-        ["A̭","Ḙ","I̭","O̭","Ṷ"],
-        ["A̰","Ḛ","Ḭ","O̰","Ṵ"],
-        ["A̱","E̱","I̱","O̱","U̱"],
-        ["A̯","E̯","I̯","O̯","U̯"],
-        ["A̮","E̮","I̮","O̮","U̮"],
-        ["Ą","Ę","Į","Ǫ","Ų"],
-        ["Ḁ","E̥","I̥","O̥","U̥"],
-        ["A̬","E̬","I̬","O̬","U̬"],
-        ["A̩","E̩","I̩","O̩","U̩"],
-        ["A̩","E̩","I̩","O̩","U̩"],
-        ["A̧","Ȩ","I̧","O̧","U̧"],
-        ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
-        ["Ā","Ē","Ī","Ō","Ū"],
-        ["Å","E̊","I̊","O̊","Ů"],
-        ["A̎","E̎","I̎","O̎","U̎"],
-        ["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
-        ["Â","Ê","Î","Ô","Û"],
-        ["Ő","Ű"],
-        ["A̗","E̗","I̗","O̗","U̗"],
-        ["A̖","E̖","I̖","O̖","U̖"],
-        ["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
-        ["A̤", "Ṳ","I̤", "O̤","E̤"],
-        ["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]];
-    let AC = [["Ğ", "Ð", "Þ","Β","Ʋ"],
-        ["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],
-        ["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
-        ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],
-        ["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
-        ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],
-        ["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
-        ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],
-        ["Ř","Ť","Š","Ď","Ň","Č"],
-        ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],
-        ["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
-        ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],
-        ["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
-        ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],
-        ["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
-        ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],
-        ["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
-        ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],
-        ["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
-        ["Ẅ", "Ÿ"],
-        ["Ẁ", "Ỳ"],
-        ["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],
-        ["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
-        ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],
-        ["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],        ["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
-        ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],
-        ["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],
-        ["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
-        ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],
-        ["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],
-        ["ʈ", "ɖ", "ɟ","ʔ","ɱ", "ɳ", "ɲ", "ŋ","ʙ", "ʀ","ⱱ", "ɾ", "ɽ","ɸ", "β", "θ", "ð", "ʃ", "ʒ","ʂ", "ʐ", "ç", "ʝ", "x", "ɣ", "χ", "ʁ", "ħ", "ʕ", "ɦ","ɬ", "ɮ", "ʋ", "ɹ", "ɻ", "ɰ","l", "ɭ", "ʎ", "ʟ","ɺ", "ɭ̆", "ʎ̆"],
-        ["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],["ɓ", "ɗ", "ʄ", "ɠ", "ʛ"]];
-    let phoType = Help.RandomNumber(1,7);
-    let aCC = [];
-    let aVV = [];
-    let bCC = [];
-    let bVV = [];
-    
-    switch (phoType)
-    {
-        case 1: // basic
-            aCC = [...new Set([Help.RFL(AC),Help.RFL(AC),Help.RFL(AC)].flat())];
-            aVV = [...new Set([Help.RFL(AV),Help.RFL(AV),Help.RFL(AV)].flat())];
-            bCC = BASIC_CONSONANTS;
-            bVV = BASIC_VOWELS;
-            break;
-        case 2: // chaotic
-            aCC = AC.flat();
-            aVV = AV.flat();
-            bCC = BASIC_CONSONANTS;
-            bVV = BASIC_VOWELS;
-            break;
-        case 3: // Barely Vowels
-            aCC = AC.flat();
-            bCC = BASIC_CONSONANTS;
-            bVV = [...new Set([Help.RFL(BASIC_VOWELS)].flat())];
-            aVV = [...new Set([Help.RFL(Help.RFL(AV))].flat())];
-            break;
-        case 4: // Barely Consonants
-            bVV = BASIC_VOWELS;
-            aVV = AV.flat();
-            aCC = [...new Set([Help.RFL(Help.RFL(AC)),Help.RFL(Help.RFL(AC))].flat())];
-            bCC = [...new Set([Help.RFL(BASIC_CONSONANTS),Help.RFL(BASIC_CONSONANTS)].flat())];
-            break;
-        case 5: // Barely Anything
-            aCC = [...new Set(Help.CTL(Help.RFL(AV),Help.RFL(AV)))];
-            bVV = [...new Set([Help.RFL(BASIC_VOWELS)].flat())];
-            aVV = [...new Set([Help.RFL(Help.RFL(AV))].flat())];
-            aCC = [...new Set([Help.RFL(Help.RFL(AC)),Help.RFL(Help.RFL(AC))].flat())];
-            bCC = [...new Set([Help.RFL(BASIC_CONSONANTS),Help.RFL(BASIC_CONSONANTS)].flat())];
-            break;
-        case 6: // One accent
-            if(Help.RandomNumber(1,2) === 1)
-            {
-                aCC = [Help.RFL(Help.RFL(AC))];
-            } else
-            {
-                aVV = [Help.RFL(Help.RFL(AV))];
-            }
-            bCC = BASIC_CONSONANTS;
-            bVV = BASIC_VOWELS;
-            break;
-        case 7: // Entirely Accents
-            bCC = AC.flat();
-            bVV = AV.flat();
-            break;
-        default:
-    }
-    return ([aCC,aVV,bCC,bVV][i]);
-}
+let numName = 0; // Simple variable to display the number of names the user has generated in a session
+let dynastical = 0;
 
 const ids = ["Diplomacy","Culture","CulturePlus","Geography","Economy","Unrest","Government","Demographic","Check"];
 for(let i = 0; i < ids.length; i++)
 {
-    document.getElementById(ids[i] + "Box").addEventListener("change", function ()
-    {
-        document.getElementById(ids[i] + "Section").style.display = this.checked ? "block" : "none";
-    });
+    document.getElementById(ids[i] + "Box").addEventListener("change", function (){document.getElementById(ids[i] + "Section").style.display = this.checked ? "block" : "none";});
 }
 let locked = false;
-document.getElementById("LockBox").addEventListener("change", function()
-{
-    locked = !!this.checked;
-});
-document.getElementById("modeTypes").addEventListener("change", function()
-{
-    document.getElementById("stylesheet").href = "styles/"+this.value+".css";
-});
-document.getElementById("fontTypes").addEventListener("change", function()
-{
-    document.documentElement.style.fontFamily = this.value;
-});
-let numName = 0; // Simple variable to display the number of names the user has generated in a session
-let dynastical = 0;
+document.getElementById("LockBox").addEventListener("change", function(){locked = !!this.checked;});
+document.getElementById("modeTypes").addEventListener("change", function(){document.getElementById("stylesheet").href = "styles/"+this.value+".css";});
+document.getElementById("fontTypes").addEventListener("change", function(){document.documentElement.style.fontFamily = this.value;});
+
+    // All Accents - Used for both 'Many Accents' and 'Smart Accents'
+const ACCENTED_VOWELS = [
+    ["Ə", "Æ","I","Ø","Œ"],["Á","É","Í","Ó","Ú"],["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],["Ȧ","Ė","İ","Ȯ","U̇"],
+    ["Ä","Ë","Ï","Ö","Ü"],["Ả","Ẻ","Ỉ","Ỏ","Ủ"],["À","È","Ì","Ò","Ù"],["Â","Ê","Î","Ô","Û"],
+    ["Ã","Ẽ","Ĩ","Õ","Ũ"],["A̅","E̅","I̅","O̅","U̅"],["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],["Ő","Ű"],
+    ["Ě"],["A̭","Ḙ","I̭","O̭","Ṷ"],["A̰","Ḛ","Ḭ","O̰","Ṵ"],["A̱","E̱","I̱","O̱","U̱"],
+    ["A̯","E̯","I̯","O̯","U̯"],["A̮","E̮","I̮","O̮","U̮"],["Ą","Ę","Į","Ǫ","Ų"],["Ḁ","E̥","I̥","O̥","U̥"],
+    ["A̬","E̬","I̬","O̬","U̬"],["A̩","E̩","I̩","O̩","U̩"],["A̩","E̩","I̩","O̩","U̩"],["A̧","Ȩ","I̧","O̧","U̧"],
+    ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
+    ["Ā","Ē","Ī","Ō","Ū"],["Å","E̊","I̊","O̊","Ů"],["A̎","E̎","I̎","O̎","U̎"],["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
+    ["Â","Ê","Î","Ô","Û"],["Ő","Ű"],["A̗","E̗","I̗","O̗","U̗"],["A̖","E̖","I̖","O̖","U̖"],["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
+    ["A̤", "Ṳ","I̤", "O̤","E̤"],["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]];
+const ACCENTED_CONSONANTS = [
+    ["Ğ", "Ð", "Þ","Β","Ʋ"],["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
+    ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
+    ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
+    ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],["Ř","Ť","Š","Ď","Ň","Č"],
+    ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
+    ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
+    ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
+    ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
+    ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
+    ["Ẅ", "Ÿ"],["Ẁ", "Ỳ"],["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
+    ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
+    ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
+    ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],["ʈ", "ɖ", "ɟ","ʔ","ɱ", "ɳ", "ɲ", "ŋ","ʙ", "ʀ","ⱱ", "ɾ", "ɽ","ɸ", "β", "θ", "ð", "ʃ", "ʒ","ʂ", "ʐ", "ç", "ʝ", "x", "ɣ", "χ", "ʁ", "ħ", "ʕ", "ɦ","ɬ", "ɮ", "ʋ", "ɹ", "ɻ", "ɰ","l", "ɭ", "ʎ", "ʟ","ɺ", "ɭ̆", "ʎ̆"],["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],["ɓ", "ɗ", "ʄ", "ɠ", "ʛ"]];
+
+    // Basic Letters - Used in everything
+const BASIC_VOWELS = ["A", "U","I", "O","E"];
+const BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C"];
+
+    // Phonetic Letters
+const PHONETIC_VOWELS = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
+const PHONETIC_CONSONANTS = ["Č","Ş"];
+
+    // French Letters
+const FRENCH_VOWELS = ["É", "È", "À", "Ù", "Â", "Ê", "Î", "Ô", "Û"];
+const FRENCH_CONSONANTS = ["Ç"];
+
+    // Fictional Vekleic Letters
+const VEKLEIC_VOWELS = ["Ė","Ê","Ü","Ë"];
+const VEKLEIC_CONSONANTS = ["Ḟ"];
+
+    // Spanish Letters
+const SPANISH_VOWELS = ["Á", "É", "Í", "Ó", "Ú", "Ü"];
+const SPANISH_CONSONANTS = ["Ñ"];
+
+    // Maltese Letters
+const MALTESE_VOWELS = ["À", "È", "Ì", "Ò", "Ù"];
+const MALTESE_CONSONANTS = ["Ħ", "Ċ", "Ġ", "Ż"];
+
+    // Turkish Letters
+const TURKISH_VOWELS = ["I", "Ö", "Ü"];
+const TURKISH_CONSONANTS = ["Ç", "Ş", "Ğ"];
 
 // (Debug Key | Example Variable) : Description
     // (debug/dynasty | 1) : Leader's last name will always match the nation
