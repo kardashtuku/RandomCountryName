@@ -13,7 +13,7 @@ input[type="checkbox"]
 
 .partyList
 {
-    width: 500px;
+    width: 800px;
     height: 60px;
     text-align: center;
     color: rgb(11 62 53);
@@ -23,7 +23,7 @@ input[type="checkbox"]
 }
 .demoList
 {
-    width: 500px;
+    width: 800px;
     height: 60px;
     text-align: center;
     color: rgb(51 26 7);
