@@ -3,8 +3,8 @@
 <link id="stylesheet" rel="stylesheet" href="styles/style.css">
 <link rel="icon" type="image/x-icon" href="Images/kcgicon.ico">
 <header id="div1">
+    <a target="_blank" href="updates.html"><i>Kardzer Country Generator V3.7.1</i></a>
     <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv" alt="kcg"></p>
-    <a target="_blank" href="updates.html"><i>Kardzer Country Generator V3.7.0</i></a>
 </header>
 <button style="background-color: #65589c; text-shadow: 1px 1px 1px rgb(67 67 67);" onclick=DoIt()><text style="font-size: 400%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">GENERATE</text></button>
 
@@ -17,10 +17,22 @@
         <text id="city" style="font-size: 30pt;">Capital</text><br>
         <text style="font-size: 30pt;"><text id="leadership"></text><text id="leader">First</text> <text id="last">Last</text> <text id="suffix">Suffix</text></text><br>
     </div>
+    <div id="DiplomacySection">
+        <text style="font-size: 30pt;"><text id="alliance">Alliance</text></text><br>
+        <text id="diplomacy" style="font-size: 30pt;">Diplomacy</text><br>
+        <text id="politic" style="font-size: 20pt;">Political Situation</text><br>
+    </div>
+    
+    <div id="CultureSection">
+        <text id="culture" style="font-size: 30pt;">Culture</text><br>
+        <text style="font-size: 30pt;" id="language">Language</text><br>
+        <text id="religion" style="font-size: 30pt;">Religion</text><br>
+    </div>
     <div id="GovernmentSection">
         <select name="TheGovernment" class="partyList">
             <option id="government" style="font-size: 30pt;">Government Type</option><br>
-            <option id="Party">Administration</option>
+            <option id="Legis">Legislature</option>
+            <option id="Judis">Judiciary</option>
         </select><br>
         <select name="Parties" id="Parties" class="partyList">
             <option id="Party0">Political Parties</option>
@@ -30,21 +42,19 @@
             <option id="Party4">Independents</option>
         </select><br>
         <select name="Subdivisions" id="Subdivisions" class="partyList">
-            <option id="Sub0">First-Level</option>
+            <option id="Sub0">Subdivisions</option>
             <option id="Sub1">Second-Level</option>
             <option id="Sub2">Third-Level</option>
+        </select><br>
+        <select name="Policy" id="Subdivisions" class="partyList">
+            <option id="Policy0">Policies</option>
+            <option id="Policy1">Military Service</option>
+            <option id="Policy2">Slavery</option>
+            <option id="Policy3">Speech</option>
+            <option id="Policy4">Education</option>
+            <option id="Policy5">Religion</option>
         </select>
 
-    </div>
-    <div id="DiplomacySection">
-        <text style="font-size: 30pt;"><text id="alliance">Alliance</text></text><br>
-        <text id="diplomacy" style="font-size: 30pt;">Diplomacy</text><br>
-        <text id="politic" style="font-size: 20pt;">Political Situation</text><br>
-    </div>
-    <div id="CultureSection">
-        <text id="culture" style="font-size: 30pt;">Culture</text><br>
-        <text style="font-size: 30pt;" id="language">Language</text><br>
-        <text id="religion" style="font-size: 30pt;">Religion</text><br>
     </div>
     <div id="CulturePlusSection">
         <text id="landm" style="font-size: 30pt;">Landmark</text><br>
@@ -122,17 +132,17 @@
                 <option value="Courier New">Courier</option>
             </select><br>
         </div><br>
-        <input type="checkbox" id="GovernmentBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)">
         <input type="checkbox" id="DiplomacyBox" name="Section1" checked="checked" style="accent-color: rgb(241, 153, 153)">
         <input type="checkbox" id="CultureBox" name="Section2" checked="checked" style="accent-color: rgb(153, 159, 241)">
+        <input type="checkbox" id="GovernmentBox" name="Section6" checked="checked" style="accent-color: rgb(153, 241, 226)">
         <input type="checkbox" id="CulturePlusBox" name="Section3" checked="checked" style="accent-color: rgb(190 193 236)">
         <input type="checkbox" id="GeographyBox" name="Section3" checked="checked" style="accent-color: rgb(153, 241, 180)">
         <input type="checkbox" id="EconomyBox" name="Section4" checked="checked" style="accent-color: rgb(228, 241, 153)">
         <input type="checkbox" id="UnrestBox" name="Section5" checked="checked" style="accent-color: rgb(209, 153, 241)">
         <input type="checkbox" id="DemographicBox" name="Section6" checked="checked" style="accent-color: rgb(250 151 66)"><br>
-        <label for="GovernmentBox" style="background-color: rgb(14, 88, 76)">Govern.</label>
         <label for="DiplomacyBox" style="background-color: rgb(88, 13, 13)">Diplomacy</label>
         <label for="CultureBox" style="background-color: rgb(12, 17, 83)">Culture</label>
+        <label for="GovernmentBox" style="background-color: rgb(14, 88, 76)">Govern.</label>
         <label for="CulturePlusBox" style="background-color: rgb(44 50 103)">Culture+</label>
         <label for="GeographyBox" style="background-color: rgb(6, 48, 19)">Landscape</label>
         <label for="EconomyBox" style="background-color: rgb(72, 82, 15)">Economy</label>
