@@ -113,6 +113,23 @@ const Generate =  // Holds the code required to generate a variety of name types
 {
     NationType(nat,union,isSide,adj)
     {
+        let iteration = Help.RandomNumber(1,100);
+        if (iteration === 1)
+        {
+            iteration = "First ";
+        } else if (iteration === 2)
+        {
+            iteration = "Second ";
+        } else if (iteration === 3)
+        {
+            iteration = "Third ";
+        } else if (iteration === 4)
+        {
+            iteration = Help.RFL(["Fourth ","Fifth ","Sixth ","Seventh ","Eighth ","Ninth ","Tenth ","Eleventh "]);
+        } else
+        {
+            iteration = "";
+        }
         let debug = document.getElementById("dkey").value;
         let debugVariable = document.getElementById("dvar").value;
         let maintainDynastical;
@@ -154,10 +171,12 @@ const Generate =  // Holds the code required to generate a variety of name types
         }
         let govBack;
         let gPrimary;
+        let gHistory;
         let partyType;
         let gSecondary = Help.RFL(["Representative","Absolute","Constitutional","Tyrannical","Libertarian","Liberal","Conservative"]);
         if(governmentTypes === 0) // Democracy
         {
+            gHistory = [["peasants","serfs","nobles","a disgruntled populace","philosophers","rebels","workers","farmers"],["seeking independence","seeking freedom","seeking liberty","seeking enlightenment","seeking religious freedom","seeking autonomy","seeking democracy","seeking basic rights","due to local nationalism"]];
             partyType = ["Congress","Parliament","Legislature","Senate","House of Reps","Representatives","Electors"];
             gPrimary = ["Republic","Democracy","Dictatorship","Junta","Pseudo-Republic","Republic","Democracy","Republic","Democracy"];
             govBack = ["Republic","Democrac","Senate","Consulship","Autonom","Sovereignt"];
@@ -167,6 +186,7 @@ const Generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 1) // Monarchy
         {
+            gHistory = [["a wealthy family","an oligarch","a dictator","ancient landowners","a former republic","and oligarchy","wealthy lords","a wealthy lord"],["seeking autonomy","seeking power","seeking independence","seeking consolidation","arising from nationalism","during a coup"]];
             partyType = ["Parliament","Court","Council"];
             gPrimary = ["Monarchy","Dynasty","Monarchy","Monarchy","Dictatorship"];
             govBack = ["Count","Baron","Kingdom","Empire","Duch","Archduch"];
@@ -177,6 +197,7 @@ const Generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 2) // Tyranny
         {
+            gHistory = [["a wealthy politician","a famous politician","a nationalist","a hardline political party","nationalists"],["seeking power","after economic collapse","during a great unrest","taking advantage of corruption","seeking consolidation","due to nationalism","in a coup","in a civil war"]];
             partyType = ["Cabinet","Inner Circle"];
             gPrimary = ["Dictatorship","Fascism","Autocracy","Junta","Republic"];
             govBack = ["Dictatorship","Regime","Fascism","Autocrac","Despotism"];
@@ -188,6 +209,7 @@ const Generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 3) // Tribal
         {
+            gHistory = [["a tribe","a culture","multiple tribes","a group of people","a settled nomadic tribe","a larger nation"],["seeking unity","seeking stability","","",""]];
             partyType = ["Council","Leadership"];
             gPrimary = ["Republic","Monarchy","Democracy","Anarchy","Commune","Tribe"];
             govBack = ["Reserve","Tribe","Folk","Chiefdom","Clan","House","Kinfolk","Clique"];
@@ -199,6 +221,7 @@ const Generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 4) // Religious
         {
+            gHistory = [["a monarch","a tribe"],["during a schism","in a coup","arising from corruption","a tribe","religious group"]];
             partyType = ["Clergy","Council","Mass"];
             gPrimary = ["Theocracy","Monarchy","Dictatorship","Republic"];
             govBack = ["Theocrac","Priestdom","Cult"];
@@ -208,6 +231,7 @@ const Generate =  // Holds the code required to generate a variety of name types
         }
         else if(governmentTypes === 5) // Socialist
         {
+            gHistory = [["workers","a politician","the people","peasants","the general populace","a vote"],["seeking power","through revolution","after economic collapse","during great unrest","that took advantage of corruption","seeking consolidation","due to nationalism","during a civil war"]];
             partyType = ["Congress","Council","Parliament","Cabinet","Senate","People's Congress"];
             gPrimary = ["Social Democracy","Socialism","Communism","Commune","Republic"];
             govBack = ["Soviet Republic","Syndicate","Socialist Republic","Social Democrac","People's Republic"];
@@ -216,6 +240,7 @@ const Generate =  // Holds the code required to generate a variety of name types
             leaderType = Help.RFL(leaderTypes);
         } else if(governmentTypes === 6) // Dynastic
         {
+            gHistory = [["a wealthy family","an oligarch","a dictator","ancient landowners","a former republic","and oligarchy","wealthy lords","a wealthy lord"],["seeking autonomy","seeking power","seeking independence","seeking consolidation","arising from nationalism","during a coup"]];
             partyType = ["Court","Advisors"];
             gPrimary = ["Monarchy","Dynasty"];
             govBack = ["Dynast","Empire","Kingdom","Clan"];
@@ -226,6 +251,7 @@ const Generate =  // Holds the code required to generate a variety of name types
             dynastical = 0;
         } else if(governmentTypes === 7) // Union
         {
+            gHistory = [["multiple states","an alliance","many nations","a few nations","two nations","a single nation"],["seeking stability","seeking security","due to nationalism","seeking consolidation","in a referendum","by force"]];
             partyType = ["Council","High Council","Senate","Congress","Group"];
             gPrimary = ["Monarchy","Union","Federation","Confederation","Nation-State","Republic"];
             govBack = ["Union","Federation","Confederation","State"];
@@ -233,6 +259,7 @@ const Generate =  // Holds the code required to generate a variety of name types
             leaderType = Help.RFL(basicLeaders);
         } else if(governmentTypes === 8) // Muslim / Persian / Arabic
         {
+            gHistory = [["a wealthy family","an oligarch","a dictator","ancient landowners","a former republic","and oligarchy","wealthy lords","a wealthy lord"],["seeking autonomy","seeking power","seeking independence","seeking consolidation","arising from nationalism","during a coup"]];
             partyType = ["Court"];
             gPrimary = ["Monarchy","Dynasty"];
             govBack = ["Sultanate","Caliphate","Imamate","Emirate","Shahdom","Sheikhdom","Empire"];
@@ -243,6 +270,7 @@ const Generate =  // Holds the code required to generate a variety of name types
             dynastical = Help.RandomNumber(0,9);
         } else if(governmentTypes === 9) // Exotic
         {
+            gHistory = [["a wealthy family","an oligarch","a dictator","ancient landowners","a former republic","and oligarchy","wealthy lords","a wealthy lord"],["seeking autonomy","seeking power","seeking independence","seeking consolidation","arising from nationalism","during a coup"]];
             partyType = ["Advisors","Court","Council","Congress"];
             gPrimary = ["Monarchy","Trade Company"];
             govBack = ["Tsardom","Empire","Compan"];
@@ -251,6 +279,7 @@ const Generate =  // Holds the code required to generate a variety of name types
             leaderType = Help.RFL(Help.Find(leaderTypes,govBack,government));
         } else if(governmentTypes === 10) // Nomadic
         {
+            gHistory = [["multiple tribes","a tribe","a tribal general","a nomadic army"],["conquering neighbors","through domination","by divine right","through brutality","through migration","by settlement"]];
             partyType = ["Court","Council","Gathering"];
             gPrimary = ["Horde","Tribe","Republic","Monarchy"];
             govBack = ["Khanate", "Khaganate", "Confederation","Clique"];
@@ -288,6 +317,7 @@ const Generate =  // Holds the code required to generate a variety of name types
         }
         if(isSide === false) {
             document.getElementById("leadership").innerText = Help.U(0,0) + " " + leaderType;
+            this.HistoryType(dynastical,iteration,gHistory,adj);
         }
         if(isSide)
         {
@@ -300,10 +330,10 @@ const Generate =  // Holds the code required to generate a variety of name types
         if (frontOrBack === 1) {
             if(Help.RandomNumber(1,2) === 1)
             {
-                return unionType+government+ifUnion + " of " +nat;
+                return iteration + unionType + government + ifUnion + " of " + nat;
             } else
             {
-                return unionType+government+ifUnion + " of the " + adj+Help.RFL(["s",""]);
+                return iteration + unionType + government + ifUnion + " of the " + adj + Help.RFL(["s",""]);
             }
         } else {
             return unionType+adj + " " + government+ifUnion;
@@ -414,10 +444,10 @@ const Generate =  // Holds the code required to generate a variety of name types
     },
     PhoType(i)
     {
-    AV = ACCENTED_VOWELS;
-    AC = ACCENTED_CONSONANTS;
-    BV = BASIC_VOWELS;
-    BC = BASIC_CONSONANTS;
+    let AV = ACCENTED_VOWELS;
+    let AC = ACCENTED_CONSONANTS;
+    let BV = BASIC_VOWELS;
+    let BC = BASIC_CONSONANTS;
     let phoType = Help.RandomNumber(1,7);
     let aCC = [];
     let aVV = [];
@@ -475,12 +505,110 @@ const Generate =  // Holds the code required to generate a variety of name types
         default:
     }
     return ([aCC,aVV,bCC,bVV][i]);
+    },
+    ReligionType()
+    {
+        let type = Help.RFL(["Universalist","Cult","Monotheist","Polytheist","Idolism","Deism","Moralism","Virtuism","Pan-theism","Localism","Pantheonic"]);
+        let tolerance = Help.RFL(["Very ","Mildly ","In","Very In"]);
+        let goal = Help.RFL(["Afterlife","Heaven","Reincarnation","Enlightenment","Wordly Improvement","Morality"]);
+        let final = ["Religion Type: "+type,"Tolerance: "+tolerance+"tolerant","Goal: "+goal];
+        Help.Dropdown(final.length,final,"Reli");
+    },
+    HistoryType(dynasty,iteration,government,adjective)
+    {
+        let formedWhen = Help.RandomNumber(1,400) + " Years ago";
+        let iterationOf = Help.RFL(["Predecessor State","Successor State","Only Form of","Only Form of","Only Form of","Only Form of","Only Form of"]);
+        let collapsed = Help.RFL(["Collapsed","Ended","Destroyed","Dismantled","Broke Apart","Peacefully Ended","Collapsing","Stable","Still Around","Stable","Stable","Stable","Stable","The 'Dying Man'"]);
+        if(iteration === "First " || iterationOf === "Predecessor State")
+        {
+            iterationOf = "Predecessor State";
+            collapsed = Help.RFL(["Collapsed","Collapsed","Collapsed","Ended","Destroyed","Dismantled","Broke Apart","Peacefully Ended","Collapsing","Dead"]);
+
+        } else if(iteration !== "")
+        {
+            iterationOf = "Successor State ( " + iteration + ")";
+        }
+        let gov = "Formed by " + Help.RFL(government[0])+" "+Help.RFL(government[1]);
+        let dynastyHere = "None";
+        if(dynastical !== 0)
+        {
+            dynastyHere = "The " + adjective + "s";
+        }
+        let final = ["Nation Status: "+collapsed,"Form: "+iterationOf, gov, "Dynasty: "+dynastyHere];
+        Help.Dropdown(final.length,final,"Hist");
+    },
+    LanguageType(suffix,alphabet,example)
+    {
+        let division = Help.RFL(["Standardized","Official","Non-Standard","Unofficial","Modernized","Simplified","Traditional","Un-United","Constructed"])+" "+Help.RFL(["Dialect","Language","Language Family","Creole","Vernacular","Accent","Language","Language"]);
+        let wordOrder = Help.RFL(["SOV","SVO","OSV","OVS","VSO","VOS"]);
+        let type = Help.RFL(["Abjad","Alphabet","Abugida","Syllabary","Logo-Syllabary","Logographic","Featural"]);
+
+        let final = ["Category: "+division,"Word Order: "+wordOrder,"Type: "+type,"'Hello' - "+example,"Culture Suffix: -"+suffix,alphabet.join(""),"Alphabet Length: "+alphabet.length];
+        Help.Dropdown(final.length,final,"lang")
+    },
+    CultureType()
+    {
+
     }
 };
 let prevAlphabet = [];
 // The actual program code, contains UI and function calls for basic program usage
 function DoIt() {
     numName++;
+    // All Accents - Used for both 'Many Accents' and 'Smart Accents'
+    const ACCENTED_VOWELS = [
+        ["Ə", "Æ","I","Ø","Œ"],["Á","É","Í","Ó","Ú"],["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],["Ȧ","Ė","İ","Ȯ","U̇"],
+        ["Ä","Ë","Ï","Ö","Ü"],["Ả","Ẻ","Ỉ","Ỏ","Ủ"],["À","È","Ì","Ò","Ù"],["Â","Ê","Î","Ô","Û"],
+        ["Ã","Ẽ","Ĩ","Õ","Ũ"],["A̅","E̅","I̅","O̅","U̅"],["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],["Ő","Ű"],
+        ["Ě"],["A̭","Ḙ","I̭","O̭","Ṷ"],["A̰","Ḛ","Ḭ","O̰","Ṵ"],["A̱","E̱","I̱","O̱","U̱"],
+        ["A̯","E̯","I̯","O̯","U̯"],["A̮","E̮","I̮","O̮","U̮"],["Ą","Ę","Į","Ǫ","Ų"],["Ḁ","E̥","I̥","O̥","U̥"],
+        ["A̬","E̬","I̬","O̬","U̬"],["A̩","E̩","I̩","O̩","U̩"],["A̩","E̩","I̩","O̩","U̩"],["A̧","Ȩ","I̧","O̧","U̧"],
+        ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
+        ["Ā","Ē","Ī","Ō","Ū"],["Å","E̊","I̊","O̊","Ů"],["A̎","E̎","I̎","O̎","U̎"],["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
+        ["Â","Ê","Î","Ô","Û"],["Ő","Ű"],["A̗","E̗","I̗","O̗","U̗"],["A̖","E̖","I̖","O̖","U̖"],["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
+        ["A̤", "Ṳ","I̤", "O̤","E̤"],["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]];
+    const ACCENTED_CONSONANTS = [
+        ["Ğ", "Ð", "Þ","Β","Ʋ"],["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
+        ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
+        ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
+        ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],["Ř","Ť","Š","Ď","Ň","Č"],
+        ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
+        ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
+        ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
+        ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
+        ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
+        ["Ẅ", "Ÿ"],["Ẁ", "Ỳ"],["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
+        ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
+        ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
+        ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],["ʈ", "ɖ", "ɟ","ʔ","ɱ", "ɳ", "ɲ", "ŋ","ʙ", "ʀ","ⱱ", "ɾ", "ɽ","ɸ", "β", "θ", "ð", "ʃ", "ʒ","ʂ", "ʐ", "ç", "ʝ", "x", "ɣ", "χ", "ʁ", "ħ", "ʕ", "ɦ","ɬ", "ɮ", "ʋ", "ɹ", "ɻ", "ɰ","l", "ɭ", "ʎ", "ʟ","ɺ", "ɭ̆", "ʎ̆"],["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],["ɓ", "ɗ", "ʄ", "ɠ", "ʛ"]];
+
+    // Basic Letters - Used in everything
+    const BASIC_VOWELS = ["A", "U","I", "O","E"];
+    const BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C"];
+
+    // Phonetic Letters
+    const PHONETIC_VOWELS = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
+    const PHONETIC_CONSONANTS = ["Č","Ş"];
+
+    // French Letters
+    const FRENCH_VOWELS = ["É", "È", "À", "Ù", "Â", "Ê", "Î", "Ô", "Û"];
+    const FRENCH_CONSONANTS = ["Ç"];
+
+    // Fictional Vekleic Letters
+    const VEKLEIC_VOWELS = ["Ė","Ê","Ü","Ë"];
+    const VEKLEIC_CONSONANTS = ["Ḟ"];
+
+    // Spanish Letters
+    const SPANISH_VOWELS = ["Á", "É", "Í", "Ó", "Ú", "Ü"];
+    const SPANISH_CONSONANTS = ["Ñ"];
+
+    // Maltese Letters
+    const MALTESE_VOWELS = ["À", "È", "Ì", "Ò", "Ù"];
+    const MALTESE_CONSONANTS = ["Ħ", "Ċ", "Ġ", "Ż"];
+
+    // Turkish Letters
+    const TURKISH_VOWELS = ["I", "Ö", "Ü"];
+    const TURKISH_CONSONANTS = ["Ç", "Ş", "Ğ"];
     // User interface
     // Decides what letters are allowed in the program
 
@@ -560,7 +688,6 @@ function DoIt() {
     let SUFFIXES = ["an","ian","ite","ic","id","","","","","","","","","","","","","","","","","",uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix];
     // Display symbols to aid in readability and aesthetics
 
-
     // Important Program-Wide Variables
     // Notes
     let notes = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
@@ -581,7 +708,7 @@ function DoIt() {
         // Secondaries - Other things are based on these, and these are based on the primaries
     // Alliance
     let alliance = Help.RFL(["Alliance","Treaty","Treatise","Pact","Defensive Pact","Alliance","Alliance","Alliance"])+": "+Generate.AllianceType(c_N[0],capitalCity);
-    if(Help.RandomNumber(1,10) === 1){alliance = "None";}
+    if(Help.RandomNumber(1,10) === 1){alliance = "No Alliances";}
     // Religion
     let reli = Help.RFL([c_N[0],c_N[1],c_N[2],c_N[3],capitalCity,(BaseSeq(v,c)),(BaseSeq(v,c)),(BaseSeq(v,c)),(BaseSeq(v,c))]);
 
@@ -709,7 +836,10 @@ function DoIt() {
     {
         document.getElementById("last").innerText = c_N[0];
     }
-    document.getElementById("alphabeta").innerText = Help.CTL(c,v);
+    document.getElementById("alphabeta").innerText = Help.CTL(v,c);
+    Generate.LanguageType(uniqueSuffix,Help.CTL(v,c),BaseSeq(v,c));
+    Generate.ReligionType();
+
     document.getElementById("lettercount").innerText = " "+String(Help.CTL(c,v).length)+" letters";
     document.getElementById("suffix").innerHTML = Help.RFL(["","","","","","","","","","","","","","","","","","","","","","","","","","","Jr.","II","III","IV","V","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"])+Help.U(0,0);
 
@@ -730,60 +860,7 @@ document.getElementById("LockBox").addEventListener("change", function(){locked 
 document.getElementById("modeTypes").addEventListener("change", function(){document.getElementById("stylesheet").href = "styles/"+this.value+".css";});
 document.getElementById("fontTypes").addEventListener("change", function(){document.documentElement.style.fontFamily = this.value;});
 
-    // All Accents - Used for both 'Many Accents' and 'Smart Accents'
-const ACCENTED_VOWELS = [
-    ["Ə", "Æ","I","Ø","Œ"],["Á","É","Í","Ó","Ú"],["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],["Ȧ","Ė","İ","Ȯ","U̇"],
-    ["Ä","Ë","Ï","Ö","Ü"],["Ả","Ẻ","Ỉ","Ỏ","Ủ"],["À","È","Ì","Ò","Ù"],["Â","Ê","Î","Ô","Û"],
-    ["Ã","Ẽ","Ĩ","Õ","Ũ"],["A̅","E̅","I̅","O̅","U̅"],["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],["Ő","Ű"],
-    ["Ě"],["A̭","Ḙ","I̭","O̭","Ṷ"],["A̰","Ḛ","Ḭ","O̰","Ṵ"],["A̱","E̱","I̱","O̱","U̱"],
-    ["A̯","E̯","I̯","O̯","U̯"],["A̮","E̮","I̮","O̮","U̮"],["Ą","Ę","Į","Ǫ","Ų"],["Ḁ","E̥","I̥","O̥","U̥"],
-    ["A̬","E̬","I̬","O̬","U̬"],["A̩","E̩","I̩","O̩","U̩"],["A̩","E̩","I̩","O̩","U̩"],["A̧","Ȩ","I̧","O̧","U̧"],
-    ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
-    ["Ā","Ē","Ī","Ō","Ū"],["Å","E̊","I̊","O̊","Ů"],["A̎","E̎","I̎","O̎","U̎"],["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
-    ["Â","Ê","Î","Ô","Û"],["Ő","Ű"],["A̗","E̗","I̗","O̗","U̗"],["A̖","E̖","I̖","O̖","U̖"],["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
-    ["A̤", "Ṳ","I̤", "O̤","E̤"],["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]];
-const ACCENTED_CONSONANTS = [
-    ["Ğ", "Ð", "Þ","Β","Ʋ"],["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
-    ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
-    ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
-    ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],["Ř","Ť","Š","Ď","Ň","Č"],
-    ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
-    ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
-    ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
-    ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
-    ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
-    ["Ẅ", "Ÿ"],["Ẁ", "Ỳ"],["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
-    ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
-    ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
-    ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],["ʈ", "ɖ", "ɟ","ʔ","ɱ", "ɳ", "ɲ", "ŋ","ʙ", "ʀ","ⱱ", "ɾ", "ɽ","ɸ", "β", "θ", "ð", "ʃ", "ʒ","ʂ", "ʐ", "ç", "ʝ", "x", "ɣ", "χ", "ʁ", "ħ", "ʕ", "ɦ","ɬ", "ɮ", "ʋ", "ɹ", "ɻ", "ɰ","l", "ɭ", "ʎ", "ʟ","ɺ", "ɭ̆", "ʎ̆"],["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],["ɓ", "ɗ", "ʄ", "ɠ", "ʛ"]];
 
-    // Basic Letters - Used in everything
-const BASIC_VOWELS = ["A", "U","I", "O","E"];
-const BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C"];
-
-    // Phonetic Letters
-const PHONETIC_VOWELS = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
-const PHONETIC_CONSONANTS = ["Č","Ş"];
-
-    // French Letters
-const FRENCH_VOWELS = ["É", "È", "À", "Ù", "Â", "Ê", "Î", "Ô", "Û"];
-const FRENCH_CONSONANTS = ["Ç"];
-
-    // Fictional Vekleic Letters
-const VEKLEIC_VOWELS = ["Ė","Ê","Ü","Ë"];
-const VEKLEIC_CONSONANTS = ["Ḟ"];
-
-    // Spanish Letters
-const SPANISH_VOWELS = ["Á", "É", "Í", "Ó", "Ú", "Ü"];
-const SPANISH_CONSONANTS = ["Ñ"];
-
-    // Maltese Letters
-const MALTESE_VOWELS = ["À", "È", "Ì", "Ò", "Ù"];
-const MALTESE_CONSONANTS = ["Ħ", "Ċ", "Ġ", "Ż"];
-
-    // Turkish Letters
-const TURKISH_VOWELS = ["I", "Ö", "Ü"];
-const TURKISH_CONSONANTS = ["Ç", "Ş", "Ğ"];
 
 // (Debug Key | Example Variable) : Description
     // (debug/dynasty | 1) : Leader's last name will always match the nation
