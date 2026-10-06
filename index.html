@@ -3,7 +3,7 @@
 <link id="stylesheet" rel="stylesheet" href="styles/style.css">
 <link rel="icon" type="image/x-icon" href="Images/kcgicon.ico">
 <header id="div1">
-    <a target="_blank" href="updates.html"><i>Kardzer Country Generator V3.7.1</i></a>
+    <a target="_blank" href="updates.html"><i>Kardzer Country Generator V3.8.0</i></a>
     <p><img src="Images/ExGxdZ (1).png" width="100%" id="imageDiv" alt="kcg"></p>
 </header>
 <button style="background-color: #65589c; text-shadow: 1px 1px 1px rgb(67 67 67);" onclick=DoIt()><text style="font-size: 400%; font-family: 'Times New Roman', Times, serif; color: rgb(0, 0, 0);">GENERATE</text></button>
@@ -26,7 +26,27 @@
     <div id="CultureSection">
         <text id="culture" style="font-size: 30pt;">Culture</text><br>
         <text style="font-size: 30pt;" id="language">Language</text><br>
+        <select name="TheLanguage" class="cultureList">
+            <option id="lang0">Category</option>
+            <option id="lang1">Word Order</option>
+            <option id="lang2">Type</option>
+            <option id="lang3">Example (Hello): </option>
+            <option id="lang4">Cultural Suffix: </option>
+            <option id="lang5">Alphabet</option>
+            <option id="lang6">Alphabet Length</option>
+        </select><br>
         <text id="religion" style="font-size: 30pt;">Religion</text><br>
+        <select name="TheReligion" class="cultureList">
+            <option id="Reli0">Type</option>
+            <option id="Reli1">Founder</option>
+            <option id="Reli2">Tolerance</option>
+        </select><br>
+        <select name="TheHistory" class="cultureList">
+            <option id="Hist0">Status</option>
+            <option id="Hist1">Form</option>
+            <option id="Hist2">History</option>
+            <option id="Hist3">Dynasty</option>
+        </select><br>
     </div>
     <div id="GovernmentSection">
         <select name="TheGovernment" class="partyList">
