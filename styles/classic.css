@@ -1,8 +1,8 @@
 #sectionsCustom
 {
-    position: fixed;
+    position: absolute;
     font-size: 90%;
-    bottom: 10px;
+    top: 20px;
     text-align: left;
 }
 input[type="checkbox"]
@@ -22,14 +22,13 @@ input[type="checkbox"]
 }
 .cultureList
 {
-    width: 800px;
-    height: 50px;
-    text-align: center;
+
     color: rgb(129, 182, 252);
-    background-color: rgb(14 14 25);
-    border-color: rgb(40 67 62 / 0.05);
-    accent-color: black;
-    font-size: 20pt;
+    width: 800px;
+    height: 60px;
+    text-align: center;
+    font-size: 30pt;
+    background-color: black;
 }
 .demoList
 {
