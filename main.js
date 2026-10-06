@@ -1,4 +1,5 @@
 // ---- | Helper Functions | ---- //
+
 const Help =
 {
     RFL(givenList)
@@ -19,11 +20,12 @@ const Help =
     },
     SuperSplice(givenList,howMany)
     {
-        while (givenList.length > howMany)
+        const returnedList = [...givenList];
+        while (returnedList.length > howMany)
         {
-            givenList.splice(Help.RandomNumber(0,givenList.length-1),1);
+            returnedList.splice(Help.RandomNumber(0,returnedList.length-1),1);
         }
-        return givenList;
+        return returnedList;
     },
     Translate(number,terms) // Takes a pre-generated number and applies it to a translation list
     {
@@ -372,7 +374,7 @@ const Generate =  // Holds the code required to generate a variety of name types
     },
     GetScale(notes,specialName)
     {
-        Help.CTL(notes,notes);
+        notes = Help.CTL(notes,notes);
         let scalar = [1,1,1,1,1,1,1,1,1,1,1,1];
         let scaleInterval;
         let scaleName;
@@ -444,10 +446,10 @@ const Generate =  // Holds the code required to generate a variety of name types
     },
     PhoType(i)
     {
-    let AV = ACCENTED_VOWELS;
-    let AC = ACCENTED_CONSONANTS;
-    let BV = BASIC_VOWELS;
-    let BC = BASIC_CONSONANTS;
+    let AV = [...ACCENTED_VOWELS];
+    let AC = [...ACCENTED_CONSONANTS];
+    let BV = [...BASIC_VOWELS];
+    let BC = [...BASIC_CONSONANTS];
     let phoType = Help.RandomNumber(1,7);
     let aCC = [];
     let aVV = [];
@@ -516,7 +518,6 @@ const Generate =  // Holds the code required to generate a variety of name types
     },
     HistoryType(dynasty,iteration,government,adjective)
     {
-        let formedWhen = Help.RandomNumber(1,400) + " Years ago";
         let iterationOf = Help.RFL(["Predecessor State","Successor State","Only Form of","Only Form of","Only Form of","Only Form of","Only Form of"]);
         let collapsed = Help.RFL(["Collapsed","Ended","Destroyed","Dismantled","Broke Apart","Peacefully Ended","Collapsing","Stable","Still Around","Stable","Stable","Stable","Stable","The 'Dying Man'"]);
         if(iteration === "First " || iterationOf === "Predecessor State")
@@ -545,113 +546,55 @@ const Generate =  // Holds the code required to generate a variety of name types
 
         let final = ["Category: "+division,"Word Order: "+wordOrder,"Type: "+type,"'Hello' - "+example,"Culture Suffix: -"+suffix,alphabet.join(""),"Alphabet Length: "+alphabet.length];
         Help.Dropdown(final.length,final,"lang")
-    },
-    CultureType()
-    {
-
     }
 };
 let prevAlphabet = [];
 // The actual program code, contains UI and function calls for basic program usage
 function DoIt() {
     numName++;
-    // All Accents - Used for both 'Many Accents' and 'Smart Accents'
-    const ACCENTED_VOWELS = [
-        ["Ə", "Æ","I","Ø","Œ"],["Á","É","Í","Ó","Ú"],["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],["Ȧ","Ė","İ","Ȯ","U̇"],
-        ["Ä","Ë","Ï","Ö","Ü"],["Ả","Ẻ","Ỉ","Ỏ","Ủ"],["À","È","Ì","Ò","Ù"],["Â","Ê","Î","Ô","Û"],
-        ["Ã","Ẽ","Ĩ","Õ","Ũ"],["A̅","E̅","I̅","O̅","U̅"],["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],["Ő","Ű"],
-        ["Ě"],["A̭","Ḙ","I̭","O̭","Ṷ"],["A̰","Ḛ","Ḭ","O̰","Ṵ"],["A̱","E̱","I̱","O̱","U̱"],
-        ["A̯","E̯","I̯","O̯","U̯"],["A̮","E̮","I̮","O̮","U̮"],["Ą","Ę","Į","Ǫ","Ų"],["Ḁ","E̥","I̥","O̥","U̥"],
-        ["A̬","E̬","I̬","O̬","U̬"],["A̩","E̩","I̩","O̩","U̩"],["A̩","E̩","I̩","O̩","U̩"],["A̧","Ȩ","I̧","O̧","U̧"],
-        ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
-        ["Ā","Ē","Ī","Ō","Ū"],["Å","E̊","I̊","O̊","Ů"],["A̎","E̎","I̎","O̎","U̎"],["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
-        ["Â","Ê","Î","Ô","Û"],["Ő","Ű"],["A̗","E̗","I̗","O̗","U̗"],["A̖","E̖","I̖","O̖","U̖"],["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
-        ["A̤", "Ṳ","I̤", "O̤","E̤"],["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]];
-    const ACCENTED_CONSONANTS = [
-        ["Ğ", "Ð", "Þ","Β","Ʋ"],["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
-        ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
-        ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
-        ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],["Ř","Ť","Š","Ď","Ň","Č"],
-        ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
-        ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
-        ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
-        ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
-        ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
-        ["Ẅ", "Ÿ"],["Ẁ", "Ỳ"],["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
-        ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
-        ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
-        ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],["ʈ", "ɖ", "ɟ","ʔ","ɱ", "ɳ", "ɲ", "ŋ","ʙ", "ʀ","ⱱ", "ɾ", "ɽ","ɸ", "β", "θ", "ð", "ʃ", "ʒ","ʂ", "ʐ", "ç", "ʝ", "x", "ɣ", "χ", "ʁ", "ħ", "ʕ", "ɦ","ɬ", "ɮ", "ʋ", "ɹ", "ɻ", "ɰ","l", "ɭ", "ʎ", "ʟ","ɺ", "ɭ̆", "ʎ̆"],["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],["ɓ", "ɗ", "ʄ", "ɠ", "ʛ"]];
-
-    // Basic Letters - Used in everything
-    const BASIC_VOWELS = ["A", "U","I", "O","E"];
-    const BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C"];
-
-    // Phonetic Letters
-    const PHONETIC_VOWELS = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
-    const PHONETIC_CONSONANTS = ["Č","Ş"];
-
-    // French Letters
-    const FRENCH_VOWELS = ["É", "È", "À", "Ù", "Â", "Ê", "Î", "Ô", "Û"];
-    const FRENCH_CONSONANTS = ["Ç"];
-
-    // Fictional Vekleic Letters
-    const VEKLEIC_VOWELS = ["Ė","Ê","Ü","Ë"];
-    const VEKLEIC_CONSONANTS = ["Ḟ"];
-
-    // Spanish Letters
-    const SPANISH_VOWELS = ["Á", "É", "Í", "Ó", "Ú", "Ü"];
-    const SPANISH_CONSONANTS = ["Ñ"];
-
-    // Maltese Letters
-    const MALTESE_VOWELS = ["À", "È", "Ì", "Ò", "Ù"];
-    const MALTESE_CONSONANTS = ["Ħ", "Ċ", "Ġ", "Ż"];
-
-    // Turkish Letters
-    const TURKISH_VOWELS = ["I", "Ö", "Ü"];
-    const TURKISH_CONSONANTS = ["Ç", "Ş", "Ğ"];
     // User interface
     // Decides what letters are allowed in the program
 
     let lemRange = document.getElementById("letterTypes").value;
-    let v = BASIC_VOWELS;
-    let c = BASIC_CONSONANTS;
+    let v = [...BASIC_VOWELS];
+    let c = [...BASIC_CONSONANTS];
     let aV = [];
     let aC = [];
     if(lemRange === "1") {
-        aV = ACCENTED_VOWELS.flat();
-        aC = ACCENTED_CONSONANTS.flat();
+        aV = [...ACCENTED_VOWELS].flat();
+        aC = [...ACCENTED_CONSONANTS].flat();
     }
     else if(lemRange === "2") {
-        aV = PHONETIC_VOWELS;
-        aC = PHONETIC_CONSONANTS;
+        aV = [...PHONETIC_VOWELS];
+        aC = [...PHONETIC_CONSONANTS];
     } else if(lemRange === "3")
     {
-        aV = VEKLEIC_VOWELS;
-        aC = VEKLEIC_CONSONANTS;
+        aV = [...VEKLEIC_VOWELS];
+        aC = [...VEKLEIC_CONSONANTS];
         v.splice(v.indexOf('I'),1);
     } else if(lemRange === "4") // Turkish
     {
-        aV = TURKISH_VOWELS;
-        aC = TURKISH_CONSONANTS;
+        aV = [...TURKISH_VOWELS];
+        aC = [...TURKISH_CONSONANTS];
         c.splice(c.indexOf('Q'),1);
         c.splice(c.indexOf('W'),1);
         c.splice(c.indexOf('X'),1);
 
     } else if(lemRange === "5") // Maltese
     {
-        aV = MALTESE_VOWELS;
-        aC = MALTESE_CONSONANTS;
+        aV = [...MALTESE_VOWELS];
+        aC = [...MALTESE_CONSONANTS];
         c.splice(c.indexOf('C'),1);
         c.splice(c.indexOf('Y'),1);
 
     } else if(lemRange === "63") // French
     {
-        aV = FRENCH_VOWELS;
-        aC = FRENCH_CONSONANTS;
+        aV = [...FRENCH_VOWELS];
+        aC = [...FRENCH_CONSONANTS];
     } else if(lemRange === "7") // Spanish
     {
-        aV = SPANISH_VOWELS;
-        aC = SPANISH_CONSONANTS;
+        aV = [...SPANISH_VOWELS];
+        aC = [...SPANISH_CONSONANTS];
     }   else if(lemRange === "8")
     {
         aC = Generate.PhoType(0);
@@ -678,11 +621,11 @@ function DoIt() {
 
     if(locked === true)
     {
-        v = prevAlphabet[0];
-        c = prevAlphabet[1];
+        v = [...prevAlphabet[0]];
+        c = [...prevAlphabet[1]];
     }
 
-    prevAlphabet = [v,c];
+    prevAlphabet = [[...v],[...c]];
 
     let uniqueSuffix = (Help.RFL([Help.RFL(v),Help.RFL(c),Help.RFL(v)+Help.RFL(c),Help.RFL(c)+Help.RFL(v),Help.RFL(v)+Help.RFL(c),Help.RFL(c)+Help.RFL(v),Help.RFL(v)+Help.RFL(c)+Help.RFL(v),Help.RFL(c)+Help.RFL(v)+Help.RFL(c)])).toLowerCase();
     let SUFFIXES = ["an","ian","ite","ic","id","","","","","","","","","","","","","","","","","",uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix,uniqueSuffix];
@@ -860,7 +803,60 @@ document.getElementById("LockBox").addEventListener("change", function(){locked 
 document.getElementById("modeTypes").addEventListener("change", function(){document.getElementById("stylesheet").href = "styles/"+this.value+".css";});
 document.getElementById("fontTypes").addEventListener("change", function(){document.documentElement.style.fontFamily = this.value;});
 
+// All Accents - Used for both 'Many Accents' and 'Smart Accents'
+const ACCENTED_VOWELS = [
+    ["Ə", "Æ","I","Ø","Œ"],["Á","É","Í","Ó","Ú"],["Ă","Ĕ","Ĭ","Ŏ","Ŭ"],["Ȧ","Ė","İ","Ȯ","U̇"],
+    ["Ä","Ë","Ï","Ö","Ü"],["Ả","Ẻ","Ỉ","Ỏ","Ủ"],["À","È","Ì","Ò","Ù"],["Â","Ê","Î","Ô","Û"],
+    ["Ã","Ẽ","Ĩ","Õ","Ũ"],["A̅","E̅","I̅","O̅","U̅"],["Ȃ","Ȇ","Ȋ","Ȏ","Ȗ"],["Ő","Ű"],
+    ["Ě"],["A̭","Ḙ","I̭","O̭","Ṷ"],["A̰","Ḛ","Ḭ","O̰","Ṵ"],["A̱","E̱","I̱","O̱","U̱"],
+    ["A̯","E̯","I̯","O̯","U̯"],["A̮","E̮","I̮","O̮","U̮"],["Ą","Ę","Į","Ǫ","Ų"],["Ḁ","E̥","I̥","O̥","U̥"],
+    ["A̬","E̬","I̬","O̬","U̬"],["A̩","E̩","I̩","O̩","U̩"],["A̩","E̩","I̩","O̩","U̩"],["A̧","Ȩ","I̧","O̧","U̧"],
+    ["A͡u","E͡a","I͡u","O͡a","U͡o","U͡a","U͡i","I͡a","A͡e","O͡e","A͜u","E͜a","I͜u","O͜a","U͜o","U͜a","U͜i","I͜a","A͜e","O͜e"],
+    ["Ā","Ē","Ī","Ō","Ū"],["Å","E̊","I̊","O̊","Ů"],["A̎","E̎","I̎","O̎","U̎"],["Ȁ","Ȅ","Ȉ","Ȍ","Ȕ"],
+    ["Â","Ê","Î","Ô","Û"],["Ő","Ű"],["A̗","E̗","I̗","O̗","U̗"],["A̖","E̖","I̖","O̖","U̖"],["Ạ", "Ụ","Ị", "Ọ","Ẹ"],
+    ["A̤", "Ṳ","I̤", "O̤","E̤"],["Ɨ", "Ű", "Ɯ", "Ʊ", "Ø", "Ǝ", "Ɵ", "Ɣ", "Ə", "Ɛ", "Œ", "Ƹ", "ɞ", "Ʌ", "Ɔ", "Æ", "Ɐ", "ɶ", "Ɑ", "Ɒ"]];
+const ACCENTED_CONSONANTS = [
+    ["Ğ", "Ð", "Þ","Β","Ʋ"],["Ś","Ẃ", "Ý", "Ź", "Ĺ", "Ń", "Ć"],["R̉", "T̉", "P̉", "G̉", "K̉", "B̉","Q̉", "J̉", "V̉", "F̉", "H̉", "M̉"],
+    ["R̐", "T̐", "P̐", "S̐", "D̐", "G̐", "K̐", "B̐","Q̐","W̐", "Y̐", "J̐", "Z̐", "V̐", "F̐", "H̐", "L̐", "N̐", "M̐", "C̐"],["Ŝ", "Ĝ","Ŵ", "Ŷ", "Ĵ", "Ĥ", "Ĉ"],
+    ["Ȓ","T̑","P̑","S̑","D̑","G̑","K̑","B̑","Q̑","W̑","Y̑","J̑","Z̑","V̑","F̑","H̑","L̑","N̑","M̑","C̑"],["R̃","T̃","P̃","S̃","D̃","G̃","K̃","B̃","Q̃","W̃","Ỹ","J̃","Z̃","Ṽ","F̃","H̃","L̃","Ñ","M̃","C̃"],
+    ["R̰","T̰","P̰","S̰","D̰","G̰","K̰","B̰","Q̰","W̰","Y̰","J̰","Z̰","V̰","F̰","H̰","L̰","N̰","M̰","C̰"],["Ř","Ť","Š","Ď","Ň","Č"],
+    ["R̭","Ṱ","P̭","S̭","Ḓ","G̭","K̭","B̭","Q̭","W̭","Y̭","J̭","Z̭","V̭","F̭","H̭","Ḽ","Ṋ","M̭","C̭"],["Ṟ","Ṯ","P̱","S̱","Ḏ","G̱","Ḵ","Ḇ","Q̱","W̱","Y̱","J̱","Ẕ","V̱","F̱","H̱","Ḻ","Ṉ","M̱","C̱"],
+    ["R̯","T̯","P̯","S̯","D̯","G̯","K̯","B̯","Q̯","W̯","Y̯","J̯","Z̯","V̯","F̯","H̯","L̯","N̯","M̯","C̯"],["R̮","T̮","P̮","S̮","D̮","G̮","K̮","B̮","Q̮","W̮","Y̮","J̮","Z̮","V̮","F̮","Ḫ","L̮","N̮","M̮","C̮"],
+    ["R̨","T̨","P̨","S̨","D̨","G̨","K̨","B̨","Q̨","W̨","Y̨","J̨","Z̨","V̨","F̨","H̨","L̨","N̨","M̨","C̨",],["R̥","T̥","P̥","S̥","D̥","G̥","K̥","B̥","Q̥","W̥","Y̥","J̥","Z̥","V̥","F̥","H̥","L̥","N̥","M̥","C̥"],
+    ["R̬","T̬","P̬","S̬","D̬","G̬","K̬","B̬","Q̬","W̬","Y̬","J̬","Z̬","V̬","F̬","H̬","L̬","N̬","M̬","C̬"],["R̍","T̍","P̍","S̍","D̍","G̍","K̍","B̍","Q̍","W̍","Y̍","J̍","Z̍","V̍","F̍","H̍","L̍","N̍","M̍","C̍"],
+    ["Ŗ","Ţ","Ş","Ḑ","Ģ","Ķ","Ḩ","Ļ","Ņ","Ç"],["Ṙ", "Ṫ", "Ṗ", "Ṡ", "Ḋ", "Ġ", "K̇", "Ḃ","Q̇","Ẇ", "Ẏ", "J̇", "Ż", "V̇", "Ḟ", "Ḣ", "L̇", "Ṅ", "Ṁ", "Ċ"],
+    ["Ẅ", "Ÿ"],["Ẁ", "Ỳ"],["R̄", "T̄", "P̄", "S̄", "D̄", "Ḡ", "K̄", "B̄","Q̄","W̄", "Ȳ", "J̄", "Z̄", "V̄", "F̄", "H̄", "L̄", "N̄", "M̄", "C̄"],["R̊", "T̊", "P̊", "S̊", "D̊", "G̊", "K̊", "B̊","Q̊","W̊", "Y̊", "J̊", "Z̊", "V̊", "F̊", "H̊", "L̊", "N̊", "M̊", "C̊"],
+    ["R̎", "T̎", "P̎", "S̎", "D̎", "G̎", "K̎", "B̎","Q̎","W̎", "Y̎", "J̎", "Z̎", "V̎", "F̎", "H̎", "L̎", "N̎", "M̎", "C̎"],["Ȑ", "T̏", "P̏", "S̏", "D̏", "G̏", "K̏", "B̏","W̏", "Y̏", "J̏", "Z̏", "V̏", "F̏", "H̏", "L̏", "N̏", "M̏", "C̏"],["R̗", "T̗", "P̗", "S̗", "D̗", "G̗", "K̗", "B̗","Q̗","W̗", "Y̗", "J̗", "Z̗", "V̗", "F̗", "H̗", "L̗", "N̗", "M̗", "C̗"],
+    ["R̖", "T̖", "P̖", "S̖", "D̖", "G̖", "K̖", "B̖","Q̖","W̖", "Y̖", "J̖", "Z̖", "V̖", "F̖", "H̖", "L̖", "N̖", "M̖", "C̖"],["Ṛ", "Ṭ", "P̣", "Ṣ", "Ḍ", "G̣", "Ḳ", "Ḅ","Q̣","Ẉ", "Ỵ", "J̣", "Ẓ", "Ṿ", "F̣", "Ḥ", "Ḷ", "Ṇ", "Ṃ", "C̣"],["R̤", "T̤", "P̤", "S̤", "D̤", "G̤", "K̤", "B̤","Q̤","W̤", "Y̤", "J̤", "Z̤", "V̤", "F̤", "H̤", "L̤", "N̤", "M̤", "C̤"],
+    ["Kh","Sh","Dh","Ch","Ph","Ts","Ps"],["K͡h","S͡h","D͡h","C͡h","P͡h","T͡s","P͡s"],["ʈ", "ɖ", "ɟ","ʔ","ɱ", "ɳ", "ɲ", "ŋ","ʙ", "ʀ","ⱱ", "ɾ", "ɽ","ɸ", "β", "θ", "ð", "ʃ", "ʒ","ʂ", "ʐ", "ç", "ʝ", "x", "ɣ", "χ", "ʁ", "ħ", "ʕ", "ɦ","ɬ", "ɮ", "ʋ", "ɹ", "ɻ", "ɰ","l", "ɭ", "ʎ", "ʟ","ɺ", "ɭ̆", "ʎ̆"],["ʘ", "ǀ", "ǃ", "ǂ", "ǁ"],["ɓ", "ɗ", "ʄ", "ɠ", "ʛ"]];
 
+// Basic Letters - Used in everything
+const BASIC_VOWELS = ["A", "U","I", "O","E"];
+const BASIC_CONSONANTS = ["R", "X", "T", "P", "S", "D", "G", "K", "B","Q","W", "Y", "J", "Z", "V", "F", "H", "L", "N", "M", "C"];
+
+// Phonetic Letters
+const PHONETIC_VOWELS = ["Â","Ê","Î","Ô","Û","Ā","Ē","Ī","Ō","Ū","Ʊ","Ö"];
+const PHONETIC_CONSONANTS = ["Č","Ş"];
+
+// French Letters
+const FRENCH_VOWELS = ["É", "È", "À", "Ù", "Â", "Ê", "Î", "Ô", "Û"];
+const FRENCH_CONSONANTS = ["Ç"];
+
+// Fictional Vekleic Letters
+const VEKLEIC_VOWELS = ["Ė","Ê","Ü","Ë"];
+const VEKLEIC_CONSONANTS = ["Ḟ"];
+
+// Spanish Letters
+const SPANISH_VOWELS = ["Á", "É", "Í", "Ó", "Ú", "Ü"];
+const SPANISH_CONSONANTS = ["Ñ"];
+
+// Maltese Letters
+const MALTESE_VOWELS = ["À", "È", "Ì", "Ò", "Ù"];
+const MALTESE_CONSONANTS = ["Ħ", "Ċ", "Ġ", "Ż"];
+
+// Turkish Letters
+const TURKISH_VOWELS = ["I", "Ö", "Ü"];
+const TURKISH_CONSONANTS = ["Ç", "Ş", "Ğ"];
 
 // (Debug Key | Example Variable) : Description
     // (debug/dynasty | 1) : Leader's last name will always match the nation
