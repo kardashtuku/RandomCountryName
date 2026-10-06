@@ -21,6 +21,16 @@ input[type="checkbox"]
     border-color: rgb(153 241 226 / 0.1);
     font-size: 30pt;
 }
+.cultureList
+{
+    width: 800px;
+    height: 60px;
+    text-align: center;
+    color: rgb(11 62 53);
+    background-color: rgb(153 241 226 / 0.1);
+    border-color: rgb(153 241 226 / 0.1);
+    font-size: 30pt;
+}
 .demoList
 {
     width: 800px;
