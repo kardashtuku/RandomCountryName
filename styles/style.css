@@ -1,8 +1,8 @@
 #sectionsCustom
 {
-    position: fixed;
+    position: absolute;
     font-size: 90%;
-    bottom: 10px;
+    top: 20px;
     text-align: left;
 }
 input[type="checkbox"]
@@ -10,7 +10,6 @@ input[type="checkbox"]
     width: 50px;
     height: 50px;
 }
-
 .partyList
 {
     width: 800px;
@@ -18,9 +17,8 @@ input[type="checkbox"]
     text-align: center;
     color: rgb(153, 241, 226);
     background-color: rgb(13 21 20);
-    border-color: rgb(153 241 226 / 0.05);
+    border: none;
     accent-color: black;
-    font-size: 30pt;
 }
 .cultureList
 {
@@ -29,9 +27,8 @@ input[type="checkbox"]
     text-align: center;
     color: rgb(129, 182, 252);
     background-color: rgb(14 14 25);
-    border-color: rgb(40 67 62 / 0.05);
+    border: none;
     accent-color: black;
-    font-size: 20pt;
 }
 .demoList
 {
@@ -39,10 +36,9 @@ input[type="checkbox"]
     height: 50px;
     text-align: center;
     color: rgb(255 190 137);
-    border-color: rgb(255 190 137 / 0.05);
+    border: none;
     accent-color: black;
     background-color: rgb(41 30 21);
-    font-size: 30pt;
 }
 
 #div1
@@ -99,13 +95,16 @@ input[type="checkbox"]
 }
 select{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 20px;
+    font-size: 25px;
     color: white;
+    width: 180px;
     accent-color: red;
     background-color: #352481;
+    font-style: italic;
 }
 
-html {
+html
+{
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: white;
     text-align: center;
